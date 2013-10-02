@@ -1,3 +1,6 @@
+Author
+==========
+"Turner, Chace", turnerce
 06_BST_Lab
 ==============
 
