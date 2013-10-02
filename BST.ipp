@@ -18,6 +18,12 @@ unsigned long BST<Key,T>::size(){
   return 0;
 }
 
+template <class Key, class T>
+unsigned long BST<Key,T>::size(Node<Key,T>* r){
+  //TODO
+  return 0;
+}
+
 //Add a new item, x, with Key k.
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
