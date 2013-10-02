@@ -1,3 +1,6 @@
+Author
+==========
+"Gardner, Daniel", gardnedn
 06_BST_Lab
 ==============
 
