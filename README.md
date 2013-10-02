@@ -1,3 +1,6 @@
+Author
+==========
+"Proctor, Patrick", proctopj
 06_BST_Lab
 ==============
 
