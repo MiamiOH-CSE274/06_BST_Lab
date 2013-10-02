@@ -1,3 +1,6 @@
+Author
+==========
+"Kimmet, Adrian", kimmetad
 06_BST_Lab
 ==============
 
