@@ -1,3 +1,6 @@
+Author
+==========
+"Decker, Benjamin", deckerbd
 06_BST_Lab
 ==============
 
