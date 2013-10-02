@@ -1,3 +1,6 @@
+Author
+==========
+"Mullins, Harrison", mullingh
 06_BST_Lab
 ==============
 
