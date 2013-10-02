@@ -5,7 +5,7 @@
 template <class Key, class T>
 class SSet {
  public:
-  //Return the number of items currently in the USet
+  //Return the number of items currently in the SSet
   virtual unsigned long size() = 0;
 
   //Add a new item, x, with Key k.
