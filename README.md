@@ -1,3 +1,6 @@
+Author
+==========
+"Zhong, Mingwei", zhongm2
 06_BST_Lab
 ==============
 
