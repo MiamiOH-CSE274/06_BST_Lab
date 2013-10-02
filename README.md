@@ -1,3 +1,6 @@
+Author
+==========
+"Stilgenbauer, Kendall", stilgeki
 06_BST_Lab
 ==============
 
