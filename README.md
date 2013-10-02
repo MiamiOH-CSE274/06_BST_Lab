@@ -1,3 +1,6 @@
+Author
+==========
+"Emrick, Garrett", emrickgj
 06_BST_Lab
 ==============
 
