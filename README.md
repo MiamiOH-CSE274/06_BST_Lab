@@ -1,3 +1,6 @@
+Author
+==========
+"Kojs, Michelle", kojsmn
 06_BST_Lab
 ==============
 
