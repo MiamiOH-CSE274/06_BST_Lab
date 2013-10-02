@@ -1,3 +1,6 @@
+Author
+==========
+"Monnin, Sebastian", monninse
 06_BST_Lab
 ==============
 
