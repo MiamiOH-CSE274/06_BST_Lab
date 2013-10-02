@@ -1,3 +1,6 @@
+Author
+==========
+"Bailey, Sam", baileys2
 06_BST_Lab
 ==============
 
