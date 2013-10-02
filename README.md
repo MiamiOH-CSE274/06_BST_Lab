@@ -1,3 +1,6 @@
+Author
+==========
+"Hiler, Rodney", hilerrw
 06_BST_Lab
 ==============
 
