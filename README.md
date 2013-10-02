@@ -1,3 +1,6 @@
+Author
+==========
+"Harvey, Steven", harveysd
 06_BST_Lab
 ==============
 
