@@ -1,3 +1,6 @@
+Author
+==========
+"Griffith, David", griffid5
 06_BST_Lab
 ==============
 
