@@ -45,8 +45,8 @@ class BST : public SSet <Key,T> {
 
 private:
   Node<Key,T>* root;
-  int numItems;
 
+  virtual unsigned long size(Node<Key,T>* r);
   //These are the recursive versions of each of your methods.
   // You should return the address of the new root node, whether
   // or not the root node changes.
