@@ -1,3 +1,6 @@
+Author
+==========
+"Bickley, Daniel", bickledb
 06_BST_Lab
 ==============
 
