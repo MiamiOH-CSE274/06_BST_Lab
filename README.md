@@ -1,3 +1,6 @@
+Author
+==========
+"Blase, Douglas", blasedd
 06_BST_Lab
 ==============
 
