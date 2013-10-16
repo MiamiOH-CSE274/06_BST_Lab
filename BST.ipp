@@ -40,6 +40,7 @@ void BST<Key,T>::add(Key k, T x){
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
   //TODO
+  remove(k, root);
 }
 
 //Return the item with Key k. 
@@ -98,7 +99,35 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   //TODO
-  return NULL;
+  if(r==NULL)
+	return NULL;
+  else if(r->k==k){
+	if(r->left==NULL&&r->right==NULL){
+		delete r;
+		return NULL;
+	}
+	else if(r->left==NULL||r->right==NULL){
+		Node<Key, T>* newR = r->left;
+		if(newR==NULL)
+			newR = r->right;
+		delete r;
+		return newR;
+	}
+	else{
+		Node<Key, T>* maxR = max(r->left);
+		Key temp = maxR->k;
+		maxR->k = r->k;
+		r->k = temp;
+
+		T tempD = maxR->data;
+		maxR->data = r->data;
+		r->data = tempD;
+
+		r->left = remove(k, r->left);
+		return r;
+	}
+
+  }
 }
 
 template <class Key, class T>
