@@ -108,12 +108,12 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 	}
 	else if(r->left==NULL||r->right==NULL){
 		Node<Key, T>* newR = r->left;
-		if(newR==NULL)
+		if(newR==NULL){
 			newR = r->right;
 		delete r;
 		return newR;
-	}
-	else{
+		}
+		else{
 		Node<Key, T>* maxR = max(r->left);
 		Key temp = maxR->k;
 		maxR->k = r->k;
@@ -125,7 +125,13 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 
 		r->left = remove(k, r->left);
 		return r;
+		}
 	}
+
+	else if(k<r->k)
+		r->left= remove(k, r->left);
+	else
+		r->right = remove(k, r->right);
 
   }
 }
@@ -134,7 +140,7 @@ template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
   //TODO
   if(r==NULL)
-	throws (std::string) "There Node is Null";
+	throw (std::string) "There Node is Null";
   else if(r->k==k)
 	return r;
   else if(k<r->k)
