@@ -68,8 +68,10 @@ bool BST<Key,T>::keyExists(Key k){
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
   //TODO
-  Key fakeKey;
-  return fakeKey;
+  Node<Key, T>* temp = find(k, root);
+  while(temp->k<=k)
+	temp = temp->right;
+  return temp->k;
 }
 
 template <class Key, class T>
