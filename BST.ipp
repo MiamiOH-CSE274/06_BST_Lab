@@ -110,7 +110,11 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
   //TODO
-  return NULL;
+  if(r==NULL)
+	return NULL;
+  while(r->right !=NULL)
+	r=r->right;
+  return r;
 }
 
 template <class Key, class T>
