@@ -4,6 +4,8 @@
 template <class Key, class T>
 BST<Key,T>::BST(){
   //TODO
+
+  root = new Node<Key,T>;
 }
 
 template <class Key, class T>
@@ -15,7 +17,10 @@ BST<Key,T>::~BST(){
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
   //TODO
-  return 0;
+
+  if(keyExists(root->k))
+	return 0;
+  return 1 + size(root->left) + size(root->right);
 }
 
 template <class Key, class T>
@@ -42,14 +47,15 @@ void BST<Key,T>::remove(Key k){
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
   //TODO
-  T fakeT;
-  return fakeT;
+  return find(k, root)->data;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
   //TODO
+
+  
   return false;
 }
 
