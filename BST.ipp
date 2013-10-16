@@ -34,6 +34,8 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
   //TODO
+
+  add(k, x, root);
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
@@ -93,8 +95,24 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   //TODO
-  return NULL;
+  
+
+  if(r==NULL){
+	Node<Key, T>* newNode = new Node<Key, T>();
+	return newNode;
+  }
+  else if(r->k==k){
+	r->data = x;
+	return r;
+  }
+  else if(k<r->k)
+	r->left = add(k, r->left->data, r->left);
+  else
+	r->right = add(k, r->right->data, r->right);
+
+  return r;
 }
+
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
