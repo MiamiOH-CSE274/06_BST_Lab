@@ -34,7 +34,6 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
   //TODO
-
   add(k, x, root);
 }
 
@@ -99,7 +98,6 @@ template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   //TODO
   
-
   if(r==NULL){
 	Node<Key, T>* newNode = new Node<Key, T>();
 	return newNode;
@@ -108,11 +106,12 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	r->data = x;
 	return r;
   }
-  else if(k<r->k)
-	r->left = add(k, r->left->data, r->left);
-  else
-	r->right = add(k, r->right->data, r->right);
-
+  else if(k< (r->k)){
+	r->left = add(k, x, r->left);
+	}
+  else{
+	r->right = add(k, x, r->right);
+  }
   return r;
 }
 
