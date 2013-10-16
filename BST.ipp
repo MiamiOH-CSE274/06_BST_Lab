@@ -104,7 +104,14 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
   //TODO
-  return NULL;
+  if(r==NULL)
+	throws (std::string) "There Node is Null";
+  else if(r->k==k)
+	return r;
+  else if(k<r->k)
+	return find(k, r->left);
+  else
+    return find(k, r->right);
 }
 
 template <class Key, class T>
