@@ -3,7 +3,7 @@
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-  
+
   root -> left = NULL;
   root -> right = NULL;
 
@@ -97,8 +97,12 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   
-  if (r == NULL)
-    return new Node (k, x);
+  if (r == NULL){
+    Node<Key, T>* newNode = new Node<Key, T>();
+    newNode -> k = k;
+	newNode -> data = x;
+	return newNode;
+  }
   else if (r -> k == k){
     r -> data = x;
 	return r;
