@@ -33,6 +33,8 @@ void BST<Key,T>::add(Key k, T x){
 	root=new Node<Key, T>;
 	root->k=k;
 	root->data=x;
+	root->left=NULL;
+	root->right=NULL;
 	}
 	else
 	root=add(k,x,root);
@@ -114,6 +116,10 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	Node<Key,T>* d= new Node<Key,T>();
 	d->k=k;
 	d->data=x;
+	//d->left=new Node<Key,T>();
+	d->left=NULL;
+	//d->right=new Node<Key,T>();
+	d->right=NULL;
 	return d;//new Node(k, data);
   }
   
@@ -140,13 +146,13 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   
   else{if(r->k==k){
 		delete r;
-		return null;
+		return NULL;
 	}
 	else {
 		if(k<r->k)
-			return remove(k,x,r->left);
+			return remove(k,r->left);
 		else
-			return remove(k,x,r->right);
+			return remove(k,r->right);
 	}
   }
   return r;
