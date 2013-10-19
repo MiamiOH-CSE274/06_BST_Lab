@@ -83,71 +83,87 @@ bool BST<Key,T>::keyExists(Key k){
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
    
-    if (!keyExists(k)) {
-        return k;
-    }
     Node<Key, T>* toReturn=root;
     
-    if (toReturn->k < k) {
-        toReturn = next(k, root->right);
-    }
+    toReturn = next(k, root);
     
-    else if (toReturn->k > k){
-        toReturn = next(k, root->left);
+    if (toReturn==NULL) {
+        return k;
     }
     
     return toReturn->k;
+
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-    if (r==NULL) {
-        return r;
-    }
-   
-    else if (r->k > k) {
-        r = next(k, r->left);
-    }
     
-    else if (r->k < k) {
-        r = next(k, r->right);
-    }
+    Node<Key,T>* previousPtr=r;
+    Node<Key,T>* curPtr = r;
     
-    else if (r->k == k){
-        if (r->right == NULL) {
-            return r;
+    while (curPtr !=NULL) {
+        if (curPtr->k > k) {
+            previousPtr = curPtr;
+            curPtr = curPtr->left;
         }
-        else r = next(k, r->right);
+        else if (curPtr->k < k){
+            previousPtr = curPtr;
+            curPtr = curPtr->right;
+        }
+        else{
+            curPtr = curPtr->right;
+        }
     }
     
-    return r;
+    if (previousPtr->k <k) {
+        return NULL;
+    }
+    
+    return previousPtr;
    }
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-    Node<Key, T>* toReturn = prev(k, root);
-    if (toReturn ==NULL) {
+    
+    Node<Key, T>* toReturn=root;
+    
+    toReturn = prev(k, root);
+    
+    if (toReturn==NULL) {
         return k;
     }
-  return toReturn->k;
+    
+    return toReturn->k;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-    if (r==NULL) {
+    Node<Key,T>* previousPtr=r;
+    Node<Key,T>* curPtr = r;
+    
+    while (curPtr !=NULL) {
+        if (curPtr->k < k) {
+            previousPtr = curPtr;
+            curPtr = curPtr->right;
+        }
+        else if (curPtr->k > k){
+            previousPtr = curPtr;
+            curPtr = curPtr->left;
+        }
+        else{
+            curPtr = curPtr->left;
+        }
+    }
+    
+    if (previousPtr->k >k) {
         return NULL;
     }
     
-    else if (r->k >= k) {
-        return prev(k, r->left);
-    }
-    
-    else {
-        return r;
-    }
+    return previousPtr;
 }
+
 
 
 template <class Key, class T>
