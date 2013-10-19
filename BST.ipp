@@ -55,113 +55,79 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-  if(root == NULL){
-    root = new Node<Key,T>();
-	root->data = x;
-	root->k = k;
-	root->right = NULL;
-	root->left = NULL;
-  }
-  else if(k == root->k)
-	root->data = x;
-  else if(k > root->k)
-	root->right = add(k,x,root->right);
-  else if(k<root->k)
-	root->left = add(k,x,root->left);
+  root = add(k,x,root);
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
-  //TODO
+  remove(k,root);
 }
 
 //Return the item with Key k. 
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
-  if(root->k == k)
-	return root->data;
-  else if(root->right == NULL && k > root->k)
-    throw (std::string)"There is no such item.";
-  else if(root->left == NULL && k < root->k)
-    throw (std::string)"There is no such item.";
-  else if(k>root->k)
-	return find(k,root->right)->data;
-  else if(k<root->k)
-    return find(k,root->left)->data;
+  return find(k, root)->data;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  Node<Key,T>* checkHere;
-  checkHere=root;
-  while(checkHere != NULL){
-    if(k>checkHere->k)
-	  checkHere=checkHere->right;
-	else if(k<checkHere->k)
-	  checkHere=checkHere->left;
-	else if(k=checkHere->k)
-	  return true;
-  }
-  return false;
+  return keyExists(k,root);
+}
+
+template <class Key, class T>
+bool BST<Key,T>::keyExists(Key k, Node<Key,T>* r){
+  if(k == r->k)
+	return true;
+  else if(k>r->k && r->right != NULL)
+	return keyExists(k,r->right);
+  else if(k<r->k && r->left != NULL)
+	return keyExists(k,r->left);
+  else if(k>r->k && r->right == NULL)
+	return false;
+  else if(k<r->k && r->left == NULL)
+	return false;
 }
 
 //If there is a key in the set that is > k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
-  if(root->k>k)
-    return root->k;
-  else if(root->right!=NULL){
-    Node<Key,T>* checkHere = next(k,root->right);
-	if(checkHere = NULL)
-	  return k;
-	else
-	  return checkHere->k;
+  Node<Key,T>* checkHere = root;
+  Key ret = k;
+  while(true){
+    if(checkHere == NULL||checkHere->k==k)
+	  break;
+    else if(checkHere->k>k){
+	  ret = checkHere->k;
+	  checkHere = checkHere->left;
+	}
+	else if(checkHere->k<=k)
+	  checkHere = checkHere->right;
   }
-  else
-    return k;
-}
-
-template <class Key, class T>
-Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-  if(r->k>k)
-    return r;
-  else if(r->right!=NULL)
-    return next(k,r->right);
-  else
-    return NULL;
+  return ret;
 }
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-  if(root->k<k)
-    return root->k;
-  else if(root->left!=NULL){
-    Node<Key,T>* checkHere = next(k,root->left);
-	if(checkHere = NULL)
-	  return k;
-	else
-	  return checkHere->k;
+  Node<Key,T>* checkHere = root;
+  Key ret = k;
+  while(true){
+    if(checkHere == NULL)
+	  break;
+    else if(checkHere->k<k){
+	  ret = checkHere->k;
+	  checkHere = checkHere->right;
+	}
+	else if(checkHere->k>=k)
+	  checkHere = checkHere->left;
   }
-  else
-    return k;
+  return ret;
 }
-
-template <class Key, class T>
-Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-  if(r->k<k)
-    return r;
-  else if(r->left!=NULL)
-    return next(k,r->left);
-  else
-    return NULL;
-}
-
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
@@ -183,8 +149,28 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+  if(k==r->k){
+    if(r->left!=NULL && r->right!=NULL){
+	  delete r;
+	  r=NULL;
+	}
+    Node<Key,T> replaceWith;
+	if(r->left->right == NULL)
+	  replaceWith = r->left;
+	else{
+	  replaceWith = r->left;
+	  while(replaceWith->left!=NULL && replaceWith->right!=NULL){
+	    if(replaceWith->right!=NULL)
+	      replaceWith = max(replaceWith);
+		if(replaceWith->left!=NULL)
+		  replaceWith = min(replaceWith);
+	  }
+	}
+	r->k=replaceWith->k;
+	r-data=replaceWith->data;
+	delete replaceWith;
+  }
+  if
 }
 
 template <class Key, class T>
@@ -196,19 +182,29 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
   else if(r->left == NULL && k < r->k)
     throw (std::string)"There is no such item.";
   else if(k>r->k)
-	return find(k,root->right);
+	return find(k,r->right);
   else if(k<r->k)
-    return find(k,root->left);
+    return find(k,r->left);
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
-  //TODO
-  return NULL;
+  Node<Key,T>* checkHere = r;
+  if(checkHere==NULL)
+    throw (std::string)"Not a valid Node";
+  while(checkHere->right != NULL){
+    checkHere = checkHere->right;
+  }
+  return checkHere;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
-  //TODO
-  return NULL;
+  Node<Key,T>* checkHere = r;
+  if(checkHere==NULL)
+    throw (std::string)"Not a valid Node";
+  while(checkHere->left != NULL){
+    checkHere = checkHere->left;
+  }
+  return checkHere;
 }

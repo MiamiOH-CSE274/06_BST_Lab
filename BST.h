@@ -35,6 +35,7 @@ class BST : public SSet <Key,T> {
   //Return true if there is an item with Key k in the table. If not,
   // return false
   virtual bool keyExists(Key k);
+  virtual bool keyExists(Key k, Node<Key,T>* r);
 
   //If there is a key in the set that is > k,
   // return the first such key. If not, return k
@@ -64,8 +65,8 @@ private:
   virtual Node<Key,T>* max(Node<Key,T>* r);
 
   //Find the next/prev node, and return its address
-  virtual Node<Key,T>* next(Key k, Node<Key,T>* r);
-  virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
+  //virtual Node<Key,T>* next(Key k, Node<Key,T>* r);
+  //virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
 
 };
 
