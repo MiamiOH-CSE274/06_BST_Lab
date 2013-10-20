@@ -95,12 +95,18 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 	if (r == NULL)
 		return NULL;
 	else if (r->k > k){
-		r = next(k, r->left);
+		if (r->left->k == k)
+			return r;
+		else if (r->left->k > k)
+			return next(k, r->left);
 		}
 	else if (r->k == k){
-		return r;
+		//return r;
 	}
 	else if (r->k < k){
+		//if (r->right->k == k)
+			//return r;
+		//else if (r->left->k < k)
 		return next(k, r->right);
 	}
 	return r;
