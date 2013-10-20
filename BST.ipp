@@ -23,16 +23,14 @@ BST<Key,T>::~BST(){
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-//	return size(root);
-return 10;
+	return size(root);
 }
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-	/*if (r == NULL)
+	if (r == NULL)
 		return 0;
-    return 1 + size(r->left) + size(r->right);*/
-	return 11; 
+    return 1 + size(r->left) + size(r->right);
 }
 
 //Add a new item, x, with Key k.
@@ -95,10 +93,10 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-  Node<Key,T>* temp = prev(k, root);
-  if (temp == NULL)
-	return k;
-  return temp->k;
+	Node<Key,T>* temp = prev(k, root);
+	if (temp == NULL)
+		return k;
+	return temp->k;
 }
 
 template <class Key, class T>
@@ -120,14 +118,12 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-// std::cout << "D" << r->left;
-// std::cout << "LLL" << k << std::endl;
 
 	if (r == NULL) {
+
 		Node<Key,T>* t = new Node<Key,T>;
 		t->data = x;
 		t->k = k;
-		//std::cout << "KEY" << t->k;
 		t->right = NULL;
 		t->left = NULL;
 		return t;
@@ -137,9 +133,9 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 		r->data = x;
 		return r;
 	}
+
 	else if (k > r->k){
 		r->right = add(k,x,r->right);
-		//return r->right;	
 	}
 	else {
 		r->left = add(k,x,r->left);
@@ -186,8 +182,6 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 	}
 
 	return r;
-	//return NULL;
- 
 }
 
 template <class Key, class T>
@@ -215,16 +209,14 @@ Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
 		return r;
 	else
 		return max(r->right);
-	//return NULL;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
-	/*if (r == NULL)
+	if (r == NULL)
 		return NULL;
 	else if (r->left == NULL)
 		return r;
 	else
-		return min(r->left);*/
-	return NULL;
+		return min(r->left);
 }
