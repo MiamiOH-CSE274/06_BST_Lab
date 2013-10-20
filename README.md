@@ -21,8 +21,11 @@ Questions
 
 #### 1. Which of the above requirements work, and which do not? For each requirement, write a brief response.
 
-1. TODO
-2. TODO
+1.All methods except the destructor and size() is O(h). I used recursion 
+strategy.
+
+2.Size() is O(n). In function size(), it calls size(Node<Key,T>* r) directly.
+Running time depends on how many nodes in the BST.
 
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
@@ -30,4 +33,9 @@ TODO
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
-TODO
+In order to implement BST successfully, using recursion is the best way to go 
+for. Unless the data in your BST is gigantic, which is possible to let your
+program "stack overflow".
+
+
+
