@@ -97,6 +97,7 @@ void tests(){
 
 int main(){
   tests();
-
-  return 0;
+  system("PAUSE");
+  std::cin.ignore();
+  //return 0;
 }

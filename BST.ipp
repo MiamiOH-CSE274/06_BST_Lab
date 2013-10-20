@@ -161,7 +161,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
   if(r==NULL)
-	throw (std::string) ("Can't find it");
+	return false;
   if(r->k==k)
     return r;
   if(r->k>k)
