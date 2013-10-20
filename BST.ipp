@@ -62,8 +62,13 @@ T BST<Key,T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  //TODO
-  return false;
+  
+  Node<Key, T>* nodeToFind = find (k, root);
+  if (nodeToFind == NULL)
+    return false;
+  else
+    return true;
+
 }
 
 //If there is a key in the set that is > k,
@@ -71,8 +76,7 @@ bool BST<Key,T>::keyExists(Key k){
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
   //TODO
-  Key fakeKey;
-  return fakeKey;
+  return NULL;
 }
 
 template <class Key, class T>
