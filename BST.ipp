@@ -69,7 +69,7 @@ T BST<Key,T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-std::cout << find(k,root);
+//std::cout << find(k,root);
 	if (find(k,root) != NULL)
 		return true;
 	return false;
@@ -79,14 +79,31 @@ std::cout << find(k,root);
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
-  Key fakeKey;
-  return fakeKey;
+	
+	Node<Key,T>* temp = next(k,root);
+	if (temp == NULL)
+		return k;
+	return temp->k;
+  //Key fakeKey;
+  //return fakeKey;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
   //TODO
-  return NULL;
+  
+	if (r == NULL)
+		return NULL;
+	else if (r->k > k){
+		r = next(k, r->left);
+		}
+	else if (r->k == k){
+		return r;
+	}
+	else if (r->k < k){
+		return next(k, r->right);
+	}
+	return r;
 }
 
 //If there is a key in the set that is < k,
@@ -94,12 +111,18 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
   //TODO
-  return NULL;
+  Node<Key,T>* temp = prev(k, root);
+  return temp->k;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   //TODO
+  if (find(k,root) == NULL)
+	return max(root);
+if (min(root)->k > k)
+	return NULL;
+//i ()
   return NULL;
 }
 
@@ -113,7 +136,7 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 		Node<Key,T>* t = new Node<Key,T>;
 		t->data = x;
 		t->k = k;
-		std::cout << "KEY" << t->k;
+		//std::cout << "KEY" << t->k;
 		t->right = NULL;
 		t->left = NULL;
 		return t;
@@ -178,27 +201,19 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
-//std::cout << "RK" << r->left->k <<std::endl;
 
   	if (r == NULL){
-		std::cout << "NULLFIND" << std::endl;
 		return NULL;
 		}
 	else if (k == r->k){
-	std::cout << "=FIND" << std::endl;
 		return r;
 		}
 	else if (k < r->k){
-	std::cout << "leftFIND" << std::endl;
 		r = find(k, r->left);
 		}
 	else if (k > r->k){
-	std::cout << "rightFIND" << std::endl;
 		r = find(k, r->right);
 		}
-	//return r;
-	//else
-		//return NULL;
 }
 
 template <class Key, class T>
