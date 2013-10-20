@@ -4,6 +4,7 @@
 template <class Key, class T>
 BST<Key,T>::BST(){
 	root = NULL;
+	
 }
 
 template <class Key, class T>
@@ -22,14 +23,16 @@ BST<Key,T>::~BST(){
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-	return size(root);
+//	return size(root);
+return 10;
 }
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-	if (r == NULL)
+	/*if (r == NULL)
 		return 0;
-    return 1 + size(r->left) + size(r->right);
+    return 1 + size(r->left) + size(r->right);*/
+	return 11; 
 }
 
 //Add a new item, x, with Key k.
