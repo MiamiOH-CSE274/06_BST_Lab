@@ -29,7 +29,67 @@ Running time depends on how many nodes in the BST.
 
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
-TODO
+Exercises 6.7:
+
+//preOrder
+
+void function preOrder(Node* r)
+
+int num = 0;
+
+if r is not NULL
+   //Assign num to the node.
+   r->number = 0;
+   num++;
+   preOrder(r->left);
+   preOrder(r->right);
+
+ 
+
+//postOrder
+
+void function postOrder(Node* r)
+
+int num = 0;
+
+if r is not NULL
+   postOrder(r->left);
+   postOrder(r->right);
+   r->number = num;
+   num++;
+
+
+//InOrder
+
+void function InOrder(Node* r)
+
+int num = 0;
+
+if r is not NULL
+   InOrder(r->left);
+   r->number = num;
+   num++;
+   InOrder(r->right);
+
+
+
+Exeercises 6.9:
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
