@@ -38,10 +38,15 @@ void function preOrder(Node* r)
 int num = 0;
 
 if r is not NULL
+
    //Assign num to the node.
+
    r->number = 0;
+
    num++;
+
    preOrder(r->left);
+
    preOrder(r->right);
 
  
@@ -53,9 +58,13 @@ void function postOrder(Node* r)
 int num = 0;
 
 if r is not NULL
+
    postOrder(r->left);
+
    postOrder(r->right);
+
    r->number = num;
+
    num++;
 
 
@@ -66,10 +75,17 @@ void function InOrder(Node* r)
 int num = 0;
 
 if r is not NULL
+
    InOrder(r->left);
+
    r->number = num;
+
    num++;
+
    InOrder(r->right);
+
+
+
 
 
 
