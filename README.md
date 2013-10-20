@@ -33,11 +33,11 @@ Exercises 6.7:
 
 ************************preOrder**************************
 
-void function preOrder(Node* r)
+           void function preOrder(Node* r)
 
-int num = 0;
+           int num = 0;
 
-if r is not NULL
+           if r is not NULL
 
            //Assign num to the node.
 
@@ -53,11 +53,11 @@ if r is not NULL
 
 ************************postOrder*****************************
 
-void function postOrder(Node* r)
+          void function postOrder(Node* r)
 
-int num = 0;
+          int num = 0;
 
-if r is not NULL
+          if r is not NULL
 
           postOrder(r->left);
 
@@ -70,19 +70,19 @@ if r is not NULL
 
 ***********************InOrder**********************************
 
-void function InOrder(Node* r)
+          void function InOrder(Node* r)
 
-int num = 0;
+          int num = 0;
 
-if r is not NULL
+          if r is not NULL
 
-   InOrder(r->left);
+          InOrder(r->left);
 
-   r->number = num;
+          r->number = num;
 
-   num++;
+          num++;
 
-   InOrder(r->right);
+          InOrder(r->right);
 
 
 
