@@ -31,7 +31,7 @@ Running time depends on how many nodes in the BST.
 
 Exercises 6.7:
 
-//preOrder
+************************preOrder**************************
 
 void function preOrder(Node* r)
 
@@ -39,19 +39,19 @@ int num = 0;
 
 if r is not NULL
 
-   //Assign num to the node.
+           //Assign num to the node.
 
-   r->number = 0;
+           r->number = 0;
 
-   num++;
+           num++;
 
-   preOrder(r->left);
+           preOrder(r->left);
 
-   preOrder(r->right);
+           preOrder(r->right);
 
  
 
-//postOrder
+************************postOrder*****************************
 
 void function postOrder(Node* r)
 
@@ -59,16 +59,16 @@ int num = 0;
 
 if r is not NULL
 
-   postOrder(r->left);
+          postOrder(r->left);
 
-   postOrder(r->right);
+          postOrder(r->right);
 
-   r->number = num;
+          r->number = num;
 
-   num++;
+          num++;
 
 
-//InOrder
+***********************InOrder**********************************
 
 void function InOrder(Node* r)
 
@@ -87,9 +87,9 @@ if r is not NULL
 
 
 
+****************************************************************
 
-
-Exeercises 6.9:
+Exercises 6.9:
 
 
 
