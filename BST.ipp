@@ -3,50 +3,39 @@
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-//	root = new Node<Key,T>;
-
 	root = NULL;
-
-//	root->left = NULL;
-//	root->right = NULL;
-//	std::cout<<root->right;
-	
 }
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-/*	while (size() != 0){
-		remove(max(root->left)->k);
+	while (root->right != NULL){
 		remove(max(root->right)->k);
-		remove(min(root->left)->k);
-		remove(min(root->right)->k);
-	}*/
-	delete root;
+	}
+	while (root->left != NULL){
+		remove(max(root->left)->k);
+	}
 
+	delete root;
 }
 
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-  //return size(k);
-  return 0;
+	return size(root);
 }
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-	/*if (r == NULL)
+	if (r == NULL)
 		return 0;
     return 1 + size(r->left) + size(r->right);
-	*/
-	return 0;
 }
 
 //Add a new item, x, with Key k.
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-	//std::cout << "PRINT";
 	root = add(k, x, root);
 }
 
@@ -62,14 +51,11 @@ template <class Key, class T>
 T BST<Key,T>::find(Key k){
 	Node<Key,T>* temp = find(k,root);
 	return temp->data;
-	//T temp;
-	//return temp;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-//std::cout << find(k,root);
 	if (find(k,root) != NULL)
 		return true;
 	return false;
@@ -79,30 +65,23 @@ bool BST<Key,T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
-	
 	Node<Key,T>* temp = next(k,root);
 	if (temp == NULL)
 		return k;
 	return temp->k;
-  //Key fakeKey;
-  //return fakeKey;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-  //TODO
-  
-	if (r == NULL)
+  	if (r == NULL)
 		return NULL;
 	else if (r->k > k){
 		if (r->left == NULL)
 			return r;
 		if (r->left->k == k)
 			return r;
-		//else if (r->left->k > k)
 			return next(k, r->left);
 		}
-	
 	else if (r->k < k){
 		return next(k, r->right);
 	}
