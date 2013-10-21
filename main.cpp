@@ -82,6 +82,8 @@ void tests(){
   } else {
     std::cout << "SUCCESS: prev(0) is fine" << std::endl;
   }
+    myTree.add(2,"Cow");
+    
   if(myTree.prev(2) != 1){
     std::cout << "ERROR: prev(2) should be 1" << std::endl;
     exit(1);
