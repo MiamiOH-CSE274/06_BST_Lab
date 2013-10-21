@@ -3,16 +3,15 @@
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-// Initialize root node info to NULL since there is nothing in the tree.
-  root = NULL;
-  left = NULL;
-  right = NULL;
+// We don't need to declare a pointer to the root just need to make a new Node for the root
+// since we already declared the pointer in BST.h
+  root = new Node<Key, T>;
+  // root->left = NULL; // Not sure if we need these two lines or not. 
+  // root->right = NULL;
 }
 // TODO
 template <class Key, class T>
 BST<Key,T>::~BST(){
-// Deallocate memory
-  delete root;
 }
   
 //Return the number of items currently in the SSet
@@ -24,13 +23,14 @@ unsigned long BST<Key,T>::size(){
 // TODO
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-  
+  unsigned long numNodes = 0;
   if (r == NULL) {
 	return 0;
   } else {
 		// Count the number of nodes to the left and right of the root
 		// node and add 1 to make sure you include the root node in the total.
-		return 1 + size(r->left) + size(r->right);
+		numNodes = 1 + size(r->left) + size(r->right);
+		return numNodes;
 	}
 }
 
@@ -96,13 +96,17 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   if (r == NULL) {
-	return new Node<k, x>;
-  } else if (r->key == k) {
+  // If there is no node then create a new one and assign correct values.
+	Node<Key, T>* newNode = new Node<Key, T>;
+	newNode->k = k;
+	newNode->data = x;
+	return newNode;
+  } else if (r->k == k) { // If the key is already in the tree then overwrite its data.
 		r->data = x;
 		return r;
-    } else if (k < r-> key) {
+    } else if (k < r->k) { // Try to add to the left side of the current node
 		r->left = add(k, x, r->left);
-      } else {
+      } else { // Try to add to the right side of the current node
 			r->right = add(k, x, r->right);
 		}
 	return r;
