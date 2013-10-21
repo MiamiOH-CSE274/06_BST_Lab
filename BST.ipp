@@ -94,13 +94,17 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
   //TODO
-  return NULL;
+  Node<Key, T>* temp = prev(k, root);
+  return temp->k;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   //TODO
-  return NULL;
+    Node<Key, T>* temp = find(k, r);
+  while(temp->k<=k)
+	temp = temp->left;
+  return temp;
 }
 
 template <class Key, class T>
