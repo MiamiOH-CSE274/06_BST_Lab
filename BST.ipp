@@ -3,32 +3,42 @@
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-  //TODO
+// Initialize root node info to NULL since there is nothing in the tree.
+  root = NULL;
+  left = NULL;
+  right = NULL;
 }
-
+// TODO
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  //TODO
+// Deallocate memory
+  delete root;
 }
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-  //TODO
-  return 0;
+// Call the private root method which takes the root as the parameter.
+  return size(root);
 }
-
+// TODO
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-  //TODO
-  return 0;
+  
+  if (r == NULL) {
+	return 0;
+  } else {
+		// Count the number of nodes to the left and right of the root
+		// node and add 1 to make sure you include the root node in the total.
+		return 1 + size(r->left) + size(r->right);
+	}
 }
 
 //Add a new item, x, with Key k.
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-  //TODO
+	root = add(k, x, root);
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
@@ -82,11 +92,20 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   return NULL;
 }
 
-
+// This add method has been used from Dr. Brinkman's class notes 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-  //TODO
-  return NULL;
+  if (r == NULL) {
+	return new Node<k, x>;
+  } else if (r->key == k) {
+		r->data = x;
+		return r;
+    } else if (k < r-> key) {
+		r->left = add(k, x, r->left);
+      } else {
+			r->right = add(k, x, r->right);
+		}
+	return r;
 }
 
 template <class Key, class T>
