@@ -32,7 +32,6 @@ function void preOrderNumber(Node* r)
  
    if root node is null
 		return;
-   
    else
 		visit the root
 		recursively call preOrderNumber using r->left as argument
