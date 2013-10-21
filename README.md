@@ -21,8 +21,8 @@ Questions
 
 #### 1. Which of the above requirements work, and which do not? For each requirement, write a brief response.
 
-1. TODO
-2. TODO
+1. Since every method only works using one of the branches of the tree, the longest of which is h, then the max number of operations in one method increases with the height of the tree.
+2. size() has linear efficiency since the method essentially finds every non-NULL node and adds one. That means if you double the number of items, it will add twice as many ones and find twice as many items.
 
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
@@ -30,4 +30,4 @@ TODO
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
-TODO
+The description of next and prev in the header file was not easy to understand. Also doing excercises 6.7 and 6.9 seems to be hard to do without explanation from an instructor, especially after putting so much into the programming part of the assignment itself.
