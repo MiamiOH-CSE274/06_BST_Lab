@@ -34,6 +34,9 @@ inOrderNumber(Node* r): If root node is null, then return. If root node is not n
 postOrderNumber(Node* r): If root node is null, then return. If root node is not null, first, recursively call preOrderNumber using r->left as argument, then, recursively call preOrderNumber using r->right as argument, finally, visit the root node. 
 
 Exercise 6..9   
+1. 
+
+
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
-TODO
+Pre-order, in-order, and post-order
