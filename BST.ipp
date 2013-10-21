@@ -1,54 +1,38 @@
 #define NULL 0
 #include <string>
 
-int numItems;
-
 template <class Key, class T>
 BST<Key,T>::BST(){
-	root = NULL;
-	numItems = 0;
+  root = NULL;
 }
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  for(int i = 0; i<numItems; i++)
-	remove(root->k);
+  while(size(root->right)>0)
+    remove(max(root->right)->k);
+  while(size(root->left)>0)
+    remove(min(root->left)->k);
+  delete root;
 }
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-  if(root == NULL){
-	return 0;
-  }
-  else if(root->right==NULL && root->left==NULL){
-	return 1;
-  }
-  else if(root->right!=NULL && root->left==NULL){
-	return size(root->right)+1;
-  }
-  else if(root->right==NULL && root->left!=NULL){
-    return size(root->left)+1;
-  }
-  else{
-	return size(root->right)+size(root->left)+1;
-  }
+    return size(root);
 }
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-  if(r->right == NULL && r->left == NULL){
-	return 1;
-  }
-  else if(root->right != NULL && root->left == NULL){
-	return size(r->right)+1;
-  }
-  else if(root->right == NULL && root->left != NULL){
-    return size(r->left)+1;
-  }
-  else{
-	return size(r->right) + size(root->left) + 1;
-  }
+  if(r==NULL)
+    return 0;
+  else if(r->right != NULL && r->left != NULL)
+    return 1 + size(r->right) + size(r->left);
+  else if(r->right == NULL && r->left != NULL)
+    return 1+size(r->left);
+  else if(r->right != NULL && r->left == NULL)
+    return 1+size(r->right);
+  else
+    return 1;
 }
 
 //Add a new item, x, with Key k.
@@ -95,38 +79,50 @@ bool BST<Key,T>::keyExists(Key k, Node<Key,T>* r){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
-  Node<Key,T>* checkHere = root;
-  Key ret = k;
-  while(true){
-    if(checkHere == NULL||checkHere->k==k)
-	  break;
-    else if(checkHere->k>k){
-	  ret = checkHere->k;
-	  checkHere = checkHere->left;
-	}
-	else if(checkHere->k<=k)
-	  checkHere = checkHere->right;
+  Node<Key,T>* checkHere = next(k,root);
+  if(checkHere==NULL)
+    return k;
+  else
+    return checkHere->k;
+}
+
+template <class Key, class T>
+Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
+  if(r==NULL)
+	return NULL;
+  else if(r->left!=NULL){
+    if(r->left->k > k)
+	  return next(k,r->left);
   }
-  return ret;
+  if(r->k > k)
+    return r;
+  else if(r->k <= k)
+    return next(k,r->right);
 }
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-  Node<Key,T>* checkHere = root;
-  Key ret = k;
-  while(true){
-    if(checkHere == NULL)
-	  break;
-    else if(checkHere->k<k){
-	  ret = checkHere->k;
-	  checkHere = checkHere->right;
-	}
-	else if(checkHere->k>=k)
-	  checkHere = checkHere->left;
+  Node<Key,T>* checkHere = prev(k,root);
+  if(checkHere==NULL)
+    return k;
+  else
+    return checkHere->k;
+}
+
+template <class Key, class T>
+Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
+  if(r==NULL)
+	return NULL;
+  if(r->right!=NULL){
+    if(r->right->k < k)
+	  return prev(k,r->right);
   }
-  return ret;
+  if(r->k < k)
+    return r;
+  else if(r->k >= k)
+    return prev(k,r->left);
 }
 
 template <class Key, class T>
@@ -149,28 +145,41 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-  if(k==r->k){
-    if(r->left!=NULL && r->right!=NULL){
+  if(r==NULL)
+    return NULL;
+  else if(r->k==k){
+    if(r->left == NULL && r->right == NULL){
 	  delete r;
 	  r=NULL;
+	  return r;
 	}
-    Node<Key,T> replaceWith;
-	if(r->left->right == NULL)
-	  replaceWith = r->left;
+	else if(r->right == NULL && r->left != NULL){
+	  Node<Key,T>* placeHolder = r->left;
+	  delete r;
+	  return placeHolder;
+	}
+	else if(r->right != NULL && r->left == NULL){
+	  Node<Key,T>* placeHolder = r->right;
+	  delete r;
+	  return placeHolder;
+	}
 	else{
-	  replaceWith = r->left;
-	  while(replaceWith->left!=NULL && replaceWith->right!=NULL){
-	    if(replaceWith->right!=NULL)
-	      replaceWith = max(replaceWith);
-		if(replaceWith->left!=NULL)
-		  replaceWith = min(replaceWith);
+	  Node<Key,T>* placeHolder = max(r->left);
+	  r->k=placeHolder->k;
+	  r->data=placeHolder->data;
+	  if(r->left != placeHolder)
+	    remove(placeHolder->k, r->left);
+	  else{
+	    r->left = placeHolder->left;
+		delete placeHolder;
 	  }
+	  return r;
 	}
-	r->k=replaceWith->k;
-	r-data=replaceWith->data;
-	delete replaceWith;
   }
-  if
+  else if(r->k<k)
+    r->right = remove(r->right->k,r->right);
+  else
+    r->left = remove(r->left->k,r->right);
 }
 
 template <class Key, class T>

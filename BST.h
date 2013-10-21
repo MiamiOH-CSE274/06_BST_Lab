@@ -65,8 +65,8 @@ private:
   virtual Node<Key,T>* max(Node<Key,T>* r);
 
   //Find the next/prev node, and return its address
-  //virtual Node<Key,T>* next(Key k, Node<Key,T>* r);
-  //virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
+  virtual Node<Key,T>* next(Key k, Node<Key,T>* r);
+  virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
 
 };
 
