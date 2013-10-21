@@ -6,27 +6,30 @@ BST<Key,T>::BST(){
   //TODO
 
   root = new Node<Key,T>;
+
 }
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
   //TODO
+   while (size()>0) {
+        remove(root->k);
+    }
 }
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
   //TODO
-
-  if(keyExists(root->k))
-	return 0;
-  return 1 + size(root->left) + size(root->right);
+  return size(root);
 }
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
   //TODO
-  return 0;
+   if (r == NULL) 
+	return 0;
+   return 1 + size(r->left) + size(r->right);
 }
 
 //Add a new item, x, with Key k.
@@ -67,16 +70,17 @@ bool BST<Key,T>::keyExists(Key k){
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
   //TODO
-  Node<Key, T>* temp = find(k, root);
-  while(temp->k<=k)
-	temp = temp->right;
+  Node<Key, T>* temp = next(k, root);
   return temp->k;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
   //TODO
-  return NULL;
+  Node<Key, T>* temp = find(k, r);
+  while(temp->k<=k)
+	temp = temp->right;
+  return temp;
 }
 
 //If there is a key in the set that is < k,
@@ -99,17 +103,21 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   //TODO
   
   if(r==NULL){
-	Node<Key, T>* newNode = new Node<Key, T>();
-	return newNode;
+	r = new Node<Key, T>();
+	r->data=x;
+	r->k=k;
+	r->right = NULL;
+	r->left = NULL;
+	return r;
   }
-  else if(r->k==k){
+  else if(k==r->k){
 	r->data = x;
 	return r;
   }
   else if(k< (r->k)){
 	r->left = add(k, x, r->left);
-	}
-  else{
+  }
+  else if (k>r->k){
 	r->right = add(k, x, r->right);
   }
   return r;
