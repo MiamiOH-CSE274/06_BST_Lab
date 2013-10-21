@@ -3,7 +3,7 @@
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-  //TODO
+  root = NULL;
 }
 
 template <class Key, class T>
@@ -20,15 +20,26 @@ unsigned long BST<Key,T>::size(){
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-  //TODO
-  return 0;
+  if (r == NULL)
+  return NULL;
+  else{
+  return 1 + size(r->right) + size(r->left);
+  }
+
 }
 
 //Add a new item, x, with Key k.
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-  //TODO
+  if(r == NULL){
+  r = new Node<Key, T>();
+  r -> = data = x;
+  r -> k = k;
+  r -> right = NULL;
+  r -> left = NULL;
+  }
+  else if(k == r->
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
