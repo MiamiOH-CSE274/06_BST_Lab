@@ -4,13 +4,14 @@
 template <class Key, class T>
 BST<Key,T>::BST(){
 
-  root = new Node<Key, T>;
+  root = NULL;
 
 }
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
   
+  //while(root != NULL) remove max(root -> right); remove min(root -> left);
   while (size() > 0)
     remove (root -> k);
 
@@ -104,15 +105,15 @@ template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   
   if (r == NULL){
-    Node<Key, T>* newNode = new Node<Key, T>();
+    Node<Key, T>* newNode = new Node<Key, T>;
     newNode -> k = k;
 	newNode -> data = x;
+	newNode -> left = NULL;
+	newNode -> right = NULL;
 	return newNode;
   }
-  else if (r -> k == k){
+  else if (r -> k == k)
     r -> data = x;
-	return r;
-  }
   else if (k < (r -> k))
     r -> left = add(k, x, r -> left);
   else
@@ -161,10 +162,10 @@ template <class Key, class T>
 Node<Key, T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
   
   if (r == NULL)
-    throw std::string ("Error: The item you are searching for does not exist");
+	return NULL;
   else if (r -> k == k)
     return r;
-  else if (k < r -> k)
+  else if (k > r -> k)
     return find (k, r -> right);
   else
     return find (k, r -> left);
