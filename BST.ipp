@@ -6,8 +6,8 @@ BST<Key,T>::BST(){
 // We don't need to declare a pointer to the root just need to make a new Node for the root
 // since we already declared the pointer in BST.h
   root = new Node<Key, T>;
-  // root->left = NULL; // Not sure if we need these two lines or not. 
-  // root->right = NULL;
+  //root->left = NULL; // Not sure if we need these two lines or not. 
+  //root->right = NULL;
 }
 // TODO
 template <class Key, class T>
@@ -20,7 +20,7 @@ unsigned long BST<Key,T>::size(){
 // Call the private root method which takes the root as the parameter.
   return size(root);
 }
-// TODO
+
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
   unsigned long numNodes = 0;
@@ -59,7 +59,7 @@ T BST<Key,T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  //TODO
+  // TODO
   return false;
 }
 
@@ -126,12 +126,18 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
-  //TODO
-  return NULL;
+  if(r == NULL || r->right == NULL) {
+	return r;
+  }
+  else 
+	return max(r->right);	
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
-  //TODO
-  return NULL;
+  if(r == NULL || r->left == NULL) { 
+	return r; 
+  }
+  else 
+	return min(r->left);
 }
