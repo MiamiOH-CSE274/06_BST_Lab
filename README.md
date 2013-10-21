@@ -29,11 +29,15 @@ Questions
 Exercise 6..7  
 
 function void preOrderNumber(Node* r)
- <li>if root node is null return;</li?
- <li>else</li>
-	<li>visit the root</li>
+ if (root node is null){
+	return;
+ }
+ else{
+	visit the root
 	recursively call preOrderNumber using r->left as argument
 	recursively call preOrderNumber using r->right as argument
+ }
+
 
 function void inOrderNumber(Node* r)
    if root node is null, return;
