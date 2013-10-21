@@ -23,7 +23,12 @@ unsigned long BST<Key,T>::size(){
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
   int count = 0;
-  return count;
+  if (r == NULL)
+    return 0;
+  else {
+    count = 1;
+	}
+  return count + size(r->left)+size(r->right);
 }
 
 //Add a new item, x, with Key k.
@@ -105,7 +110,6 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-  std::cout<<r<<std::endl;
   if(r == NULL) {
     r = new Node<Key,T>();
 	r->k = k;
