@@ -15,14 +15,20 @@ BST<Key,T>::~BST(){
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-  //TODO
-  return 0;
+//  unsigned long size= size(root);
+  return 0;//size;
 }
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-  //TODO
-  return 0;
+	unsigned long size=0;
+  if(r!=NULL){
+	size++;
+	//size= size+size(r->left);
+	//size= size+size(r->right);
+	return size;
+  }
+  else return 0;
 }
 
 //Add a new item, x, with Key k.
@@ -43,7 +49,7 @@ void BST<Key,T>::add(Key k, T x){
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
-  //remove(k,root);
+  remove(k,root);
 }
 
 //Return the item with Key k. 
@@ -75,38 +81,42 @@ bool BST<Key,T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
-  /*if(keyExists (k)){
-   Node<Key, T> q =find(k, root);
-   if(q->right!=NULL)
-     return q->right->k;
-   else return k;
-   }else*/
-  return NULL;
+  if(next(k,root)!=NULL)
+  return next(k, root)->k;
+  else
+  return k;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+  if(r!=NULL){
+	if(r->k<=k)
+	 return next(k,r->right);
+    if(r->k>k)
+	  return r;//prev(k, r->right);
+  }
+  else return NULL;
 }
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-  /*if(keyExists (k)){
-   Node<Key, T> q =find(k, root);
-   if(q->left!=NULL)
-     return q->left->k;
-   else return k;
-   }else*/
-  return NULL;
+  if(prev(k,root)!=NULL)
+  return prev(k, root)->k;
+  else
+  return k;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+  if(r!=NULL){
+	if(r->k>=k)
+	 return prev(k,r->left);
+    if(r->k<k)
+	  return r;//prev(k, r->left);
+  }
+  else return NULL;
 }
 
 
@@ -116,11 +126,9 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	Node<Key,T>* d= new Node<Key,T>();
 	d->k=k;
 	d->data=x;
-	//d->left=new Node<Key,T>();
 	d->left=NULL;
-	//d->right=new Node<Key,T>();
 	d->right=NULL;
-	return d;//new Node(k, data);
+	return d;
   }
   
   else{if(r->k==k){
