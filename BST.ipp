@@ -11,7 +11,7 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  //TODO
+  //TODO: Implement Destructor
 }
   
 //Return the number of items currently in the SSet
