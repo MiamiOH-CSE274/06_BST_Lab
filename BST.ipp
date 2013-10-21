@@ -3,15 +3,16 @@
     
     template <class Key, class T>
     BST<Key,T>::BST(){
-// We don't need to declare a pointer to the root just need to make a new Node for the root
-// since we already declared the pointer in BST.h
-    root = new Node<Key, T>;
+// Forgot Dr. Brinkman said to initialize root to NULL. Correction made.
+    root = NULL;
     //root->left = NULL; // Not sure if we need these two lines or not. 
     //root->right = NULL;
 }
 // TODO
 template <class Key, class T>
     BST<Key,T>::~BST(){
+	while(size() > 0) 
+		remove(root->k);
 }
 
 //Return the number of items currently in the SSet
