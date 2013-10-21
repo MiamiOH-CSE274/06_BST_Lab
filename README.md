@@ -27,22 +27,12 @@ Questions
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
 Exercise 6..7  
-preOrderNumber(Node* r): If root node is null, then return. If root node is not null, first visit the root, then recursively call preOrderNumber using r->left as argument, finally,recursively call preOrderNumber using r->right as argument
+preOrderNumber(Node* r): If root node is null, then return. If root node is not null, first visit the root node, then recursively call preOrderNumber using r->left as argument, finally,recursively call preOrderNumber using r->right as argument
 
-function void inOrderNumber(Node* r)
-   if root node is null, return;
-   else
-		recursively call preOrderNumber using r->left as argument
-		visit the root
-		recursively call preOrderNumber using r->right as argument
-		
-function void postOrderNumber(Node* r)
-   if root node is null, return;
-   else
-		recursively call preOrderNumber using r->left as argument
-		recursively call preOrderNumber using r->right as argument
-		visit the root
-		
+inOrderNumber(Node* r): If root node is null, then return. If root node is not null, first, recursively call preOrderNumber using r->left as argument, then visit the root node, finally, recursively call preOrderNumber using r->right as argument
+
+postOrderNumber(Node* r): If root node is null, then return. If root node is not null, first, recursively call preOrderNumber using r->left as argument, then, recursively call preOrderNumber using r->right as argument, finally, visit the root node. 
+
 Exercise 6..9   
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
