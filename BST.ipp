@@ -21,14 +21,17 @@ unsigned long BST<Key,T>::size(){
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-    unsigned long count = 0;
     if (r -> left == NULL && r -> right == NULL)
-        count++;  //this node is a leaf, increase count by 1
+        return 1;  //this node is a leaf, increase count by 1
+    if (!(r -> left == NULL) && !(r -> right == NULL))
+        return 1 + size(r -> left) + size(r -> right);
     if (r -> left == NULL)
-        count = count + size(r -> right);  // this node has children, add those
+        return 1 + size(r -> right);  // this node has children, add those
     if (r -> right == NULL)
-        count = count + size(r -> left);  //this node has children, add those
-    return count;
+        return 1 + size(r -> left);  //this node has children, add those
+    if (r == NULL)
+        return 0;
+    return 1;
 }
 
 //Add a new item, x, with Key k.
