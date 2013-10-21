@@ -36,24 +36,6 @@ function void preOrderNumber(Node* r)
 		    visit the root
 			recursively call preOrderNumber using r->left as argument
 			recursively call preOrderNumber using r->right as argument
-
-
-
-
-function void inOrderNumber(Node* r)
-   if root node is null, return;
-   else
-		recursively call preOrderNumber using r->left as argument
-		visit the root
-		recursively call preOrderNumber using r->right as argument
-		
-function void postOrderNumber(Node* r)
-   if root node is null, return;
-   else
-		recursively call preOrderNumber using r->left as argument
-		recursively call preOrderNumber using r->right as argument
-		visit the root
-		
 Exercise 6..9   
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
