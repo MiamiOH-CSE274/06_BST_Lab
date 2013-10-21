@@ -3,7 +3,7 @@
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-    root = new Node< Key, T>;
+    root = NULL;
 }
 
 template <class Key, class T>
