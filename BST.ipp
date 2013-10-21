@@ -78,16 +78,27 @@ template <class Key, class T>
 //If there is a key in the set that is > k,
 // return the first such key. If not, return k
 template <class Key, class T>
-    Key BST<Key,T>::next(Key k){
-    //TODO
-    Key fakeKey;
-    return fakeKey;
+ Key BST<Key,T>::next(Key k){
+	Node<Key, T>* rtnNode = next(k, root);
+	if (rtnNode == NULL) 
+		return k;
+	else 
+		return rtnNode->k;
 }
 
 template <class Key, class T>
     Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-    //TODO
-    return NULL;
+    if (r == NULL) 
+		return NULL;
+	else if (k > r->k) 
+		return next(k, r->right); // Check all right nodes
+	else {
+		Node<Key, T>* temp = next(k, r->left); // Check all left nodes
+	if (temp == NULL) 
+		return r;
+	else 
+		return temp;
+	}
 }
 
 //If there is a key in the set that is < k,
