@@ -1,5 +1,5 @@
 #define NULL 0
-    #include <string>
+#include <string>
     
     template <class Key, class T>
     BST<Key,T>::BST(){
@@ -51,9 +51,15 @@ template <class Key, class T>
 // If there is no such item, throw an exception.
 template <class Key, class T>
     T BST<Key,T>::find(Key k){
-    //TODO
-    T fakeT;
-    return fakeT;
+    Node<Key, T>* rtnNode = find(k, root);
+    
+    if (root == NULL || rtnNode->k != k) {
+        throw std::string("No item found!");
+    }
+    else {
+        return rtnNode->data;
+    }
+    
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
@@ -151,10 +157,18 @@ template <class Key, class T>
     return r;
 }
 
+// This find method is based off of Dr. Brinkman's class notes. 
 template <class Key, class T>
     Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
-    //TODO
-    return NULL;
+    if (r == NULL) 
+        return NULL;
+    else if (r->k == k) {
+        return r;
+    } else if (k < r->k) {
+        return find(k, r->left);
+    } else {
+        return find(k, r->right);
+    }
 }
 
 template <class Key, class T>
