@@ -7,6 +7,8 @@ void tests(){
   myTree.add(1,"hi");
   myTree.add(0,"there");
   myTree.add(-1,"Friend");
+  myTree.add(-2,"Bull");
+    
 
   if(myTree.keyExists(1) != true){
     std::cout << "ERROR: Key 1 does not exist" << std::endl;
@@ -67,6 +69,7 @@ void tests(){
   }
   if(myTree.next(-2) != -1){
     std::cout << "ERROR: next(-2) should be -1" << std::endl;
+      std::cout << myTree.next(-2) << std::endl;
     exit(1);
   } else {
     std::cout << "SUCCESS: next(-2) is fine" << std::endl;
