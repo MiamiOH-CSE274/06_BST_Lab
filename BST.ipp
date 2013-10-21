@@ -4,9 +4,7 @@
 template <class Key, class T>
 BST<Key,T>::BST(){
   //TODO
-
-  root = new Node<Key,T>;
-
+  root = NULL;
 }
 
 template <class Key, class T>
@@ -96,7 +94,6 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   //TODO
   return NULL;
 }
-
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
