@@ -105,14 +105,26 @@ template <class Key, class T>
 // return the first such key. If not, return k
 template <class Key, class T>
     Key BST<Key,T>::prev(Key k){
-    //TODO
-    return NULL;
+    Node<Key, T>* rtnNode = prev(k, root);
+	if (rtnNode == NULL) 
+		return k;
+	else 
+		return rtnNode->k;
 }
 
 template <class Key, class T>
     Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-    //TODO
-    return NULL;
+    if (r == NULL) 
+		return NULL;
+	else if (k < r->k) 
+		return next(k, r->left); // Check all left nodes
+	else {
+		Node<Key, T>* temp = next(k, r->right); // Check all right nodes
+	if (temp == NULL) 
+		return r;
+	else 
+		return temp;
+	}
 }
 
 // This add method has been used from Dr. Brinkman's class notes 
