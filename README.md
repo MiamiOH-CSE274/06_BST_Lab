@@ -29,7 +29,9 @@ Questions
 Exercise 6..7  
 
 function void preOrderNumber(Node* r)
-   if root node is null, return;
+ 
+   if root node is null
+		return;
    
    else
 		visit the root
