@@ -32,7 +32,7 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-  add(k, x, root);
+  root = add(k, x, root);
   }
 
 
@@ -47,7 +47,10 @@ void BST<Key,T>::remove(Key k){
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
-  return find(k, root)->data;
+  if(find(k, root) != NULL)
+	return find(k, root)->data;
+  else
+	throw (std::string) "The key does not Exists.";
 }
 
 //Return true if there is an item with Key k in the table. If not,
@@ -118,7 +121,7 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	r -> data = x;}
   else if(k < r->k){
 	r -> right = add(k, x, r -> right);}
-  else if(k > r-> k){
+  else if(k > r->k){
 	r -> left = add(k, x, r-> left);}
   return r;
   }
@@ -138,7 +141,7 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
   else if(k > r -> k){
     return find(k, r->right);}
   else if(k < r -> k){
-	return find(k, r -> left);}
+	return find(k, r ->left);}
 }
 
 template <class Key, class T>
