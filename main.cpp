@@ -7,7 +7,7 @@ void tests(){
   myTree.add(1,"hi");
   myTree.add(0,"there");
   myTree.add(-1,"Friend");
-
+  
   if(myTree.keyExists(1) != true){
     std::cout << "ERROR: Key 1 does not exist" << std::endl;
     exit(1);
@@ -97,6 +97,10 @@ void tests(){
 
 int main(){
   tests();
+  
 
+  std::cout << "Press ENTER to continue...";
+  std::cin.ignore( std::numeric_limits<std::streamsize>::max(), '\n' );
+ 
   return 0;
 }
