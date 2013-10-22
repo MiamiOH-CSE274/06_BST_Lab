@@ -16,17 +16,19 @@ template <class Key, class T>
 unsigned long BST<Key,T>::size(){
   //TODO
   
-  if(r==NULL)
-  return 0;
-  else{
-  return 1+ size(r->right) + size(r->left);
-  }
+return size(root);
 }
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
   //TODO
+  
+  
+   if(r==NULL)
   return 0;
+  else{
+  return 1+ size(r->right) + size(r->left);
+  }
 }
 
 //Add a new item, x, with Key k.
