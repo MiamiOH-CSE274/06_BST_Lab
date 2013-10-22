@@ -92,6 +92,7 @@ template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
   if (r -> right != NULL)
 	return min(r -> right);
+  
   return NULL;
 }
 
@@ -107,7 +108,8 @@ Key BST<Key,T>::prev(Key k){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-  //TODO
+  if (r -> right != NULL)
+	return max(r -> left);
   return NULL;
 }
 
