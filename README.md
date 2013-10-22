@@ -27,6 +27,7 @@ Questions
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
 6.7 - 	
+
 	In order to write the method preOrderNumber() recursively I would keep a counter that would add 1 everytime that a new recursive call is made. This would allow me to assign the preOrderNumber of the r node. r is the parameter value for this method. Then I would recursively call preOrderNumber() on r's left tree and on r's right tree.  Each node would then be assigned a number in the order that that node was visited.
 	
 	In order to write the method inOrderNumber() recursively I would keep a counter that would add 1 everytime that a new recursive call is made. I would call inOrderNumber() on r's left tree. Then I would assign the counter to be the node r's inOrderNumber.  r is the parameter value for this method. Then I would recursively call inOrderNumber() on r's right tree. Each node would then be assigned a number in the order that that node was visited.
