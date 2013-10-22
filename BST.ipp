@@ -120,9 +120,9 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   else if(k == r->k){
 	r -> data = x;}
   else if(k < r->k){
-	r -> right = add(k, x, r -> right);}
+	r -> left = add(k, x, r -> right);}
   else if(k > r->k){
-	r -> left = add(k, x, r-> left);}
+	r -> right = add(k, x, r-> left);}
   return r;
   }
   
@@ -139,9 +139,11 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
   else if(k == r -> k){
 	return r;}
   else if(k > r -> k){
-    return find(k, r->right);}
+    return find(k, r ->right);}
   else if(k < r -> k){
 	return find(k, r ->left);}
+  
+  return r;
 }
 
 template <class Key, class T>
