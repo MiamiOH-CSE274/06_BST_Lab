@@ -114,7 +114,9 @@ Exercises 6.9:
 
 *********************QuestionTwo********************************
         
-	Let the num1 be the number of parent node of given node, u.
+	Let the num1 be the number of parent node of given node, u,
+
+	from pre-order binary tree.
 
 	Therefore, the depth of given node is: num1 level.
       
