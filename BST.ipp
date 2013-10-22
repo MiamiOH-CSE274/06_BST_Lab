@@ -32,15 +32,10 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-  if(r == NULL){
-  r = new Node<Key, T>();
-  r -> = data = x;
-  r -> k = k;
-  r -> right = NULL;
-  r -> left = NULL;
+  add(k, x, root);
   }
-  else if(k == r->
-}
+
+
 
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
@@ -52,7 +47,9 @@ void BST<Key,T>::remove(Key k){
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
-  //TODO
+  
+
+
   T fakeT;
   return fakeT;
 }
@@ -60,7 +57,15 @@ T BST<Key,T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  //TODO
+  if(k == NULL)
+     return false;
+  if(k == root->k)
+	return true;
+  if(k > root->k)
+	return (k == keyExists(root -> right -> k));
+  if(k < root->k)
+	return (k == keyExists(root -> left -> k));
+   
   return false;
 }
 
@@ -96,10 +101,22 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-  //TODO
-  return NULL;
-}
-
+  if(r == NULL){
+  r = new Node<Key, T>();
+  r -> data = x;
+  r -> k = k;
+  r -> right = NULL;
+  r -> left = NULL;
+  }
+  else if(k == r->k){
+	r -> data = x;}
+  else if(k < r->k){
+	r -> right = add(k, x, r -> right);}
+  else if(k > r-> k){
+	r -> left = add(k, x, r-> left);}
+  return r;
+  }
+  
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   //TODO
