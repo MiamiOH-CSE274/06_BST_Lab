@@ -50,6 +50,8 @@ void BST<Key,T>::remove(Key k){
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
   //TODO
+  if(root==NULL)
+	throw (std::string) "There Node is Null";
   return find(k, root)->data;
 }
 //Return true if there is an item with Key k in the table. If not,
@@ -57,18 +59,9 @@ T BST<Key,T>::find(Key k){
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
   //TODO
-	if(root==NULL)
-		return false;
-	else if(k==root->k)
-		return true;
-	else if(k>root->k){
-		root = root->right;
-		keyExists(k);
-	}
-	else{
-		root = root->left;
-		keyExists(k);
-	}
+  if (find(k, root) != NULL)
+      return true;
+  return false;
 }
 
 //If there is a key in the set that is > k,
@@ -176,14 +169,17 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
   //TODO
+  
   if(r==NULL)
-	throw (std::string) "There Node is Null";
-  else if(r->k==k)
+	return NULL;
+  if(r->k==k)
 	return r;
   else if(k<r->k)
 	return find(k, r->left);
-  else
+  else if(k>r->k)
     return find(k, r->right);
+  else
+	return NULL;
 }
 
 template <class Key, class T>
