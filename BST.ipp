@@ -108,18 +108,16 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	r = new Node<Key, T>();
 	r->data=x;
 	r->k=k;
-	r->right = NULL;
-	r->left = NULL;
 	return r;
   }
   else if(k==r->k){
 	r->data = x;
 	return r;
   }
-  else if(k< (r->k)){
+  else if(k< r->k){
 	r->left = add(k, x, r->left);
   }
-  else if (k>r->k){
+  else{
 	r->right = add(k, x, r->right);
   }
   return r;
@@ -172,7 +170,7 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
   
   if(r==NULL)
 	return NULL;
-  if(r->k==k)
+  else if(r->k==k)
 	return r;
   else if(k<r->k)
 	return find(k, r->left);
