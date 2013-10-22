@@ -76,10 +76,12 @@ Key BST<Key,T>::next(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
   //TODO
-  Node<Key, T>* temp = find(k, r);
-  while(temp->k<=k)
-	temp = temp->right;
-  return temp;
+  if(r==NULL)
+	return NULL;
+
+  while(r->k<=k)
+	r = r->right;
+  return r;
 }
 
 //If there is a key in the set that is < k,
@@ -94,10 +96,12 @@ Key BST<Key,T>::prev(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   //TODO
-    Node<Key, T>* temp = find(k, r);
-  while(temp->k<=k)
-	temp = temp->left;
-  return temp;
+  
+  if(r==NULL)
+	return NULL;
+  while(r->k>=k)
+	r = r->left;
+  return r;
 }
 
 template <class Key, class T>
@@ -105,10 +109,10 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   //TODO
   
   if(r==NULL){
-	r = new Node<Key, T>();
-	r->data=x;
-	r->k=k;
-	return r;
+	Node<Key, T>* temp = new Node<Key, T>();
+	temp->data=x;
+	temp->k=k;
+	return temp;
   }
   else if(k==r->k){
 	r->data = x;
