@@ -76,28 +76,62 @@ bool BST<Key,T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
-  //TODO
-  return NULL;
+  
+  Node<Key, T>* nextNode = next(k, root);
+  if (nextNode == NULL)
+    return k;
+  else
+	return nextNode -> k;
+
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+  
+  if (r == NULL)
+    return NULL;
+  else if (r -> k > k){
+    if (r -> left == NULL)
+	  return r;
+	else
+	  return next(k, r -> left);
+  }
+  else if (r -> k < k)
+    return next(k, r -> right);
+  else
+    return r;
+
 }
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-  //TODO
-  return NULL;
+  
+  Node<Key, T>* prevNode = prev(k, root);
+  if (prevNode == NULL)
+    return k;
+  else
+    return prevNode -> k;
+
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+  
+  if (r == NULL)
+    return NULL;
+  else if (r -> k > k){
+    if (r -> left == NULL)
+	  return NULL;
+	else
+	  return prev(k, r -> left);
+  }
+  else if (r -> k < k)
+    return prev(k, r -> right);
+  else
+    return r;
+
 }
 
 
