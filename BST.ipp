@@ -3,19 +3,23 @@
 
 template <class Key, class T>
 BST<Key,T>::BST(){
- // root= new Node();
  root=NULL;
 }
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  //TODO
+  
+  if(root!=NULL)
+   for(;true;)
+    //something something recursively remove it
+	delete root;
+	break;
 }
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-//  unsigned long size= size(root);
+  unsigned long size= size(root);
   return 0;//size;
 }
 
@@ -24,8 +28,8 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 	unsigned long size=0;
   if(r!=NULL){
 	size++;
-	//size= size+size(r->left);
-	//size= size+size(r->right);
+	size= size+size(r->left);
+	size= size+size(r->right);
 	return size;
   }
   else return 0;

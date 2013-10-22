@@ -18,39 +18,31 @@ Questions
 
 #### 1. Which of the above requirements work, and which do not? For each requirement, write a brief response.
 
-1. TODO
-2. TODO
+1. I don't know how to get the 
+2. I'm not sure size even works it seems like it doesn't want to take the 2 things I had it take
 
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
 6.7: 
 
 
-Explanation: inOrder checks to see if it is null, 
 inOrder(){
 if(root!=null)
  then 
- int num=0
- root->inOrder=num
- 
-	num=inOrder(num, root->left)
-	inOrder(num,root->right)
+   //preorder print
+   inOrder(root);
+   //inorder print
+   inOrder(root)
+   //post order
 }
-
-preoder(){
-if(root!=null)
- then 
- int num=0
-	num=inOrder(num, root->left)
-	root->preOrder=num
-	inOrder(num,root->right)
-}
-}
-
-
 
 6.9:
+1. number of inorder calls left+ number of inorder right.
+2. pre order number - post order number
+3. if preorder and in order u are greater than w and w is greater than u in post order then u is an ancestor
+
+
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
-R==null never works
+R==null never works unless initialized to null
