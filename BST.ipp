@@ -10,7 +10,7 @@ BST<Key,T>::BST(){
 template <class Key, class T>
 BST<Key,T>::~BST(){
   //TODO
-   while (size()>0) {
+   while (root!=NULL) {
         root = remove(root->k, root);
     }
 	root = NULL;

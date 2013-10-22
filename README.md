@@ -39,4 +39,4 @@ Exercise 6..9
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
-Pre-order, in-order, and post-order
+I was confused with the next and prev method. 
