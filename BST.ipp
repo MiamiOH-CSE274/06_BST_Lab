@@ -5,8 +5,6 @@
     BST<Key,T>::BST(){
 // Forgot Dr. Brinkman said to initialize root to NULL. Correction made.
     root = NULL;
-    //root->left = NULL; // Not sure if we need these two lines or not. 
-    //root->right = NULL;
 }
 // TODO
 template <class Key, class T>
@@ -132,11 +130,13 @@ template <class Key, class T>
 template <class Key, class T>
     Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
     if (r == NULL) {
-        // If there is no node then create a new one and assign correct values.
-        Node<Key, T>* newNode = new Node<Key, T>;
-        newNode->k = k;
-        newNode->data = x;
-        return newNode;
+        // If there is no node then create a new one and assign correct values.  
+	    r = new Node<Key, T>;
+        r->k = k;
+        r->data = x;
+		r->left = NULL;
+		r->right = NULL;
+        return r;
     } else if (r->k == k) { // If the key is already in the tree then overwrite its data.
         r->data = x;
         return r;
