@@ -35,6 +35,7 @@ Questions
 	In order to write the method postOrderNumber() recursively I would keep a counter that would add 1 everytime that a new recursive call is made. I would call postOrderNumber() on r's left tree and r's right tree. Then I would assign r's postOrderNumber to be the current counter. r is the parameter valud for this method. Each node would then be assigned a number in the order that that node was visited.
 
 6.9 - 	
+	
 	1. In order to determine the size of the subtree rooted at u, I would use the postOrderNumber of the node u and add 1.  The postOrderNumber() method visits the starting root last so the starting root will have the highest post order number.
 	
 	2. In order to determine the depth of the u, I would use the inOrderNumber of the node u and subtract 1.  The inOrderNumber() method visits the starting root node in the middle of the method calls so it assigns the starting root node the number after the depth. To find the depth, 1 has to be subtracted.
