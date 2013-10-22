@@ -3,19 +3,24 @@
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-  //TODO
+  root=NULL;
 }
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  //TODO
+  delete[] root;
 }
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
   //TODO
+  
+  if(r==NULL)
   return 0;
+  else{
+  return 1+ size(r->right) + size(r->left);
+  }
 }
 
 template <class Key, class T>
