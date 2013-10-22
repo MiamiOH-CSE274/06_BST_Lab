@@ -92,9 +92,50 @@ Exercises 6.7:
 Exercises 6.9:
 
 
+*********************QuestionOne********************************
+
+         Let the pre-order number of node u to be num1.
+
+	 Let the post-order number of node u to be num2.
+
+	 Let the in-order number of node u to be num3.
+
+	 if (num1 == num2 == num3 == 3) => size is 2.
+
+	 if (num1 == num 3 = 7) => size is 1.
+
+	 if (num1 == num2 == 9) => size is 2.
+
+	 if (num2 == num3 == 0) => size is 0.
+
+         if (num1 == num3 == 1) => size is 4.
+
+	 if (num2 == num3 == 10) => size is 5.
+
+	 if (num2 == 11) => size is 11.
+
+         if(num1 > num2 && num2 < num3) => size is 0.
 
 
- 
+          
+
+*********************QuestionTwo********************************
+
+        
+	Let the pre-order number of node u to be num1.
+
+        Let the post-order number of node u to be num2.
+
+
+        if(num1 == 0)  => depth = 0
+
+	if( (num1 <= 5) &&  (num1 % 2 != 0)) => depth = num1.
+
+	if( num1 == 6) => depth == 1.
+
+        if( num1 ==7 || num1 == 9) => depth is 2.
+
+	if( num1 >=8 && num1 <= 11) => depth is (num1-num2)
 
 
 
@@ -102,6 +143,18 @@ Exercises 6.9:
 
 
 
+*********************QuestionThree*******************************
+
+          Let the pre-order numbre of node u to be num1.
+
+	  Let the post-order number of node u to be num2.
+          
+	  Let the pre-order number of node w to be num3.
+
+	  Let the post-order number of node w to be num4.
+
+	  if(num1 < num3 && num2 > num4)  => u is an ancestor of w. 
+         
 
 
 
