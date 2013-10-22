@@ -93,55 +93,31 @@ Exercises 6.9:
 
 
 *********************QuestionOne********************************
+        
+	Let num1 be the number of right child of given node, u, from
+        pre-order binary tree.
 
-         Let the pre-order number of node u to be num1.
+	Let num2 be the number of left child of given node, u, from
+	pre-order binary tree.
 
-	 Let the post-order number of node u to be num2.
+	Let num3 be the number of right child of given node, u, from
+	post-order binary tree.
 
-	 Let the in-order number of node u to be num3.
+	Let num4 be the number of left child of given node,u, from
+	post-order binary tree.
 
-	 if (num1 == num2 == num3 == 3) => size is 2.
+	Therefore, the size of sub-tree of given node u is:
 
-	 if (num1 == num 3 = 7) => size is 1.
-
-	 if (num1 == num2 == 9) => size is 2.
-
-	 if (num2 == num3 == 0) => size is 0.
-
-         if (num1 == num3 == 1) => size is 4.
-
-	 if (num2 == num3 == 10) => size is 5.
-
-	 if (num2 == 11) => size is 11.
-
-         if(num1 > num2 && num2 < num3) => size is 0.
-
+	(num1 - num2) + (num3 -num4) + 1.
 
           
 
 *********************QuestionTwo********************************
-
         
-	Let the pre-order number of node u to be num1.
+	Let the num1 be the number of parent node of given node, u.
 
-        Let the post-order number of node u to be num2.
-
-
-        if(num1 == 0)  => depth = 0
-
-	if( (num1 <= 5) &&  (num1 % 2 != 0)) => depth = num1.
-
-	if( num1 == 6) => depth == 1.
-
-        if( num1 ==7 || num1 == 9) => depth is 2.
-
-	if( num1 >=8 && num1 <= 11) => depth is (num1-num2)
-
-
-
-
-
-
+	Therefore, the depth of given node is: num1 level.
+      
 
 *********************QuestionThree*******************************
 
