@@ -114,30 +114,23 @@ Key BST<Key,T>::prev(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   //TODO
-  
    if (r == NULL)
         return NULL;
     else if (k > r->k){ 
-        if(r->right != NULL && min(r->right)->k < k) {
+        if(r->right != NULL && min(r->right)->k < k) 
             return prev(k, r->right);
-        }
-       
-        {
+        else
             return r;
-        }
     }
-    else if (k < r->k){ 
+    else if (k < r->k) 
         return prev(k, r->left);
-    }
+    
     else{
-
-        if(r->left != NULL) {
-            return prev(k, r->left);
-        }
-        // there is no successor.
-        else {
+        if(r->left != NULL) 
+			 return prev(k, r->left);
+        
+        else 
             return NULL;
-        }
     }
 }
 
@@ -202,8 +195,6 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 	else
 		r->right = remove(k, r->right);
   }
-
-  return r;
 }
 
 template <class Key, class T>
@@ -216,10 +207,9 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 	return r;
   else if(k<r->k)
 	return find(k, r->left);
-  else if(k>r->k)
-    return find(k, r->right);
   else
-	return NULL;
+    return find(k, r->right);
+ 
 }
 
 template <class Key, class T>
