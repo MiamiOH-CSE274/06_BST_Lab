@@ -1,11 +1,15 @@
 #define NULL 0
 #include <string>
 
+
+//Constructor
 template <class Key, class T>
 BST<Key,T>::BST(){
   root = NULL;
 }
 
+
+//Destructor
 template <class Key, class T>
 BST<Key,T>::~BST(){
   while(root != NULL){
@@ -25,6 +29,8 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
   return 1 + size(r -> right) + size(r -> left);
 }
 
+
+//Return the size of the tree
 template <class Key, class T>
 unsigned long BST<Key, T>::size(){
 	return size(root);
@@ -83,9 +89,10 @@ Node<Key, T>* BST<Key,T>::find(Key k, Node<Key, T>* root){
 
 }
 
+//Find a specific key in the tree/subtree
 template <class Key, class T>
 T BST<Key, T>::find(Key k){
-	if(root == NULL) throw (std::string) "The Node is Null!";
+	if(root == NULL) throw (std::string) "The Root Node Does Not Exist";
 	return find(k, root) -> data;
 }
 
@@ -109,6 +116,8 @@ Key BST<Key,T>::next(Key k){
 
 }
 
+
+//Finds the next in a tree/subtree
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
   if( r == NULL){
@@ -157,6 +166,8 @@ Key BST<Key,T>::prev(Key k){
 
 }
 
+
+//Finds the previous in a tree/subtree
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   
@@ -182,6 +193,7 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 }
 
 
+//Finds the next value in a tree/subtree
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   if(r == NULL){
@@ -228,6 +240,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   return NULL;
 }
 
+//Finds the maximum in a tree/subtree
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
   
@@ -240,6 +253,7 @@ Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
   return r;
 }
 
+//Finds the minimum in a tree/subtree
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
   
