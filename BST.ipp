@@ -71,6 +71,16 @@ void BST<Key,T>::remove(Key k){
 template <class Key, class T>
 Node<Key, T>* BST<Key,T>::find(Key k, Node<Key, T>* root){
   
+  if(r == NULL){
+		return NULL;
+  }else if (r -> k == k){
+		return r;
+  }else if(k < r -> k){
+		return find(k, r -> left);
+  }else{
+		return find(k, r -> right);
+  }
+
 }
 
 template <class Key, class T>
