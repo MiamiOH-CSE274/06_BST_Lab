@@ -174,12 +174,26 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
-  //TODO
-  return NULL;
+  
+  if(r == NULL) return NULL;
+
+  //Basically go to the right-most node to find the max.
+  while(r -> right != NULL){
+		r = r -> right;
+  }
+  return r;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
-  //TODO
+  
+  if(r == NULL) return NULL;
+
+  //Go to left-most node to find the min.
+  while( r -> left != NULL){
+		r = r -> left;
+  }
+  return r;
+
   return NULL;
 }
