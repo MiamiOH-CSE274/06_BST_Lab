@@ -88,18 +88,19 @@ Key BST<Key,T>::next(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
   
-  if (r == NULL)
+  Node<Key, T>* maxNode = max(r);
+  if (k >= maxNode -> k)
     return NULL;
-  else if (r -> k > k){
-    if (r -> left == NULL)
-	  return r;
+  else{
+    if (k < r -> k){
+	  if (r -> left == NULL || k >= r -> left -> k)
+	    return r;
+	  else
+	    return next(k, r -> left);
+	}
 	else
-	  return next(k, r -> left);
+	  return next(k, r -> right);
   }
-  else if (r -> k < k)
-    return next(k, r -> right);
-  else
-    return r;
 
 }
 
@@ -119,18 +120,19 @@ Key BST<Key,T>::prev(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   
-  if (r == NULL)
+  Node<Key, T>* minNode = min(r);
+  if (k <= minNode -> k)
     return NULL;
-  else if (r -> k > k){
-    if (r -> left == NULL)
-	  return NULL;
+  else{
+    if (k > r -> k){
+	  if (r -> right == NULL || k <= r -> right -> k)
+	    return r;
+	  else
+	    return prev(k, r -> right);
+	}
 	else
 	  return prev(k, r -> left);
   }
-  else if (r -> k < k)
-    return prev(k, r -> right);
-  else
-    return r;
 
 }
 
