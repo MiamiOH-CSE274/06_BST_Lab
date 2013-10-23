@@ -63,7 +63,6 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
-  //TODO
   remove(k, root);
 }
 
@@ -71,7 +70,47 @@ void BST<Key,T>::remove(Key k){
 // If there is no such item, throw an exception.
 template <class Key, class T>
 Node<Key, T>* BST<Key,T>::find(Key k, Node<Key, T>* root){
-  //TODO
+  
+  if(r == NULL){
+	return NULL;
+  }else if( r -> k == k){
+		
+		//If the node is a leaf, nothing else needs to be done
+		//Else do what needs to be done to get fix the tree
+		if( r -> left == NULL && r -> right == NULL){
+			delete r;
+			return NULL;
+		}else if(r -> left == NULL || r -> right == NULL){
+			Node<Key, T>* = temp = r -> left;
+
+			//Test to see if the node was the left or right
+			if(temp == NULL){
+				temp = r -> right;
+				delete r;
+				return temp;
+			}else{
+				//For this to work, we need the max of the left side of the branch.
+				Node<Key, T>* maxNode = max(r -> left);
+				Key temp = maxNode -> k;
+				maxNode -> k = r -> k;
+				r -> k = temp;
+
+				T tempData = maxNode -> data;
+				maxNode -> data = r -> data;
+				r -> data = tempData;
+
+				r -> left = remove(k, r -> left);
+				return r;
+			}
+		}
+
+
+
+  }else if (k < r -> k){
+		r -> left = remove(k, r -> left);
+  }else{
+		r -> right = remove(k, r -> right);
+  }
   
   return NULL;
 }
