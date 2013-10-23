@@ -13,10 +13,16 @@ BST<Key,T>::~BST(){
   }
 }
 
+//Recursively get the size of the tree starting from the node r
+//Has the posibility to get sizes of certain subtrees!
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-  //TODO
-  return 0;
+
+  //If the node doesn't exist, break the recursive loop
+  if(r == NULL) return 0;
+
+  //Return the this, plus the size of the branches to the left and right!
+  return 1 + size(r -> right) + size(r -> left);
 }
 
 template <class Key, class T>
@@ -28,8 +34,30 @@ unsigned long BST<Key, T>::size(){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-  //TODO
   root = add(k, x, root);
+}
+
+//Add the node to the tree, putting it where it needs to go
+template <class Key, class T>
+Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
+  
+  if(r == NULL){
+		r = new Node<Key, T>();
+		r -> data = x;
+		r -> k = k;
+		r -> left = NULL;
+		r -> right = NULL;
+		return r;
+  }else if(k == r -> k){
+		r -> data = x;
+		return r;
+  }else if(k < r -> k){
+		r -> left = add(k, x, r -> left);
+		return r;
+  }else{
+		r -> right = add(k, x, r -> right);
+		return r;
+  }
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
@@ -90,12 +118,6 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   return NULL;
 }
 
-
-template <class Key, class T>
-Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-  //TODO
-  return NULL;
-}
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
