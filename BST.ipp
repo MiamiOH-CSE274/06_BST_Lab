@@ -81,7 +81,6 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
   //TODO
   if(r==NULL)
 	return NULL;
-
   else if(k>r->k)
 	return next(k, r->right);
   else if(k<r->k){
@@ -115,10 +114,10 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
    if (r == NULL)
         return NULL;
     else if (k > r->k){ 
-        if(r->right != NULL && min(r->right)->k < k) 
-            return prev(k, r->right);
-        else
+        if(prev(k, r->right)==NULL) 
             return r;
+        else
+            return prev(k, r->right);;
     }
     else if (k < r->k) 
         return prev(k, r->left);
