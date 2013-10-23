@@ -71,14 +71,14 @@ void BST<Key,T>::remove(Key k){
 template <class Key, class T>
 Node<Key, T>* BST<Key,T>::find(Key k, Node<Key, T>* root){
   
-  if(r == NULL){
+  if(root == NULL){
 		return NULL;
-  }else if (r -> k == k){
-		return r;
-  }else if(k < r -> k){
-		return find(k, r -> left);
+  }else if (root -> k == k){
+		return root;
+  }else if(k < root -> k){
+		return find(k, root -> left);
   }else{
-		return find(k, r -> right);
+		return find(k, root -> right);
   }
 
 }
@@ -128,6 +128,8 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 		}else{
 
 			return r;
+
+		}
   }else{
 
 		if(r -> right != NULL){
@@ -192,7 +194,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 			delete r;
 			return NULL;
 		}else if(r -> left == NULL || r -> right == NULL){
-			Node<Key, T>* = temp = r -> left;
+			Node<Key, T>* temp = r -> left;
 
 			//Test to see if the node was the left or right
 			if(temp == NULL){
