@@ -85,18 +85,16 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
   else if(k>r->k)
 	return next(k, r->right);
   else if(k<r->k){
-	if(r->left!=NULL&& max(r->left)->k >k)
-		return next(k, r->left);
-	else
+	if(next(k, r->left)==NULL)
 		return r;
+	else
+		return next(k, r->left);
    }
-
   else{
 	if(r->right!=NULL)
 		return next(k, r->right);
 	else
 		return NULL;
-
   }
 }
 
