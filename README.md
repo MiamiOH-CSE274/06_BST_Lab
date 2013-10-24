@@ -1,6 +1,3 @@
-Author
-==========
-"Vutisalchavakul, Pob", vutisat
 06_BST_Lab
 ==============
 
@@ -26,8 +23,10 @@ Questions
 
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
-TODO
+Don't understand what it is asking for....
+
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
-TODO
+How does c++ compare two objects if it's not a number?
+Couldn't implement prev and next... 
