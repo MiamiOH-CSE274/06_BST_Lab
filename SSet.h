@@ -28,4 +28,5 @@ class SSet {
   //If there is a key in the set that is < k,
   // return the first such key. If not, return k
   virtual Key prev(Key k) = 0;
+
 };
