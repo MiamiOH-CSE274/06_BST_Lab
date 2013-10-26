@@ -4,8 +4,8 @@
 template <class Key, class T>
 BST<Key,T>::BST(){
     root=NULL;
-    root->right=NULL;
-    root->left=NULL;
+//    root->right=NULL;
+//    root->left=NULL;
     //int numItems=0;
 }
 
