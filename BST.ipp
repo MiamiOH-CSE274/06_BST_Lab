@@ -3,7 +3,7 @@
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-  //TODO
+  Node root = NULL;
 }
 
 template <class Key, class T>
@@ -13,13 +13,13 @@ BST<Key,T>::~BST(){
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
-unsigned long BST<Key,T>::size(){
+unsigned long BST<Key,T>::size(){ //public, calls private method;
   //TODO
   return 0;
 }
 
 template <class Key, class T>
-unsigned long BST<Key,T>::size(Node<Key,T>* r){
+unsigned long BST<Key,T>::size(Node<Key,T>* r){ //private. Also, no size variable this time. Really gonna force us to use recursion? Bah...
   //TODO
   return 0;
 }
@@ -27,13 +27,13 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 //Add a new item, x, with Key k.
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
-void BST<Key,T>::add(Key k, T x){
-  //TODO
+void BST<Key,T>::add(Key k, T x){ //this calls private version, gets back a Node*
+  root = add(k, x, root);
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
-void BST<Key,T>::remove(Key k){
+void BST<Key,T>::remove(Key k){//public, calls private version
   //TODO
 }
 
@@ -84,13 +84,27 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 
 
 template <class Key, class T>
-Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-  //TODO
-  return NULL;
-}
+Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){ //must check if r is null, if the key of root is the same, 
+    if(r==NULL){
+        Node<Key,T>* myNode = new Node<Key, T>;
+        myNode->k = k;
+        myNode->data = x;
+        return myNode;
+    }
+    else if(r->k==k){
+        r->data = x;
+        return r;
+    }
+    else if(r->k > k)
+        r->left = add(k, x, r->left);
+    else
+        r->right = add(k, x, r->right);
+    
+    return r;
+}//end private version of add
 
 template <class Key, class T>
-Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
+Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){//private version, make intelligent recurse right/left choices based on k. (check if r is NULL?)
   //TODO
   return NULL;
 }
