@@ -82,7 +82,7 @@ bool BST<Key,T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
- Node<Key,T>* noode=prev(k,root);
+ Node<Key,T>* noode=next(k,root);
  
  if(noode==NULL){
   return k;
