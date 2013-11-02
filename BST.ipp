@@ -71,40 +71,71 @@ bool BST<Key,T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
-  return next(k,root)->k;
+  Node<Key,T>* rtn = next(k,root);
+  if (rtn == NULL) 
+   return k;
+  return rtn->k;
 
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
- Node<Key,T>* cur = find(k,root);
- Node<Key,T>* curUp = root;
- while(curUp->right != cur && curUp->left != cur) {
-   if (k < curUp->k)
-     curUp = curUp -> left;
-  else 
-    curUp = curUp ->right;
- }
- Node<Key,T>* maxNum = max(cur);
- if (abs(curUp->k - k ) < abs(maxNum->k - k))
-   return curUp;
- else 
-   return maxNum;
-
+  Node<Key,T>* cur = root;
+  Node<Key,T>* best = root;
+  if (k > max(root)->k) {
+    return NULL;
+  }
+  while (cur != NULL) {
+    if (k < cur->k)
+	  cur = cur -> left;
+	else if (k > cur-> k)
+	  cur = cur-> right;
+	else if (k == cur->k) 
+	  return best;
+	 if (cur!= NULL && cur-> k < best-> k && cur->k > k)
+	    best = cur;
+  }
+  return best;
 }
 
-//If there is a key in the set that is < k,
+//If there is a key in the set that is < k
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-  //TODO
-  return NULL;
+Node<Key,T>* rtn = prev(k,root);
+  if (rtn == NULL) {
+   return k;
+   }
+  return rtn->k;
+
+
+
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+   Node<Key,T>* cur = root;
+  Node<Key,T>* best = root;
+  if (k < min(root)->k)
+    return NULL;
+
+  while (cur != NULL) {
+    if (k < cur->k) {
+	best = cur;
+	  cur = cur->left;
+	}
+	else if (k > cur ->k) {
+	  cur = cur-> right;
+	}
+
+	else if (k == cur->k)
+	  return cur->left;
+  }
+  return best;
+    
+  
+
+ 
 }
 
 
