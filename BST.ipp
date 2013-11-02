@@ -202,47 +202,118 @@ if(r==NULL){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-  //TODO
-   if(r==NULL){
-  Node<Key, T>* newItem=new Node<Key,T>;
-  newItem->k=k;
-  newItem->data=x;
-  return newItem;
-  }
+
+if(r==NULL){
+   r = new Node<Key, T>;
+   r->data=x;
+   r->k=k;
+   
   
-  else if(r->k==k){
-  
-  r->data=x;
-  return r;
-  }
-  
-  else if(k< (r->k)){
-  r->left=add(k,x,r->left);
-  
-  }
-  else{
-  r->right= add(k,x,r->right);
-  }
- return r;
+   r->right = NULL;
+   r->left = NULL;
+
+
+return r;}
+else if(r->k==k){
+r->data=x;
+return r;
+}
+else if(k<r->k){
+r->left=add(k,x,r->left);
+}
+
+else{
+r->right=add(k,x,r->right);
+}
+return r;
+
 
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-  //TODO
+
+
+if(r==NULL){
   return NULL;
+  }
+  
+  
+  else if(r->k==k){
+  if(r->left==NULL && r->right==NULL){
+  delete r;
+  return NULL;
+  }
+  
+  }
+
+  else if(r->left==NULL || r->right==NULL){
+  Node<Key,T>* newR= r->left;
+ 
+  if(newR==NULL){
+  newR=r->right;
+  delete r;
+  return newR;
+  
+  }
+  
+  else{
+  Node<Key,T>* maxR=max(r->left);
+  Key temp=maxR->k;
+  maxR->k=r->k;
+  r->k=temp;
+  
+  T tempData=maxR->data;
+  maxR->k=r->k;
+  r->data=tempData;
+  
+  
+  
+  r->left=remove(k,r->left);
+  return r;
+  }
+}
+else if(k < r->k)
+r->left = remove(k,r->left);
+
+else
+r->right=remove(k,r->right);
+
+return r;
+
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
-  //TODO
+//TODO
+  if(r==NULL){
   return NULL;
+  }
+  
+  else if(r->k==k){
+  return r;
+  }
+ 
+  else if((k<r->k)){
+  return find(k,r->left);
+  }
+
+  return find(k,r->right);
+
+
+
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
-  //TODO
-  return NULL;
+ if(r->right==NULL)
+ return NULL;
+
+ while(r->right!=NULL){
+ r=r->right;}
+ return r;
+
+
 }
 
 template <class Key, class T>
