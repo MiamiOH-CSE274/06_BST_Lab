@@ -11,7 +11,8 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  //TODO: Implement Destructor
+  while(root != NULL)
+    remove(root->k,root);
 }
   
 //Return the number of items currently in the SSet
@@ -166,8 +167,44 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-  //TODO
+ if (r == NULL) {
   return NULL;
+  } else if (r->k == k) {
+    if (r->left == NULL && r-> right == NULL) {
+	  delete r;
+	  return NULL;
+	} else if (r->left == NULL || r->right == NULL) {
+	  Node<Key,T>* newNode = r->left;
+	  if (newNode == NULL) newNode = r->right;
+	  delete r;
+	  return newNode;
+	} else {
+	  Node<Key,T>* newNode = max(r->left);
+	  Key tempK = newNode->k;
+	  T tempData = newNode->data;
+	  newNode->k = r->k;
+	  newNode->data = r->data;
+	  r->k = tempK;
+	  r-> data = tempData;
+	  r->left = remove(k,r->left);
+	  return r;
+	  }
+
+	  if (k < r->k) 
+	    return remove(k,r->left);
+	  else
+	    return remove(k,r->right);
+
+
+
+
+
+
+
+
+  }
+
+
 }
 
 template <class Key, class T>
