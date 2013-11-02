@@ -8,7 +8,11 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  delete[] root;
+while(size()!=0){
+root=remove(root->k,root);
+}
+root=NULL;
+
 }
   
 //Return the number of items currently in the SSet
@@ -24,11 +28,12 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
   //TODO
   
   
-   if(r==NULL)
+   if(root==NULL)
   return 0;
-  else{
-  return 1+ size(r->right) + size(r->left);
-  }
+  
+  
+  return 1+size(r -> right) + size(r-> left);
+
 }
 
 //Add a new item, x, with Key k.
