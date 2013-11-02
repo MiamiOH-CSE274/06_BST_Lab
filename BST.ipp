@@ -138,19 +138,65 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-  //TODO
-  return NULL;
-}
-
-template <class Key, class T>
-Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
- Node<Key,T>* noode=prev(k,root);
+  Node<Key,T>* noode=prev(k,root);
+  
   if(noode==NULL)
   return k;
  
   
    
      return noode->k;
+}
+
+template <class Key, class T>
+Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
+ 
+
+if(r==NULL){
+   return NULL;
+   
+   }
+
+   
+     else if(k>r->k){
+   
+   if(next(k, r->right)!=NULL && max(r->right)->k>k){
+     return prev(k, r->right);
+     }
+   
+   
+   else
+     return r;
+    }
+   
+   else if(r->k>k){
+   return prev(k, r->left);}
+   
+   
+
+   else{
+   
+   
+   if(r->left==NULL){
+     return NULL;}
+     
+     
+
+   else
+     return  prev(k, r->left);;
+   }
+
+  
+ 
+  
+    }
+
+
+     
+
+
+
+
 }
 
 
