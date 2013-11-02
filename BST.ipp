@@ -318,6 +318,9 @@ Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
-  //TODO
-  return NULL;
+ if(r->left==NULL)
+return NULL;
+while(r->left!=NULL){
+r=r->left;}
+return r;
 }
