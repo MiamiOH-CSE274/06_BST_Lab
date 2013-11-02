@@ -68,17 +68,27 @@ T BST<Key,T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  //TODO
-  return false;
+ 
+ if(find(k,root)==NULL)
+ return false;
+ 
+ 
+ 
+ 
+ return true;
 }
 
 //If there is a key in the set that is > k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
-  //TODO
-  Key fakeKey;
-  return fakeKey;
+ 
+ 
+ if(noode==NULL){
+  return k;
+  }
+  
+  return noode->k;
 }
 
 template <class Key, class T>
