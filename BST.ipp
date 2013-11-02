@@ -90,11 +90,48 @@ Key BST<Key,T>::next(Key k){
   
   return noode->k;
 }
-
+// I was having problems with this method until I looked at Luo6's to try to get help
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+ if(r==NULL){
+   return NULL;
+   
+   }
+
+   
+     else if(k<r->k){
+   
+   if(next(k, r->left)!=NULL){
+     return next(k, r->left);
+     }
+   
+   
+   else
+     return r;
+    }
+   
+   else if(r->k<k){
+   return next(k, r->right);}
+   
+   
+
+   else{
+   
+   
+   if(r->right==NULL){
+     return NULL;}
+     
+     
+
+   else
+     return  next(k, r->right);;
+   }
+
+  
+ 
+  
+    }
+
 }
 
 //If there is a key in the set that is < k,
@@ -107,8 +144,13 @@ Key BST<Key,T>::prev(Key k){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+ Node<Key,T>* noode=prev(k,root);
+  if(noode==NULL)
+  return k;
+ 
+  
+   
+     return noode->k;
 }
 
 
