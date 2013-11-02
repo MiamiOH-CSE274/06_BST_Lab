@@ -49,16 +49,20 @@ void BST<Key,T>::add(Key k, T x){
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
-  //TODO
+ remove(k,root);
 }
 
 //Return the item with Key k. 
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
-  //TODO
-  T fakeT;
-  return fakeT;
+  
+  
+  if(root==NULL)
+  throw(std::string) "root is NULL";
+  
+  
+  return find(k,root)->data;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
