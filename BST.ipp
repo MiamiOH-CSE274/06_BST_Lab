@@ -14,15 +14,31 @@ BST<Key,T>::~BST(){
   while(root != NULL)
     remove(root->k,root);
 }
+
+template <class Key, class T>
+void keysInOrder(Node<Key,T>* r) {
+  if (r == NULL)
+    return;
+else {
+  keysInOrder(r->left);
+  std::cout<<r->k<<" ";
+  keysInOrder(r->right);
+  }
+
+
+
+}
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-  return size(root);
+  keysInOrder(root);
+  std::cout<<"END";
+  return NULL;
 }
 
 template <class Key, class T>
-unsigned long BST<Key,T>::size(Node<Key,T>* r){
+unsigned long BST<Key,T>::size(Node<Key,T>* r) {
   int count = 0;
   if (r == NULL)
     return 0;
@@ -43,6 +59,7 @@ void BST<Key,T>::add(Key k, T x){
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
   remove(k,root);
+    
 }
 
 //Return the item with Key k. 
@@ -175,35 +192,30 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 	  return NULL;
 	} else if (r->left == NULL || r->right == NULL) {
 	  Node<Key,T>* newNode = r->left;
-	  if (newNode == NULL) newNode = r->right;
+	  if (newNode == NULL) {
+	     newNode = r->right;
+		 }
 	  delete r;
 	  return newNode;
 	} else {
-	  Node<Key,T>* newNode = max(r->left);
-	  Key tempK = newNode->k;
-	  T tempData = newNode->data;
-	  newNode->k = r->k;
-	  newNode->data = r->data;
-	  r->k = tempK;
-	  r-> data = tempData;
-	  r->left = remove(k,r->left);
-	  return r;
+	    Node<Key,T>* newNode = max(r->left);
+	    Key tempK = newNode->k;
+	    T tempData = newNode->data;
+	    newNode->k = r->k;
+	    newNode->data = r->data;
+	    r->k = tempK;
+	    r-> data = tempData;
+	    r->left = remove(k,r->left);
+	    return r;
+	    }
 	  }
-
-	  if (k < r->k) 
-	    return remove(k,r->left);
-	  else
-	    return remove(k,r->right);
-
-
-
-
-
-
-
-
-  }
-
+	  else if (k < r->k) {
+	  r ->left = remove(k,r->left);
+	  return r;
+	  } else {
+	    r =remove(k,r->right);
+		return r;
+	  }
 
 }
 
