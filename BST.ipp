@@ -26,18 +26,10 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
         return numItems;
     }
     else numItems++;
-    if (r->left==NULL) {
+
         numItems += size(r->right);
-    }
+        numItems += size(r->left);
     
-    else if (r->right==NULL) {
-        numItems+= size(r->left);
-    }
-    
-    else{
-        numItems += size(r->right);
-        numItems+= size(r->left);
-    }
     
     return numItems;
 
@@ -107,7 +99,6 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
             curPtr = curPtr->left;
         }
         else if (curPtr->k < k){
-            previousPtr = curPtr;
             curPtr = curPtr->right;
         }
         else{
@@ -149,7 +140,7 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
             curPtr = curPtr->right;
         }
         else if (curPtr->k > k){
-            previousPtr = curPtr;
+            
             curPtr = curPtr->left;
         }
         else{
@@ -201,33 +192,40 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
             delete r;
             return NULL;
         }
-        else if (r->left==NULL || r->right==NULL){
-            Node<Key, T>* newR = r->left;
+        else if  (r->left!=NULL && r->right!=NULL){
+            Node<Key, T>* newR = min(r->right);
+            Key temp = r->k;
+            T tempData = r->data;
+            r->data = newR->data;
+            r->k = newR->k;
+            newR->k =temp;
+            newR->data = tempData;
+            r->right = remove(k, r->right);
+            return r;
+
+
+        }
+        
+        else{
+            Node<Key, T>* newR = r->right;
             if (newR==NULL) {
-                newR = r->right;
-            }
+                newR = r->left;
+                delete r;
+                return newR;
+                }
             delete r;
             return newR;
-        }
-        else{
-            Node<Key, T>* maxR = max(r->left);
-            Key temp = maxR->k;
 
-            maxR->k = r->k;
-            r->k = temp;
-            T dataTemp = r->data;
-            r->data = maxR->data;
-            maxR->data = dataTemp;
-            r->left = remove(k, r->left);
-            return r;
         }
     }
     
     else if (r->k >k){
-       return r = remove(k, r->left);
+        r->left = remove(k, r->left);
     }
     
-    else return r= remove(k, r->right);
+    else  r->right= remove(k, r->right);
+    
+    return r;
     
 }
 
