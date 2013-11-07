@@ -83,6 +83,7 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 }
 
 
+//Not sure whether iteration or recursion is more effective for this...
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){ //must check if r is null, if the key of root is the same, 
     if(r==NULL){
