@@ -7,15 +7,16 @@ BST<Key,T>::BST(){
 }
 
 template <class Key, class T>
-BST<Key,T>::~BST(){
-  //TODO
+BST<Key,T>::~BST(){//this calls remove(root->k) as long as size() > 0. Assume remove and size work.
+	while(root != NULL){ //I believe this takes care of checking for size, and it prevents a jerk from
+		remove(root->k); //trying to delete an empty BST and crashing the whole thing.
+	}
 }
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){ //public, calls private method;
-  //TODO
-  return 0;
+  return size(root);
 }
 
 template <class Key, class T>
@@ -34,7 +35,7 @@ void BST<Key,T>::add(Key k, T x){ //this calls private version, gets back a Node
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){//public, calls private version
-  //TODO
+  root = remove(k, root);
 }
 
 //Return the item with Key k. 
@@ -48,7 +49,7 @@ T BST<Key,T>::find(Key k){
 //Return true if there is an item with Key k in the table. If not,
 // return false
 template <class Key, class T>
-bool BST<Key,T>::keyExists(Key k){
+bool BST<Key,T>::keyExists(Key k){//calls private version
   //TODO
   return false;
 }
@@ -56,7 +57,7 @@ bool BST<Key,T>::keyExists(Key k){
 //If there is a key in the set that is > k,
 // return the first such key. If not, return k
 template <class Key, class T>
-Key BST<Key,T>::next(Key k){
+Key BST<Key,T>::next(Key k){//calls private version
   //TODO
   Key fakeKey;
   return fakeKey;
@@ -71,11 +72,12 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
-Key BST<Key,T>::prev(Key k){
+Key BST<Key,T>::prev(Key k){//calls private version
   //TODO
   return NULL;
 }
 
+//return the first key < k, or return k if no smaller key exists.
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   //TODO
@@ -84,6 +86,7 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 
 
 //Not sure whether iteration or recursion is more effective for this...
+//I'm 99% sure this is the algorithm from class
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){ //must check if r is null, if the key of root is the same, 
     if(r==NULL){
