@@ -8,10 +8,14 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  while(root->right!=NULL)
-    remove(max(root->right)->k);
-  while(root->left!=NULL)
-    remove(min(root->left)->k);
+  while(root->right!=NULL){
+    Node<Key,T>checkHere=max(root->right)
+    remove(checkHere->k,checkHere);
+  }
+  while(root->left!=NULL){
+    Node<Key,T>checkHere=min(root->left)
+    remove(checkHere->k,checkHere);
+  }
   delete root;
 }
   
