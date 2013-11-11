@@ -6,7 +6,7 @@
 // Forgot Dr. Brinkman said to initialize root to NULL. Correction made.
     root = NULL;
 }
-// TODO
+
 template <class Key, class T>
     BST<Key,T>::~BST(){
 	while(size() > 0) 
@@ -64,14 +64,10 @@ template <class Key, class T>
 // return false
 template <class Key, class T>
     bool BST<Key,T>::keyExists(Key k){
-    if (root == NULL) 
+    if(find(k, root) == NULL) {
 		return false;
-	else if (root->k == k) 
+	} else 
 		return true;
-	else if (k < root->k)
-		return keyExists(root->left->k); 
-	else 
-		return keyExists(root->right->k);		 
 }
 
 //If there is a key in the set that is > k,
@@ -87,16 +83,12 @@ template <class Key, class T>
 
 template <class Key, class T>
     Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-    if (r == NULL) 
+    if(r == NULL) {
 		return NULL;
-	else if (k > r->k) 
-		return next(k, r->right); // Check all right nodes
-	else {
-		Node<Key, T>* temp = next(k, r->left); // Check all left nodes
-	if (temp == NULL) 
-		return r;
-	else 
-		return temp;
+	} else if(k > r->k) {
+		return next(k, r->right);
+	} else if(k < r->k) {
+		return next(k, r->left);
 	}
 }
 
@@ -131,15 +123,14 @@ template <class Key, class T>
     Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
     if (r == NULL) {
         // If there is no node then create a new one and assign correct values.  
-	    r = new Node<Key, T>;
-        r->k = k;
-        r->data = x;
-		r->left = NULL;
-		r->right = NULL;
-        return r;
+	    Node<Key, T>* newNode = new Node<Key, T>;
+        newNode->k = k;
+        newNode->data = x;
+		newNode->left = NULL;
+		newNode->right = NULL;
+        return newNode;
     } else if (r->k == k) { // If the key is already in the tree then overwrite its data.
         r->data = x;
-        return r;
     } else if (k < r->k) { // Try to add to the left side of the current node
         r->left = add(k, x, r->left);
     } else { // Try to add to the right side of the current node
