@@ -8,9 +8,9 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  while(size(root->right)>0)
+  while(root->right!=NULL)
     remove(max(root->right)->k);
-  while(size(root->left)>0)
+  while(root->left!=NULL)
     remove(min(root->left)->k);
   delete root;
 }
