@@ -8,15 +8,16 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  while(root->right!=NULL){
-    Node<Key,T>checkHere=max(root->right)
-    remove(checkHere->k,checkHere);
-  }
-  while(root->left!=NULL){
-    Node<Key,T>checkHere=min(root->left)
-    remove(checkHere->k,checkHere);
-  }
-  delete root;
+  destroy(root);
+}
+
+template <class Key, class T>
+void destroy(Node<Key,T>* r){
+	if(r!=NULL){
+		destroy(r->left);
+		destroy(r->right);
+		delete r;
+	}
 }
   
 //Return the number of items currently in the SSet
