@@ -79,21 +79,27 @@ Key BST<Key,T>::next(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
   //TODO
+
   if(r==NULL)
 	return NULL;
-  else if(k>r->k)
-	return next(k, r->right);
-  else if(k<r->k){
+
+// if the key is greater that the root key, the look in the right.
+// if the the right node is null, return null, otherwise, keep
+// looking in the right
+  else if((r->k)<k){
+	if(r->right!=NULL)
+		return next(k, r->right);
+	else
+		return NULL;
+  }
+  else if((r->k)>k){
 	if(next(k, r->left)==NULL)
 		return r;
 	else
 		return next(k, r->left);
    }
   else{
-	if(r->right!=NULL)
-		return next(k, r->right);
-	else
-		return NULL;
+	return next(k, r->right);
   }
 }
 
@@ -113,21 +119,18 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   //TODO
    if (r == NULL)
         return NULL;
-    else if (k > r->k){ 
+    else if ((r->k)<k){ 
         if(prev(k, r->right)==NULL) 
             return r;
         else
             return prev(k, r->right);;
     }
-    else if (k < r->k) 
+    else if ((r->k)>k) 
         return prev(k, r->left);
     
+	// if r->k ==k, then just keep looking on the right
     else{
-        if(r->left != NULL) 
 			 return prev(k, r->left);
-        
-        else 
-            return NULL;
     }
 }
 
@@ -160,26 +163,26 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   //TODO
   if(r==NULL)
 	return NULL;
-  else if(r->k==k){
+  else if((r->k)==k){
 	if(r->left==NULL&&r->right==NULL){
 		delete r;
 		return NULL;
 	}
-	else if(r->left==NULL||r->right==NULL){
-		Node<Key, T>* newR = r->left;
-		if(newR==NULL){
-			newR = r->right;
+	else if((r->left)==NULL||(r->right)==NULL){
+		Node<Key, T>* temp = r->left;
+		if(temp==NULL){
+			temp = r->right;
 			delete r;
-			return newR;
+			return temp;
 		}
 		else{
-			Node<Key, T>* maxR = max(r->left);
-			Key temp = maxR->k;
-			maxR->k = r->k;
+			Node<Key, T>* maxN = max(r->left);
+			Key temp = maxN->k;
+			maxN->k = r->k;
 			r->k = temp;
 
-			T tempD = maxR->data;
-			maxR->data = r->data;
+			T tempD = maxN->data;
+			maxN->data = r->data;
 			r->data = tempD;
 
 			r->left = remove(k, r->left);
@@ -187,7 +190,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 		}
 	}
 
-	else if(k<r->k)
+	else if((r->k)>k)
 		r->left= remove(k, r->left);
 	else
 		r->right = remove(k, r->right);
@@ -200,9 +203,9 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
   
   if(r==NULL)
 	return NULL;
-  else if(r->k==k)
+  else if((r->k)==k)
 	return r;
-  else if(k<r->k)
+  else if((r->k)>k)
 	return find(k, r->left);
   else
     return find(k, r->right);
