@@ -182,18 +182,38 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-    std::cout<<"HOLY SHIT DUDE"<<std::endl;
-	if (r == NULL)
+    if (r == NULL)
 	  return NULL;
 	if (k < r->k)
-	  return r = remove(k,root->left);
-	if (k > r->k)
-	  return r = remove(k,root->right);
-	if (k == r->k){
-	  return NULL;
-	  
-	  }
-	  
+	  return r->left = remove(k,r->left);
+	if (k > r-> k)
+	  return r->right = remove(k,r->right);
+	if (k== r->k) {
+	  if (r -> left == NULL && r->right == NULL) {
+	    delete r;
+		return NULL;
+	}
+	if(r->left != NULL && r->right != NULL) {
+	  Node<Key,T>* toCopy = min(r->right);
+	  Key temp = r->k;
+	  T tempData = r->data;
+	  r->data = toCopy->data;
+	  r->k = toCopy->k;
+	  toCopy->data = tempData;
+	  toCopy->k = temp;
+	  if (k < r->k)
+	    return r->left = remove(k,r->left);
+	 if (k > r-> k)
+	   return r->right = remove(k,r->right);
+	}
+	if (r->left != NULL || r->right != NULL) {
+	  Node<Key,T>* toCopy = r->left;
+	  if (toCopy == NULL)
+	    toCopy = r->right;
+	  delete r;
+	  return toCopy;
+	}
+	}
 }
 
 
@@ -201,7 +221,7 @@ template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
   Node<Key,T>* cur = r;
   if (cur == NULL) {
-    return NULL;
+    throw std::string("This key does not exist. Please choose a different one.");
   }
   if (cur->k == k) {
     return cur;
