@@ -145,10 +145,10 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	r->left = NULL;
 	r->right = NULL;
   }
-  else if(k==r->k){
+  else if((r->k)==k){
 	r->data = x;
   }
-  else if(k< r->k){
+  else if((r->k)>k){
 	r->left = add(k, x, r->left);
   }
   else{
