@@ -21,12 +21,12 @@ Questions
 
 #### 1. Which of the above requirements work, and which do not? For each requirement, write a brief response.
 
-1. TODO
-2. TODO
+1. Each method should be O(h) as they only look down a specific "branch"/ series of edges on the tree. Each method runs without looking at a vast majority of the Nodes.
+2. Size is O(n), as it finds the number of items by recursively checking each child of each parent, checking all of the Nodes in the tree, forcing size() to have O(n) time.
 
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
-TODO
+
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
