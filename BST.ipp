@@ -52,7 +52,7 @@ template <class Key, class T>
 T BST<Key,T>::find(Key k){
   //TODO
   if(root==NULL)
-	throw (std::string) "There Node is Null";
+	throw (std::string) "The Node is Null";
   return find(k, root)->data;
 }
 //Return true if there is an item with Key k in the table. If not,
