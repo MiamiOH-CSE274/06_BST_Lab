@@ -26,8 +26,11 @@ Questions
 
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
+6.7 
 
+6.9
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
-TODO
+The recursive nature of the BST gave me huge amounts of problems. I do not personally like recursion, and it is very hard for me to fully implement 
+recursive functions. I would spend more time trying to understand recursion before trying to complete the lab.
