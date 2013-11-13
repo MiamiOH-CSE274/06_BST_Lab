@@ -63,22 +63,18 @@ T BST<Key,T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  return keyExists(k,root);
-}
-
-template <class Key, class T>
-bool BST<Key,T>::keyExists(Key k, Node<Key,T>* r){
-  if(k == r->k)
-	return true;
-  else if(k>r->k && r->right != NULL)
-	return keyExists(k,r->right);
-  else if(k<r->k && r->left != NULL)
-	return keyExists(k,r->left);
-  else if(k>r->k && r->right == NULL)
+  Node<Key,T>* checkHere;
+   checkHere=root;
+   while(checkHere != NULL){
+     if(k>checkHere->k)
+       checkHere=checkHere->right;
+     else if(k<checkHere->k)
+       checkHere=checkHere->left;
+     else if(k==checkHere->k)
+       return true;
+    }
 	return false;
-  else if(k<r->k && r->left == NULL)
-	return false;
-}
+ }
 
 //If there is a key in the set that is > k,
 // return the first such key. If not, return k
