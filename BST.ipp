@@ -8,8 +8,8 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){//this calls remove(root->k) as long as size() > 0. Assume remove and size work.
-	while(root != NULL){ //I believe this takes care of checking for size, and it prevents a jerk from
-		remove(root->k); //trying to delete an empty BST and crashing the whole thing.
+	for(unsigned long size=size(); size>0; size--){ //Only want to call size() once if possible. 
+		remove(root->k);
 	}
 }
   
@@ -21,8 +21,16 @@ unsigned long BST<Key,T>::size(){ //public, calls private method;
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){ //private. Also, no size variable this time. Really gonna force us to use recursion? Bah...
-  //TODO
-  return 0;
+    unsigned long total = 0;					//Check if root is NULL, then add up left children and right children... Simple?
+
+    if (r==NULL){
+        return total;
+    }
+	total++; //each recursive step adds 1 for the node and maximum of 2 for its children + maximum 2log(h-subtree).
+    total += size(r->right);
+    total += size(r->left);
+   
+    return numItems;
 }
 
 //Add a new item, x, with Key k.
