@@ -91,18 +91,6 @@ void tests(){
   } else {
     std::cout << "SUCCESS: prev(-2) is fine" << std::endl;
   }
-
-
- BST<int,std::string> tree2;
-  tree2.add(10,"hi");
-  tree2.add(0,"there");
-  tree2.add(20,"Friend");
-
-  tree2.remove(20);
-  std::cout<<"Sedr";
-  std::cout<<tree2.size()<<std::endl;
-  std::cout<<"Sedr";
-  
 }
 
 int main(){
