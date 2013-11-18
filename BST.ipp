@@ -3,12 +3,12 @@
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-  Node root = NULL;
+  root = NULL;
 }
 
 template <class Key, class T>
 BST<Key,T>::~BST(){//this calls remove(root->k) as long as size() > 0. Assume remove and size work.
-	for(unsigned long size=size(); size>0; size--){ //Only want to call size() once if possible. 
+	for(unsigned long numItems = size(); numItems>0; numItems--){ //Only want to call size() once if possible. 
 		remove(root->k);
 	}
 }
@@ -30,7 +30,7 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){ //private. Also, no size variabl
     total += size(r->right);
     total += size(r->left);
    
-    return numItems;
+    return total;
 }
 
 //Add a new item, x, with Key k.
