@@ -96,7 +96,6 @@ void tests(){
   } else {
     std::cout << "SUCCESS: prev(-2) is fine" << std::endl;
   }
-std::cout << myTree.size() << std::endl;
 }
 
 int main(){
