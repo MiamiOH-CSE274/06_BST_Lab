@@ -3,7 +3,7 @@
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-  //TODO
+  root = null;
 }
 
 template <class Key, class T>
