@@ -41,7 +41,7 @@ void tests(){
     std::cout << "SUCCESS: Key 1 value correct" << std::endl;
   }
   if(myTree.find(-1) != "Friend"){
-    std::cout << "ERROR: Key -1 value incorrect" << std::endl;
+    std::cout << "ERROR: Key -1 value incor-rect" << std::endl;
     exit(1);
   } else {
     std::cout << "SUCCESS: Key -1 value correct" << std::endl;
@@ -91,8 +91,6 @@ void tests(){
   } else {
     std::cout << "SUCCESS: prev(-2) is fine" << std::endl;
   }
-
-
 }
 
 int main(){
