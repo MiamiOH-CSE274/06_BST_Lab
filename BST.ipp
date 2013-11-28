@@ -55,8 +55,12 @@ T BST<Key,T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  //TODO
-  return false;
+  try{
+	find(k);
+  }catch((std::string) e){
+	return false;
+  }
+  return true;
 }
 
 //If there is a key in the set that is > k,
