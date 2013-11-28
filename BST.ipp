@@ -8,18 +8,18 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){//this calls remove(root->k) as long as size() > 0. Assume remove and size work.
-	for(unsigned long numItems = size(); numItems>0; numItems--){ //Only want to call size() once if possible. 
+	for(numItems; numItems>0; numItems--){ //Only want to call size() once if possible. 
 		remove(root->k);
 	}
 }
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
-unsigned long BST<Key,T>::size(){ //public, calls private method;
-  return size(root);
+unsigned long BST<Key,T>::size(){ //public, got rid of need to call private method.
+  return numItems;
 }
 
-template <class Key, class T>
+template <class Key, class T> /*Got rid of the need to call this method :)*/
 unsigned long BST<Key,T>::size(Node<Key,T>* r){ //private. Also, no size variable this time. Really gonna force us to use recursion? Bah...
     unsigned long total = 0;					//Check if root is NULL, then add up left children and right children... Simple?
 
