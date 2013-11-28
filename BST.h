@@ -45,7 +45,7 @@ class BST : public SSet <Key,T> {
 
 private:
   Node<Key,T>* root;
-  unsigned long numItems=0;
+  unsigned long numItems;
 
   virtual unsigned long size(Node<Key,T>* r);
   //These are the recursive versions of each of your methods.

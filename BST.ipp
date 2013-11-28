@@ -101,18 +101,35 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){ //must check if r is n
         Node<Key,T>* myNode = new Node<Key, T>;
         myNode->k = k;
         myNode->data = x;
+		numItems++;
         return myNode;
-    }
-    else if(r->k==k){
-        r->data = x;
-        return r;
-    }
-    else if(r->k > k)
-        r->left = add(k, x, r->left);
-    else
-        r->right = add(k, x, r->right);
-    
-    return r;
+    } //else if(keyExists) -- no need to call this method. I can just take care of it in add()
+		//return r;
+
+	Node<Key,T>* cur = r;
+	Node<Key,T>* toAdd = new Node<Key, T>; toAdd->k = k; toAdd->data = x;
+	while(true){ //using infinite loops for good ;)
+		while(k < cur->k){
+			if(cur->left == NULL){
+				cur->left = toAdd;
+				numItems++;
+				return r;
+			} else
+				cur = cur->left;
+		}
+		while(k > cur->k){
+			if(cur->right == NULL){
+				cur->right = toAdd;
+				numItems++;
+				return r;
+			} else
+				cur = cur->right;
+		}
+		if(k == cur->k){
+			cur->data = x;
+			return r;
+		}
+	}//end while(true)
 }//end private version of add
 
 template <class Key, class T>
