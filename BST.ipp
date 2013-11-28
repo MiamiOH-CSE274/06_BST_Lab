@@ -50,9 +50,11 @@ void BST<Key,T>::remove(Key k){//public, calls private version
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
-  //TODO
-  T fakeT;
-  return fakeT;
+   Node<Key, T>* myNode = find(k, root);
+    if (myNode==NULL) {
+        throw std::string("Your desired key is not in the tree.");
+    }
+    return myNode->data;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
