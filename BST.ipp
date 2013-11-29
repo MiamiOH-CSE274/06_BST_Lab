@@ -60,8 +60,12 @@ T BST<Key,T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){//calls private version
-  //TODO
-  return false;
+	Node<Key,T>* myNode = find(k, root);
+	
+    if (myNode==NULL) {
+        return false;
+    } else 
+		return true;
 }
 
 //If there is a key in the set that is > k,
@@ -95,11 +99,10 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 }
 
 
-//Not sure whether iteration or recursion is more effective for this...
-//I'm 99% sure this is the algorithm from class
+//Recursion when building is for stupid people...
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){ //must check if r is null, if the key of root is the same, 
-    if(r==NULL){
+    if(r==NULL){										  //return r if r is not NULL
         Node<Key,T>* myNode = new Node<Key, T>;
         myNode->k = k;
         myNode->data = x;
@@ -129,6 +132,7 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){ //must check if r is n
 		}
 		if(k == cur->k){
 			cur->data = x;
+			delete toAdd;
 			return r;
 		}
 	}//end while(true)
@@ -142,8 +146,28 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){//private version, make i
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+	if (r==NULL) {
+		return NULL;
+    }
+	node<Key,T>* cur = r;
+    while(true){ //using infinite loops for good ;)
+		while(k < cur->k){
+			if(cur->left == NULL){
+				return NULL;
+			} else
+				cur = cur->left;
+		}
+		while(k > cur->k){
+			if(cur->right == NULL){
+				return NULL;
+			} else
+				cur = cur->right;
+		}
+		if(k == cur->k)
+			return cur;
+	}//end while(true)
+}
+
 }
 
 template <class Key, class T>
