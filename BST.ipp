@@ -99,20 +99,33 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 			if(above->left != cur)//this makes sure we have both a greater node above and below to study in the final comparison.
 				above = above->left;
 		}
-		below = cur;//revamp this lower algorithm. Must check each freaking subtree.
 
-		/*if(below->right != NULL){
-			below = below->right;
-			while(below->left != NULL){ //searching for that which is least greater
-				below = below->left;
+		while(k > cur->k){
+			if(cur->right==NULL) //if nothing below the root of the subtree is greater than k, return above.
+				return above;
+			cur = cur->right;
+		}
+		if(cur->k == k){
+			if(cur->right != NULL){
+				cur = cur->right;
+				while(cur->left != NULL){//the least thing greater than k.
+					cur = cur->left;
+				}
+				if(above->k < cur->k)
+					return above;
+				return cur;
 			}
 		}
-		if((below->k)-k < 0)
-			return above;
-		if(below->k < above->k) */
+		while(cur->left != NULL){
+			if(cur->left->k > k)
+				cur = cur->left;
+			else{
+				if(cur->k < above->k)
+					return cur;
+				return above;
+			}
+		}
 	}
-	
- 
 }
 
 //If there is a key in the set that is < k,
