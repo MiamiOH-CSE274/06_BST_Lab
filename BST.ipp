@@ -72,15 +72,47 @@ bool BST<Key,T>::keyExists(Key k){//calls private version
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){//calls private version
-  //TODO
-  Key fakeKey;
-  return fakeKey;
+  Node<Key,T> myNode = next(k, root);
+  if(myNode->k > k)
+	  return myNode->k;
+  return k;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+	Node<Key,T>* cur = r, above = r, below = r; //no need for an explicit stack, just 3 trace pointers
+	if(k > r->k){//easy case
+		while(k >= cur->k){ //go to the right until you blow past k or run into a NULL
+			if(cur->right==NULL)
+				return cur;
+			cur = cur->right;
+		}//end while(k > cur->k)
+		while(cur->left != NULL){//go to the left as far as you can to guarantee you find the thing least greater than k
+			cur = cur->left;
+		}
+		return cur;
+	}else{
+		while(k < cur->k){
+			if(cur->left==NULL)
+				return cur;//because our parameters are stupid and we don't have to assume k exists in the tree...
+			cur = cur->left;
+			if(above->left != cur)//this makes sure we have both a greater node above and below to study in the final comparison.
+				above = above->left;
+		}
+		below = cur;//revamp this lower algorithm. Must check each freaking subtree.
+
+		/*if(below->right != NULL){
+			below = below->right;
+			while(below->left != NULL){ //searching for that which is least greater
+				below = below->left;
+			}
+		}
+		if((below->k)-k < 0)
+			return above;
+		if(below->k < above->k) */
+	}
+	
+ 
 }
 
 //If there is a key in the set that is < k,
