@@ -115,8 +115,9 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 					return above;
 				return cur;
 			}
+			return above;
 		}
-		while(cur->left != NULL){
+		while(cur->left != NULL){//Bah, need to modify this, use below pointer to look for k in the subtree,
 			if(cur->left->k > k)
 				cur = cur->left;
 			else{
