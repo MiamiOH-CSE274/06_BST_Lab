@@ -43,7 +43,7 @@ void BST<Key,T>::add(Key k, T x){ //this calls private version, gets back a Node
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){//public, calls private version
-  root = remove(k, root);
+	remove(k, root); //I decided to not deal with relinking roots, so there is no need to rename the root Node
 }
 
 //Return the item with Key k. 
@@ -185,13 +185,10 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){ //must check if r is n
 }//end private version of add
 
 template <class Key, class T>
-Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){//private version, make intelligent recurse right/left choices based on k. (check if r is NULL?)
+Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){//private version, switches keys and Ts instead of dealing with relinking the root.
 	Node<Key,T>* toDelete = find(k,r);
-	//NEED TO IMPLEMENT!
-	//NEED TO IMPLEMENT!
-	//NEED TO IMPLEMENT!
-	//NEED TO IMPLEMENT!
-	//remember to pull the subtrees up, maybe just switch the k-values and the delete bottom Node?
+	if(toDelete==NULL)
+		return NULL;
 	bool leftPtr = true, rightPtr = true;
 	while(leftPtr || rightPtr){
 		leftPtr = false; rightPtr = false;
@@ -209,7 +206,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){//private version, make i
 		}
 	}
 	delete toDelete;
-	return NULL;
+	return r;
 }
 
 template <class Key, class T>
