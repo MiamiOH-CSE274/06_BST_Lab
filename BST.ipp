@@ -186,8 +186,30 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){ //must check if r is n
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){//private version, make intelligent recurse right/left choices based on k. (check if r is NULL?)
-  //TODO
-  return NULL;
+	Node<Key,T>* toDelete = find(k,r);
+	//NEED TO IMPLEMENT!
+	//NEED TO IMPLEMENT!
+	//NEED TO IMPLEMENT!
+	//NEED TO IMPLEMENT!
+	//remember to pull the subtrees up, maybe just switch the k-values and the delete bottom Node?
+	bool leftPtr = true, rightPtr = true;
+	while(leftPtr || rightPtr){
+		leftPtr = false; rightPtr = false;
+		while(toDelete->right != Null){
+			rightPtr = true;
+			toDelete->k = toDelete->right->k;
+			toDelete->data = toDelete->right->data;
+			toDelete = toDelete->right;
+		}
+		while(toDelete->left != Null){
+			leftPtr = true;
+			toDelete->k = toDelete->left->k;
+			toDelete->data = toDelete->left->data;
+			toDelete = toDelete->left;
+		}
+	}
+	delete toDelete;
+	return NULL;
 }
 
 template <class Key, class T>
@@ -214,16 +236,20 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 	}//end while(true)
 }
 
-}
-
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
-  //TODO
-  return NULL;
+	Node<Key,T>* cur = r;
+	while(cur->right != NULL){
+		cur = cur->right;
+	}
+	return cur;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
-  //TODO
-  return NULL;
+	Node<Key,T>* cur = r;
+	while(cur->left != NULL){
+		cur = cur->left;
+	}
+	return cur;
 }
