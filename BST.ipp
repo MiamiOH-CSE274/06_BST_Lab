@@ -80,51 +80,18 @@ Key BST<Key,T>::next(Key k){//calls private version
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-	Node<Key,T>* cur = r, above = r, below = r; //no need for an explicit stack, just 3 trace pointers
-	if(k > r->k){//easy case
-		while(k >= cur->k){ //go to the right until you blow past k or run into a NULL
-			if(cur->right==NULL)
-				return cur;
-			cur = cur->right;
-		}//end while(k > cur->k)
-		while(cur->left != NULL){//go to the left as far as you can to guarantee you find the thing least greater than k
+	Node<Key,T>* cur = r, above = r;
+	while(true){
+		while(cur->k > k){
+			if(cur->left == NULL)
+				return cur; //you found a minimum greater than k, below k
+			above = cur; //ensures a lesser value remains above cur, whether or not cur becomes greater than k.
 			cur = cur->left;
 		}
-		return cur;
-	}else{
-		while(k < cur->k){
-			if(cur->left==NULL)
-				return cur;//because our parameters are stupid and we don't have to assume k exists in the tree...
-			cur = cur->left;
-			if(above->left != cur)//this makes sure we have both a greater node above and below to study in the final comparison.
-				above = above->left;
-		}
-
-		while(k > cur->k){
-			if(cur->right==NULL) //if nothing below the root of the subtree is greater than k, return above.
-				return above;
+		while(cur->k <= k){
+			if(cur->right == NULL) 
+				return above; //we have proven a greater key than k does not exist below our "above" pointer
 			cur = cur->right;
-		}
-		if(cur->k == k){
-			if(cur->right != NULL){
-				cur = cur->right;
-				while(cur->left != NULL){//the least thing greater than k.
-					cur = cur->left;
-				}
-				if(above->k < cur->k)
-					return above;
-				return cur;
-			}
-			return above;
-		}
-		while(cur->left != NULL){//Bah, need to modify this, use below pointer to look for k in the subtree,
-			if(cur->left->k > k)
-				cur = cur->left;
-			else{
-				if(cur->k < above->k)
-					return cur;
-				return above;
-			}
 		}
 	}
 }
@@ -147,10 +114,10 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 		while(cur->k < k){
 			if(cur->right == NULL)
 				return cur; //you found a maximum
-			above = cur; //ensures a lesser value remains above cur, whether or not cur becomes greater than k.
+			above = cur; //ensures a lesser value remains above cur, whether or not cur becomes greater than or equal to k.
 			cur = cur->right;
 		}
-		while(cur->k > k){
+		while(cur->k >= k){
 			if(cur->left == NULL) 
 				return above; //we have proven a lesser key than k does not exist below our "above" pointer
 			cur = cur->left;
