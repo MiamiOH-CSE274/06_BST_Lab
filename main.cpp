@@ -92,6 +92,9 @@ void tests(){
     std::cout << "SUCCESS: prev(-2) is fine" << std::endl;
   }
 
+  std::cout << "Calling destructor." << std::endl;
+  myTree.~BST();
+  std::cout << "Success! Destructor worked with no errors." << std::endl;
 
 }
 
