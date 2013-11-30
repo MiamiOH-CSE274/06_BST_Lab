@@ -8,7 +8,8 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  //TODO
+  
+
 }
   
 //Return the number of items currently in the SSet
@@ -96,10 +97,10 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	if(r == NULL){
-		Node<Key, T>* temp = new Node<Key, T>;
-		temp->data = x;
-		temp->k = k;
-		r = temp;
+		Node<Key, T>* tempNode = new Node<Key, T>();
+		tempNode->data = x;
+		tempNode->k = k;
+		r = tempNode;
 	}
 	else if(r->k == k){
 		r->data = x;
@@ -190,6 +191,11 @@ Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
-  //TODO
-  return NULL;
+  if(r == NULL){
+	return NULL;
+  }
+  while(r->left != NULL){
+	r = r->left;
+  }
+  return r;
 }
