@@ -133,29 +133,29 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){//calls private version
-  return prev(k, root)->k;
+	Node<Key,T>* toReturn= prev(k, root);
+	if(toReturn->k > k)
+		return k;
+	return toReturn->k;
 }
 
 //return the first key < k, or return k if no smaller key exists.
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-	//check if less than min
-	Node<Key,T>* toReturn = find(k, r);
-	if(toReturn != NULL){
-		if(toReturn->left != NULL){
-			toReturn = toReturn->left;
-			while(toReturn->right != NULL){//greatest item less than k.
-				toReturn = toReturn->right;
-			}
-			return toReturn;
-		} else {//if there is no lesser member down to the left, then it must be a right child since min was already checked.
-			//use while loops to get to the Node which has k as a child.
+	Node<Key,T>* cur = r, above = r;
+	while(true){
+		while(cur->k < k){
+			if(cur->right == NULL)
+				return cur; //you found a maximum
+			above = cur; //ensures a lesser value remains above cur, whether or not cur becomes greater than k.
+			cur = cur->right;
 		}
-	} else { //if k does not explicitly exist
-		//use two pointers to get the parent above the first Node with a key > k, and a second to get to the greatest 
-		//left child less than k
+		while(cur->k > k){
+			if(cur->left == NULL) 
+				return above; //we have proven a lesser key than k does not exist below our "above" pointer
+			cur = cur->left;
+		}
 	}
-	return NULL;
 }
 
 
