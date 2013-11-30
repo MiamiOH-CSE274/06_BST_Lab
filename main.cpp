@@ -4,6 +4,12 @@
 
 void tests(){
   BST<int,std::string> myTree;
+  if(myTree.size() != 0){
+    std::cout << "ERROR: Size of empty tree is not 0!" << std::endl;
+    exit(1);
+  } else {
+    std::cout << "SUCCESS: Empty tree has 0 items" << std::endl;
+  }
   myTree.add(1,"hi");
   myTree.add(0,"there");
   myTree.add(-1,"Friend");

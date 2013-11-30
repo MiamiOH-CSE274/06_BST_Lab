@@ -4,11 +4,12 @@
 template <class Key, class T>
 BST<Key,T>::BST(){
 	root = NULL;
+	numItems=0;
 }
 
 template <class Key, class T>
 BST<Key,T>::~BST(){//this calls remove(root->k) as long as size() > 0. Assume remove and size work.
-	for(numItems; numItems>0; numItems--){ //Only want to call size() once if possible. 
+	for(numItems; numItems>0;){ //Only want to call size() once if possible. 
 		remove(root->k);
 	}
 }
@@ -134,7 +135,7 @@ template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){ //must check if r is null, if the key of root is the same, 
     Node<Key,T>* toAdd = new Node<Key, T>; toAdd->k = k; toAdd->data = x; //return r if r is not NULL
 	if(r==NULL){
-		numItems++;
+		numItems=1;
         return toAdd;
     }
 
@@ -166,9 +167,11 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){ //must check if r is n
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){//private version, switches keys and Ts instead of dealing with relinking the root.
+	std::cout << "Called remove() with " << numItems << " items in the tree. Calling find()." << std::endl;
 	Node<Key,T>* toDelete = find(k,r);
 	if(toDelete==NULL)
 		return r;
+	std::cout << "Find() succeeded." << std::endl;
 	bool leftPtr = true, rightPtr = true;
 	while(leftPtr || rightPtr){
 		leftPtr = false; rightPtr = false;
@@ -185,7 +188,9 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){//private version, switch
 			toDelete = toDelete->left;
 		}
 	}
-	delete toDelete;
+	toDelete = NULL;//necessary? Yes
+	delete toDelete; //because deleting an integer doesn't reset it to NULL. 
+	numItems--;
 	return r;
 }
 
