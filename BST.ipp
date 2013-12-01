@@ -8,8 +8,7 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  
-
+   //TODO
 }
   
 //Return the number of items currently in the SSet
@@ -52,6 +51,7 @@ T BST<Key,T>::find(Key k){
 	return find(k, root)->k;
 	}
 }
+
 //Return true if there is an item with Key k in the table. If not,
 // return false
 template <class Key, class T>
@@ -68,15 +68,25 @@ bool BST<Key,T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
-  //TODO
-  Key fakeKey;
-  return fakeKey;
+  if(next(k, root)->k = NULL){
+	return k;
+  }
+  else{
+	return next(k, root)->k;
+  }
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+  if(r == NULL){
+	return;
+  }
+  else if(r->k > k){
+	return r;
+  }
+  else if(r->k < k){
+	next(k, root->right);
+  }
 }
 
 //If there is a key in the set that is < k,
