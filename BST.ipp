@@ -8,7 +8,17 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-   //TODO
+   deallocate(root);
+}
+
+template <class Key, class T>
+void deallocate(Node<Key, T>* r){
+	if(r == NULL){
+		return;
+	}
+	deallocate(r->left);	
+	deallocate(r->right);
+	delete r;
 }
   
 //Return the number of items currently in the SSet
@@ -48,7 +58,7 @@ T BST<Key,T>::find(Key k){
 	throw (std::string) "No such key in this binary tree.";
   }	
   else{
-	return find(k, root)->k;
+	return find(k, root)->data;
 	}
 }
 
@@ -58,7 +68,8 @@ template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
   try{
 	find(k);
-  }catch((std::string) e){
+  }
+  catch(std::string e){
 	return false;
   }
   return true;
@@ -79,7 +90,7 @@ Key BST<Key,T>::next(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
   if(r == NULL){
-	return;
+	return r;
   }
   else if(r->k > k){
 	return r;
@@ -104,13 +115,13 @@ Key BST<Key,T>::prev(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   if(r == NULL){
-	return;
+	return r;
   }
   else if(r->k < k){
 	return r;
   }
   else{
-	return prev(k, r->prev);
+	return prev(k, r->left);
   }
 }
 
@@ -118,10 +129,9 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	if(r == NULL){
-		Node<Key, T>* tempNode = new Node<Key, T>();
-		tempNode->data = x;
-		tempNode->k = k;
-		r = tempNode;
+		r = new Node<Key, T>();
+		r->data = x;
+		r->k = k;
 	}
 	else if(r->k == k){
 		r->data = x;
@@ -148,7 +158,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 	}
 	// if this node has one "kid"
 	else if(r->left == NULL || r->right == NULL){
-		node* newRode = r->left;
+		Node<Key, T>* newRode = r->left;
 		// if it is the right "kid", delete it right away
 		if(newRode == NULL){
 			delete r;
@@ -157,7 +167,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 		// if it is the left "kid", swap it with the maximum node of 
 		// the right subtree 
 		else{
-			node* maxNode = max(r->left);
+			Node<Key, T>* maxNode = max(r->left);
 			// swap the key and value of the maximum node of left tree
 			// with those of the target node
 			Key tempKey = r->k;
@@ -168,7 +178,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 			maxNode->data = tempData;
 			
 			// delelte the node that has been swapped to the left subtree
-			r->left = remove(k, r-left);
+			r->left = remove(k, r->left);
 			return r; 
 		}
 	}
@@ -178,7 +188,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 	}
 	// search for the right subtree
 	else{
-		r->right = reomve(k, r->right);
+		r->right = remove(k, r->right);
 	}
   }
 }	
