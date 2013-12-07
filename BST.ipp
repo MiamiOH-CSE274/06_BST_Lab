@@ -41,7 +41,7 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-	add(k, x, root);
+	root = add(k, x, root);
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
@@ -54,12 +54,7 @@ void BST<Key,T>::remove(Key k){
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
-  if(root == NULL){
-	throw (std::string) "No such key in this binary tree.";
-  }	
-  else{
-	return find(k, root)->data;
-	}
+  return find(k, root)->data;
 }
 
 //Return true if there is an item with Key k in the table. If not,
@@ -134,18 +129,17 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 		node->k = k;
 		node->right = NULL;
 		node->left = NULL;
-		r = node;
-		return r;
+		return node;
 	}
 	else if(r->k == k){
 		r->data = x;
 		return r;
 	}
 	else if(r->k > k){
-		add(k, x, r->left);
+		r->left = add(k, x, r->left);
 	}
 	else{
-		add(k, x, r->right);
+		r->right = add(k, x, r->right);
 	}
 	return r;
 }
@@ -201,7 +195,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
   if(r == NULL){
-	return NULL;
+	throw (std::string) "No such a item in the tree.";
   }
   else if(r->k == k){
 	return r;
