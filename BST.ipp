@@ -74,24 +74,25 @@ bool BST<Key,T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
-  if(next(k, root)->k = NULL){
-	return k;
-  }
-  else{
-	return next(k, root)->k;
-  }
+	Node<Key, T>* domb2 = next(root, k);
+	if(domb2 == root){
+		return k;
+	}
+	else{
+		return domb2->k;
+	}
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-  if(r == NULL){
-	return r;
+  if(r == NULL){;
+	return root;
   }
-  else if(r->k > k){
+  else if(r -> k == k){
 	return r;
   }
   else{
-	next(k, root->right);
+	return next(k, r->right);
   }
 }
 
@@ -99,20 +100,21 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-  if(prev(k, root) == NULL){
-	return k;
-  }
-  else{
-	return prev(k, root)->k;
-  }
+	Node<Key, T>* domb2 = prev(root, k);
+	if(domb2 == root){
+		return k;
+	}
+	else{
+		return prev(root, k)->k;
+	}
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   if(r == NULL){
-	return r;
+	return root;
   }
-  else if(r->k < k){
+  else if(r -> k == k){
 	return r;
   }
   else{
