@@ -83,15 +83,32 @@ Key BST<Key,T>::prev(Key k){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+  if(r->right->k < k)
+	return prev(k, r->right);
+  else if(r->left->k >= k)
+	return prev(k, r->left);
+  
 }
 
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-  //TODO
-  return NULL;
+  if(keyExists(k)) {
+	find(k).data = x;
+  }
+  else if(r == NULL) {
+	Node<Key,T>* newNode;
+	newNode->k = k;
+	newNode->data = x;
+	newNode->left = NULL;
+	newNode->right = NULL;
+	return newNode;
+  }
+  else if(k < r->k)
+	return add(k, x, r->left);
+  else if(k > r->k)
+	return add(k, x, r->right);
+  return r;
 }
 
 template <class Key, class T>
@@ -99,13 +116,18 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   //Trying the books implementation of this method
   
   if(keyExists(k)) {
-	Node<Key,T>* temp = find(k);
-	if(temp->right == NULL && temp->left == NULL)
+	Node<Key,T>* temp = find(k, r);
+
+	if(temp->right == NULL && temp->left == NULL) {
 		delete temp;
 		return NULL;
+	}
 	else if(temp->right == NULL || temp->left == NULL) {
 		if(temp->right == NULL) {
-			
+			prev(k, temp)->left = temp->left;
+		}
+		else {
+			prev(k, temp)->right = temp->right;
 		}
 	}
   }
