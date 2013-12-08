@@ -206,7 +206,7 @@ Key BST<Key,T>::next(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
   //TODO
-  return NULL;
+  //return NULL;
 
   // If the node's null, return null
   // Otherwise, check the key
@@ -218,6 +218,22 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
   //		   less than or equal return the node, return the node
   //		- Otherwise return next on the left child
   // Return null to catch anything that may get through
+
+  if(r==NULL){
+	return NULL; }
+  else if(r->k==k){
+	return r; }
+  else if(k>r->k){
+	return next(k, r->right); }
+  else if(k<r->k){
+	if(r->left==NULL || r->left->k<=k)
+		return r;
+	else
+		return next(k, r->left);
+  }
+  return NULL;
+
+
 
 }
 
