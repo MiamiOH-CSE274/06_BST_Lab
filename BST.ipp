@@ -14,8 +14,7 @@ BST<Key,T>::~BST(){
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-  //TODO
-  return 0;
+  return size(root);
 }
 
 template <class Key, class T>
@@ -200,7 +199,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
     }
 
   if (r->k <k){
-	(r->r->right= remove(k, r->right);
+	  r->right = remove(k, r->right);
   }
 }
 
