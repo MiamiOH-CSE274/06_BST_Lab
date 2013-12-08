@@ -296,6 +296,15 @@ Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
   // If the right child isn't null, return max on right child
   // Otherwise return our node
 
+  if(r==NULL)
+	return NULL;
+  else{
+	if(r->right!=NULL)
+		return max(r->right);
+	else
+		return r;
+  }
+
 }
 
 template <class Key, class T>
@@ -306,5 +315,14 @@ Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
   // If the root's null, return null
   // If the left child isn't null, return min on left child
   // Otherwise return our node
+
+  if(r==NULL)
+	return NULL;
+  else{
+	if(r->left!=NULL)
+		return min(r->left);
+	else
+		return r;
+  }
 
 }
