@@ -155,8 +155,31 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+  if (r == NULL)
+	return NULL;
+  if(r->k==k){
+	if(r->left == NULL && r->right == NULL){
+			delete r;
+			r = NULL;
+			return r;
+		}
+	if(r->left != NULL && r->right == NULL){
+		Node<Node<Key,T>* swapNode = r->left;
+          delete r;
+          return swapNode;
+        }
+	if(r->left == NULL && r->right != NULL){
+		Node<Node<Key,T>* swapNode = r->right;
+          delete r;
+          return swapNode;
+        }
+	if(r->left != NULL && r->right != NULL){
+		
+		
+		}
+  
+  }
+  //end if r->k == k.
 }
 
 template <class Key, class T>
