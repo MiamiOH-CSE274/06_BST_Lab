@@ -101,7 +101,7 @@ void BST<Key,T>::remove(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   //TODO
-  return NULL;
+  //return NULL;
 
   // First, check to see if the node is null
   //	- If so, return null
@@ -120,6 +120,33 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   //				- remove the root's left child, setting  that equal to the root's left child
   //				- return the root
 
+  if(r==NULL){
+	return NULL;
+  }else if(r->k==k){
+	if(r->left==NULL&&r->right==NULL){
+		delete r;
+		return NULL;
+	}else if(r->left==NULL||r->right==NULL){
+		Node<Key,T>* newroot = new Node<Key,T>;
+		if(newroot==NULL)
+			newroot=r->right;
+		delete r;
+		return newroot;
+	}else{
+		Node<Key,T>* maxr=max(r->left);
+		Key temp = maxr->k;
+		maxr->k=r->k;
+		r->k=temp;
+
+		Node<Key,T>* temp2;
+		temp2->data=maxr->data;
+		maxr->data=r->data;
+		r->data=temp2->data;
+		delete temp2;
+		remove(k, r->left);
+		return r;
+	}
+  }
 }
 
 //Return the item with Key k. 
