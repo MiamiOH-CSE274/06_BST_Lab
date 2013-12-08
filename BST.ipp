@@ -210,7 +210,6 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 
   // If the node's null, return null
   // Otherwise, check the key
-  //	- If the node's key matches our key, return the node
   //	- If the key is larger than the node's
   //		- return next on the node's right child
   //	- If the key is less than the node's
@@ -261,7 +260,6 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 
   // If the node's null, return null
   // Otherwise, check the key
-  //	- If the node's key matches our key, return the node
   //	- If the node has a right node and its right node's key is less than k,
   //		return prev on the right child
   //	- If the key is greater than the node's
@@ -273,16 +271,15 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   if(r==NULL)
 	return NULL;
   else{
-	if(r->k==k)
-		return r;
-	else if(r->right!=NULL && r->k<k)
+	if(r->right!=NULL && r->right->k < k)
 		return prev(k, r->right);
-	else if(k>r->k)
+	if(k>r->k)
 		return r;
-	else if(k<=r->k)
+	if(k<=r->k)
 		return prev(k, r->left);
+
   }
-  
+
   return NULL;
 
 }
