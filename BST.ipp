@@ -191,11 +191,15 @@ bool BST<Key,T>::keyExists(Key k){
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
   //TODO
-  Key fakeKey;
-  return fakeKey;
+  //Key fakeKey;
+  //return fakeKey;
 
   // Perform next on the root and return that key unless that's null
   //	- If it is null, return the key
+  if(next(k, root)!=NULL)
+	return next(k, root)->k;
+  else
+	return k;
 
 }
 
