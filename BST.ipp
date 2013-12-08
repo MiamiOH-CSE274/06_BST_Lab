@@ -59,7 +59,7 @@ void BST<Key,T>::add(Key k, T x){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   //TODO
-  return NULL;
+  //return NULL;
 
   // First, make sure the root isn't null
   //	- If null, make a new node with the info, left and rights null, 
@@ -74,6 +74,8 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	Node<Key,T>* node = new Node<Key,T>;
 	node->k=k;
 	node->data=x;
+	node->left=NULL;
+	node->right=NULL;
 	return node;
   }
   else if(k==r->k){
@@ -81,10 +83,10 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	return r;
   }
   else if(k<r->k)
-	add(k,x,r->left);
+	r->left=add(k,x,r->left);
   else
-	add(k,x,r->right);
-
+	r->right=add(k,x,r->right);
+  return r;
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
@@ -176,7 +178,7 @@ bool BST<Key,T>::keyExists(Key k){
   //return false;
 
   if(find(k,root)!=NULL)
-	return find(k,root);
+	return true;
   else
 	return false;
 
