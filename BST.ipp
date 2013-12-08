@@ -158,28 +158,50 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   if (r == NULL)
 	return NULL;
   if(r->k==k){
-	if(r->left == NULL && r->right == NULL){
+	if(r->left == NULL && r->right == NULL)
+		{
 			delete r;
 			r = NULL;
 			return r;
 		}
-	if(r->left != NULL && r->right == NULL){
-		Node<Node<Key,T>* swapNode = r->left;
+	if(r->left != NULL && r->right == NULL)
+		{
+		  Node<Key,T>* swapNode = r->left;
           delete r;
           return swapNode;
         }
-	if(r->left == NULL && r->right != NULL){
-		Node<Node<Key,T>* swapNode = r->right;
+	if(r->left == NULL && r->right != NULL)
+		{
+		Node<Key,T>* swapNode = r->right;
           delete r;
           return swapNode;
         }
-	if(r->left != NULL && r->right != NULL){
-		
-		
+	if(r->left != NULL && r->right != NULL)
+		{
+			Node<Key,T>* toSwitch = max(r->left);
+			r->k = toSwitch->k;
+			r -> data = toSwitch -> data;
+				if(r->left == toSwitch)
+					{
+					r->left = toSwitch->left;
+					delete toSwitch;
+					}
+				if(r->left != toSwitch)
+					{
+					remove(toSwitch->k, r->left);
+					}
 		}
-  
+	return r;
   }
   //end if r->k == k.
+
+  if (r->k >k){
+       r->left = remove(k, r->left);
+    }
+
+  if (r->k <k){
+	(r->r->right= remove(k, r->right);
+  }
 }
 
 template <class Key, class T>
