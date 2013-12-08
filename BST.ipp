@@ -152,9 +152,9 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 	if(r->k==k)
 		return r;
 	else if(r->k>k){
-		find(k,r->left);
+		return find(k,r->left);
 		}else{
-			find(k,r->right);
+			return find(k,r->right);
 			}
 
 	return NULL;
@@ -173,7 +173,12 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
   //TODO
-  return false;
+  //return false;
+
+  if(find(k,root)!=NULL)
+	return find(k,root);
+  else
+	return true;
 
   // As long as find doesn't return null, return true
 
