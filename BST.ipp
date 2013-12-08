@@ -127,8 +127,8 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
   //TODO
-  T fakeT;
-  return fakeT;
+  //T fakeT;
+  //return fakeT;
 
   if(find(k,root)==NULL){
 	throw (std::string) "Your keys ain't here.";
