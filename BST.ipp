@@ -178,7 +178,7 @@ bool BST<Key,T>::keyExists(Key k){
   if(find(k,root)!=NULL)
 	return find(k,root);
   else
-	return true;
+	return false;
 
   // As long as find doesn't return null, return true
 
