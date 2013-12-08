@@ -52,6 +52,7 @@ void BST<Key,T>::add(Key k, T x){
   //TODO
   
   // Adds the node to the root, setting the root equal to the possible new root
+  root = add(k, x, root);
 
 }
 
@@ -68,6 +69,21 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   //	- If not, then compare the keys
   //		- If the key is less than the node's key, add it to the node's left child
   //		- Otherwise, add it to the node's right child
+
+  if(r==NULL){ //Creating a root or new node
+	Node<Key,T>* node = new Node<Key,T>;
+	node->k=k;
+	node->data=x;
+	return node;
+  }
+  else if(k==r->k){
+	r->data=x;
+	return r;
+  }
+  else if(k<r->k)
+	add(k,x,r->left);
+  else
+	add(k,x,r->right);
 
 }
 
@@ -112,6 +128,11 @@ T BST<Key,T>::find(Key k){
   T fakeT;
   return fakeT;
 
+  if(find(k,root)==NULL){
+	throw (std::string) "Your keys ain't here.";
+  }else{
+	return find(k,root)->data;
+  }
   // If the root's null, throw an error, otherwise
   // call find on the root with the key
 
@@ -123,12 +144,26 @@ T BST<Key,T>::find(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
   //TODO
-  return NULL;
+  //return NULL;
 
-  // If the root is null, return null
-  // If the root and the key are equal, return the root
-  // If the root's key is larger, do find on the root's left child
-  // Otherwise do find on the root's right child
+  if(r==NULL)
+	return NULL;
+  else{
+	if(r->k==k)
+		return r;
+	else if(r->k>k){
+		find(k,r->left);
+		}else{
+			find(k,r->right);
+			}
+
+	return NULL;
+  }
+
+  // If the node is null, return null
+  // If the node and the key are equal, return the node
+  // If the node's key is larger, do find on the node's left child
+  // Otherwise do find on the node's right child
 
 }
 
