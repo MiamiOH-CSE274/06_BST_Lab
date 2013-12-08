@@ -43,15 +43,15 @@ void BST<Key,T>::remove(Key k){
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
-  return find(k, root);
+  return find(k, root)->data;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  Node* r = root;
+  Node<Key,T>* r = root;
   while(r != NULL) {
-	if(root->k < k)
+	if(r->k < k)
 		r = root->left;
 	else if (r->k > k)
 		r = r->right;
@@ -97,27 +97,18 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   //Trying the books implementation of this method
-  Node *s, *p;
-    if (r->left != NULL) {
-      s = r->left;
-    } else {
-      s = r->right;
-    }
-    if (r == root) {
-      root = s;
-      p = NULL;
-    } else {
-      p = r->parent;
-      if (p->left == r) {
-        p->left = s;
-      } else {
-        p->right = s;
-      }
-    }
-    if (s != NULL) {
-      s->parent = p;
-    }
-    n--;
+  
+  if(keyExists(k)) {
+	Node<Key,T>* temp = find(k);
+	if(temp->right == NULL && temp->left == NULL)
+		delete temp;
+		return NULL;
+	else if(temp->right == NULL || temp->left == NULL) {
+		if(temp->right == NULL) {
+			
+		}
+	}
+  }
 }
 
 template <class Key, class T>
@@ -128,15 +119,15 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 	r = find(k, r->left);
   else if(r->k > k)
 	r = find(k, r->right);
-  else
-	return r->k;
-  return NULL;
+  else if(r->k == k)
+	return r;
 }
 
 //Find the item in the sub-tree rooted at r which has the largest key
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
-  
+  if(r == NULL)
+	return r;
   //Logic behind this is that if the tree is setup correctly, the last node on the right should be the largest
   while(r->right != NULL) {
 	r = max(r->right);
@@ -148,7 +139,8 @@ Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
 //Find the item in the sub-tree rooted at r which has the smallest key
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
-  
+  if(r == NULL)
+	return r;
   //Logic behind this is that if the tree is setup correctly, the last node on the left should be the smallest
   while(r->left != NULL) {
 	r = min(r->left);
