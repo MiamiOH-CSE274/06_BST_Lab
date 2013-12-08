@@ -26,22 +26,31 @@ BST<Key,T>::~BST(){
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
   //TODO
-  return 0;
 
   // returns size(Node<Key,T>* r) for the root, r.
 
+  if(root==NULL)
+	return 0;
+  else
+	return size(root);
 }
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
   //TODO
-  return 0;
+  //return 0;
 
   // Cancel out of recursion if the node is null, otherwise
   //   - Add one
   //   - Sum the left side
   //   - Sum the right side
   //   - return the sums of the above 3
+
+  if(r!=NULL)
+	return 1+size(r->left)+size(r->right);
+  else
+	return 0;
+	
 
 }
 
