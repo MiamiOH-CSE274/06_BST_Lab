@@ -167,29 +167,22 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){ //must check if r is n
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){//private version, switches keys and Ts instead of dealing with relinking the root.
-	std::cout << "Called remove() with " << numItems << " items in the tree. Calling find()." << std::endl;
-	Node<Key,T>* toDelete = find(k,r);
+	Node<Key,T> *toDelete = find(k,r), *toSwap;
 	if(toDelete==NULL)
 		return r;
-	std::cout << "Find() succeeded." << std::endl;
-	bool leftPtr = true, rightPtr = true;
-	while(leftPtr || rightPtr){
-		leftPtr = false; rightPtr = false;
-		while(toDelete->right != NULL){
-			rightPtr = true;
-			toDelete->k = toDelete->right->k;
-			toDelete->data = toDelete->right->data;
-			toDelete = toDelete->right;
-		}
-		while(toDelete->left != NULL){
-			leftPtr = true;
-			toDelete->k = toDelete->left->k;
-			toDelete->data = toDelete->left->data;
-			toDelete = toDelete->left;
-		}
-	}
-	toDelete = NULL;//necessary? Yes
-	delete toDelete; //because deleting an integer doesn't reset it to NULL. 
+	
+	if(toDelete->right == NULL){ //the idea here is to swap k and t between two nodes. the original, to be deleted, is actually saved
+		if(toDelete->left == NULL){ //and the one it takes values from, is deleted in its place. Using the minimum of the right subtree or the maximum
+			toSwap = toDelete;      //of the left subtree maintains BST order.
+		} else
+			toSwap = max(toDelete->left);
+	} else
+		toSwap = min(toDelete->right);
+
+	toDelete->data = toSwap->data;
+	toDelete->k = toSwap->k;
+	toSwap = NULL;//necessary? Yes
+	delete toSwap; //because deleting an integer doesn't reset it to NULL. 
 	numItems--;
 	return r;
 }
