@@ -3,19 +3,21 @@
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-  //TODO
+  //Initialize root of the tree
+  root = null;
 }
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  //TODO
+  //De-allocate any allocated memory
+  while(size > 0)
+	remove(root->k);
 }
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-  //TODO
-  return 0;
+  return size(root);
 }
 
 template <class Key, class T>
@@ -28,13 +30,13 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-  //TODO
+  add(k, x, root);
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
-  //TODO
+  remove(k, root);
 }
 
 //Return the item with Key k. 
