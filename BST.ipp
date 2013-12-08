@@ -242,17 +242,22 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
   //TODO
-  return NULL;
+  //return NULL;
 
   // Perform prev on the root and return that key unless that's null
   //	- If it is null, return the key
+
+  if(prev(k, root)!=NULL)
+	return prev(k, root)->k;
+  else
+	return k;
 
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   //TODO
-  return NULL;
+  //return NULL;
 
   // If the node's null, return null
   // Otherwise, check the key
@@ -264,6 +269,21 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   //	- If the key is less than or equal to the node's
   //		- return prev on the left node
   // Return null to catch anything that may get through
+
+  if(r==NULL)
+	return NULL;
+  else{
+	if(r->k==k)
+		return r;
+	else if(r->right!=NULL && r->k<k)
+		return prev(k, r->right);
+	else if(k>r->k)
+		return r;
+	else if(k<=r->k)
+		return prev(k, r->left);
+  }
+  
+  return NULL;
 
 }
 
