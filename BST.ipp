@@ -137,35 +137,43 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-  
-  if(r->right == NULL && r->left == NULL) {
-	delete r;
+  if(r == NULL)
 	return NULL;
-  }
-  else if(r->right == NULL || r->left == NULL) {
-	if(r->right == NULL) {
-		prev(k, r)->left = r->left;
+  else if(r->k == k) {
+	if(r->right == NULL && r->left == NULL) {
 		delete r;
 		return NULL;
+	}
+	else if(r->right == NULL || r->left == NULL) {
+		if(r->right == NULL) {
+			prev(k, r)->left = r->left;
+			delete r;
+			return NULL;
+		}
+		else {
+			prev(k, r)->right = r->right;
+			delete r;
+			return NULL;
+		}
 	}
 	else {
-		prev(k, r)->right = r->right;
-		delete r;
-		return NULL;
-	}
+		if(prev(k,r)->right == r) {
+			prev(k,r)->right = min(r);	
+			delete r;
+			return NULL;
+		}
+		else {
+			prev(k,r)->left = min(r);
+			delete r;
+			return NULL;
+		}		
+    }
   }
-  else {
-	if(prev(k,r)->right == r) {
-		prev(k,r)->right = min(r);	
-		delete r;
-		return NULL;
-	}
-	else {
-		prev(k,r)->left = min(r);
-		delete r;
-		return NULL;
-	}		
-  }
+  else if(r->k > k)
+	remove(k, r->left);
+  else if(r->k < k)
+	remove(k, r->right);
+  return r;
 }
 
 template <class Key, class T>
