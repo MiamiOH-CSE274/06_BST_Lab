@@ -68,8 +68,12 @@ Key BST<Key,T>::next(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
- if(r->left->k > k)
-	return next()
+  if(r->right->k > k)
+	return next(k, r->right);
+  else(r->left->k > k)
+	return next(k, r->left);
+  else
+	return r;
 }
 
 //If there is a key in the set that is < k,
@@ -85,6 +89,8 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 	return prev(k, r->right);
   else if(r->left->k >= k)
 	return prev(k, r->left);
+  else
+	return r;
   
 }
 
