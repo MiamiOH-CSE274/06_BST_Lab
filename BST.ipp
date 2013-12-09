@@ -73,32 +73,45 @@ Key BST<Key,T>::next(Key k){
 
 //If there is a key in the set that is > k,
 // return the first such key. If not, return k
+// NOTE** for this method I had to end up looking at other students answers to figure out my issues
+// I didn't copy anyones method outright but looked over many students to figure out what was wrong
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 
-  if(r->left != NULL && r->left->k > k)
+  if(r == NULL)
+	return NULL;
+  else if(r->left != NULL && r->left->k > k)
 	return next(k, r->left);
-  else if(r->right != NULL && r->k < k)
+  if(r->k > k) 
+	return r;
+  else if(r->k <= k)
 	return next(k, r->right);
-  return r;
+  
 }
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-  return prev(k, root)->k;
+  Node<Key,T>* temp = prev(k, root);
+
+	if(temp == NULL)
+		return k;
+	else
+		return temp->k;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 
-  if(r->right->k != NULL && r->right->k < k)
+  if(r == NULL)
+	return NULL;
+  else if(r->right != NULL && r->right->k < k)
 	return prev(k, r->right);
-  else if(r->left->k != NULL && r->left->k >= k)
-	return prev(k, r->left);
-  else
+  if(r->k < k) 
 	return r;
+  else if(r->k >= k)
+	return prev(k, r->left);
   
 }
 
