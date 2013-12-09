@@ -43,9 +43,9 @@ void BST<Key,T>::remove(Key k){
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
-  if(find(k) == NULL )
+  if(find(k, root) == NULL )
 	throw std::string("No such item");
-  return find(k)->data;
+  return find(k);
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
@@ -68,9 +68,10 @@ Key BST<Key,T>::next(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
+	
   if(r->right->k > k)
 	return next(k, r->right);
-  else(r->left->k > k)
+  else if(r->left->k > k)
 	return next(k, r->left);
   else
 	return r;
@@ -156,11 +157,13 @@ template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 
   if(r == NULL)
-	return NULL;
-  else if (r->k < k)
-	r = find(k, r->left);
+	throw std::string("Item does not exist");
+  if(r->k == k)
+	return r;
+  else if(r->k < k)
+	return find(k, r->right);
   else if(r->k > k)
-	r = find(k, r->right);
+	return find(k,r->left);
   else
 	return r;
 }
