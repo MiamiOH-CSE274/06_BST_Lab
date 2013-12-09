@@ -49,16 +49,10 @@ T BST<Key,T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  Node<Key,T>* r = root;
-  while(r != NULL) {
-	if(r->k < k)
-		r = root->left;
-	else if (r->k > k)
-		r = r->right;
-	else if(r->k == k)
-		return true;
-  }
-  return false;
+  if(find(k, root) == NULL)
+	return false;
+  else
+	return true;
 }
 
 //If there is a key in the set that is > k,
@@ -150,13 +144,14 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
+
   if(r == NULL)
 	return NULL;
   else if (r->k < k)
 	r = find(k, r->left);
   else if(r->k > k)
 	r = find(k, r->right);
-  else if(r->k == k)
+  else
 	return r;
 }
 
