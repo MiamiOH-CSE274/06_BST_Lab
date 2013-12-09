@@ -58,10 +58,10 @@ Questions
 
 1. Using the post order number I would take the largest item in the subtree minus the smallest item and add 1 to get the size. 
 
-2. 
+2. If U is a leaf node then you can take the preOrder number - the postOrder number to get the depth.  Otherwise I can't figure out how to get it.
 
 3. Using the pre order number I would take u's number and compare it to w's number, if u is less than w then it is it's ancestor.
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
-The next() and prev() methods ended up taking way more time than I would have thought, the logic was actually quite confusing.
+The next() and prev() methods ended up taking way more time than I would have thought, the logic was actually quite confusing. Also the questions for this homework were much more challenging than some of the previous questions in the past.
