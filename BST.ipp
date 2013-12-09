@@ -71,9 +71,9 @@ Key BST<Key,T>::next(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 	
-  if(r->left->k != NULL && r->left->k > k)
+  if(r->left != NULL && r->left->k > k)
 	return next(k, r->left);
-  else if(r->right->k != NULL && r->right->k <= k)
+  else if(r->right != NULL && r->right->k <= k)
 	return next(k, r->right);
   else
 	return r;
@@ -120,7 +120,7 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-  //Trying the books implementation of this method(without using splice())
+  
   if(r->right == NULL && r->left == NULL) {
 	delete r;
 	return NULL;
