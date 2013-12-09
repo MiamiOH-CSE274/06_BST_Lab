@@ -180,6 +180,8 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   return r;
 }
 
+//Remove method was figured out while working with Doug Blaise
+//while studying for exam, our methods could be similar.
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
     if (r == NULL)
