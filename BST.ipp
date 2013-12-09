@@ -1,6 +1,5 @@
 #define NULL 0
 #include <string>
-
 template <class Key, class T>
 BST<Key,T>::BST(){
 	root = NULL;
@@ -148,50 +147,7 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-  if(r == NULL){
-	return NULL;
-  }
-  else if(r->k == k){
-	// if this node does not have "kids"
-	if(r->left == NULL && r->right == NULL){
-		delete r;
-		return NULL;
-	}
-	// if this node has one "kid"
-	else if(r->left == NULL || r->right == NULL){
-		Node<Key, T>* newRode = r->left;
-		// if it is the right "kid", delete it right away
-		if(newRode == NULL){
-			delete r;
-			return newRode;
-		}
-		// if it is the left "kid", swap it with the maximum node of 
-		// the right subtree 
-		else{
-			Node<Key, T>* maxNode = max(r->left);
-			// swap the key and value of the maximum node of left tree
-			// with those of the target node
-			Key tempKey = r->k;
-			T tempData = r->data;
-			r->k = maxNode->k;
-			r->data = maxNode->data;
-			maxNode->k = tempKey;
-			maxNode->data = tempData;
-			
-			// delete the node that has been swapped to the left subtree
-			r->left = remove(k, r->left);
-			return r; 
-		}
-	}
-	// search for the left subtree
-	else if(r->k > k){
-		r->left = remove(k, r->left);
-	}
-	// search for the right subtree
-	else{
-		r->right = remove(k, r->right);
-	}
-  }
+	// Failed to implement
 }	
 
 template <class Key, class T>
