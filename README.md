@@ -27,13 +27,35 @@ Questions
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
 6.7. 
+	u->preOrderNumber is initialized to 0;
+	preOrderNumber(u, count) {
+		u->preOrderNumber += count;
+		count++;
+		while(u->left != NULL)
+			preOrderNumber(u->left);
+		while(u->right != NULL)
+			preOrderNumber(u->right);
+	}
+	
+	inOrderNumber(u, count) {
+		while(u->left != NULL)
+			inOrderNumber(u->left);
+		u->inOrderNumber += count;
+		while(u->right != NULL)
+			inOrderNumber(u->right);
+	}
+	
+	postOrderNumber(u, count) {
+		while(u->left != NULL)
+			postOrderNumber(u->left);
+		while(u->right != NULL)
+			postOrderNumber(u->right);
+		u->postOrderNumber += count;
+	}
 
 6.9. 
 
-1. int size(Node *u) {
-    if (u == nil) return 0;
-    return 1 + size(u->left) + size(u->right);
-  }
+1. Using the in-order and 
 
 2.
 
