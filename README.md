@@ -63,7 +63,7 @@ postOrderNumbers(int numToAssign, Node* cur) {
 }
 6.9
 	1. You can use postOrder numbers to deterimne the size of the subtree rooted at U, as that will be the postOrder number of U.
-	2. You can use the preOrder of U to determine the depth of the tree at U.
+	2. You can use the postOrder numbers to determine the depth of U. If you take the postOrder number of U and subtract the post order number of it's maximum child, the difference will be the depth of U.
 	3.  You can use the postOrder number to determine if U is an ancesstor of W, because if W's post order number is smaller than U's then U is an ancestor of W.
 
 
