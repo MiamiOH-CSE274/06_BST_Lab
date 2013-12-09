@@ -10,7 +10,7 @@ BST<Key,T>::BST(){
 template <class Key, class T>
 BST<Key,T>::~BST(){
   //De-allocate any allocated memory
-  while(size > 0)
+  while(size() > 0)
 	remove(root->k);
 }
   
@@ -94,15 +94,15 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   if(keyExists(k)) {
-	find(k).data = x;
+	find(k,r)->data = x;
   }
   else if(r == NULL) {
-	Node<Key,T>* newNode;
-	newNode->k = k;
-	newNode->data = x;
-	newNode->left = NULL;
-	newNode->right = NULL;
-	return newNode;
+    r = new Node<Key, T>;
+	r->k = k;
+	r->data = x;
+	r->left = NULL;
+	r->right = NULL;
+	return r;
   }
   else if(k < r->k)
 	return add(k, x, r->left);
@@ -113,22 +113,37 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-  //Trying the books implementation of this method
+  //Trying the books implementation of this method(without using splice())
   
   if(keyExists(k)) {
-	Node<Key,T>* temp = find(k, r);
 
-	if(temp->right == NULL && temp->left == NULL) {
-		delete temp;
+	if(r->right == NULL && r->left == NULL) {
+		delete r;
 		return NULL;
 	}
-	else if(temp->right == NULL || temp->left == NULL) {
-		if(temp->right == NULL) {
-			prev(k, temp)->left = temp->left;
+	else if(r->right == NULL || r->left == NULL) {
+		if(r->right == NULL) {
+			prev(k, r)->left = r->left;
+			delete r;
+			return NULL;
 		}
 		else {
-			prev(k, temp)->right = temp->right;
+			prev(k, r)->right = r->right;
+			delete r;
+			return NULL;
 		}
+	}
+	else {
+		if(prev(k,r)->right == r) {
+			prev(k,r)->right = min(r);	
+			delete r;
+			return NULL;
+		}
+		else {
+			prev(k,r)->left = min(r);
+			delete r;
+			return NULL;
+		}		
 	}
   }
 }
