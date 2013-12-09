@@ -26,7 +26,8 @@ Questions
 
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
-6.7. 
+6.7:
+```
 	u->preOrderNumber is initialized to 0;
 	preOrderNumber(u, count) {
 		u->preOrderNumber += count;
@@ -52,14 +53,14 @@ Questions
 			postOrderNumber(u->right);
 		u->postOrderNumber += count;
 	}
+```
+6.9: 
 
-6.9. 
+1. Using the post order number I would take the largest item in the subtree minus the smallest item and add 1 to get the size. 
 
-1. Using the in-order and 
+2. 
 
-2.
-
-3.
+3. Using the pre order number I would take u's number and compare it to w's number, if u is less than w then it is it's ancestor.
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
