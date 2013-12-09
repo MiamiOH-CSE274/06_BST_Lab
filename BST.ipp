@@ -69,10 +69,10 @@ Key BST<Key,T>::next(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 	
-  if(r->right->k > k)
-	return next(k, r->right);
-  else if(r->left->k > k)
+  if(r->left->k != NULL && r->left->k > k)
 	return next(k, r->left);
+  else if(r->right->k != NULL && r->right->k <= k)
+	return next(k, r->right);
   else
 	return r;
 }
@@ -86,9 +86,10 @@ Key BST<Key,T>::prev(Key k){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-  if(r->right->k < k)
+
+  if(r->right->k != NULL && r->right->k < k)
 	return prev(k, r->right);
-  else if(r->left->k >= k)
+  else if(r->left->k != NULL && r->left->k >= k)
 	return prev(k, r->left);
   else
 	return r;
@@ -107,49 +108,45 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	r->right = NULL;
 	return r;
   }
-  else if(k < r->k)
-	return add(k, x, r->left);
-  else if(k > r->k)
-	return add(k, x, r->right);
   else if(r->k == k)
 	r->data = x;
+  else if(r->k < k)
+	return add(k, x, r->right);
+  else if(r->k > k)
+	return add(k, x, r->left);
   return r;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   //Trying the books implementation of this method(without using splice())
-  
-  if(keyExists(k)) {
-
-	if(r->right == NULL && r->left == NULL) {
+  if(r->right == NULL && r->left == NULL) {
+	delete r;
+	return NULL;
+  }
+  else if(r->right == NULL || r->left == NULL) {
+	if(r->right == NULL) {
+		prev(k, r)->left = r->left;
 		delete r;
 		return NULL;
 	}
-	else if(r->right == NULL || r->left == NULL) {
-		if(r->right == NULL) {
-			prev(k, r)->left = r->left;
-			delete r;
-			return NULL;
-		}
-		else {
-			prev(k, r)->right = r->right;
-			delete r;
-			return NULL;
-		}
+	else {
+		prev(k, r)->right = r->right;
+		delete r;
+		return NULL;
+	}
+  }
+  else {
+	if(prev(k,r)->right == r) {
+		prev(k,r)->right = min(r);	
+		delete r;
+		return NULL;
 	}
 	else {
-		if(prev(k,r)->right == r) {
-			prev(k,r)->right = min(r);	
-			delete r;
-			return NULL;
-		}
-		else {
-			prev(k,r)->left = min(r);
-			delete r;
-			return NULL;
-		}		
-	}
+		prev(k,r)->left = min(r);
+		delete r;
+		return NULL;
+	}		
   }
 }
 
@@ -157,15 +154,14 @@ template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 
   if(r == NULL)
-	throw std::string("Item does not exist");
-  if(r->k == k)
+	return NULL;
+  else if(r->k == k)
 	return r;
   else if(r->k < k)
 	return find(k, r->right);
-  else if(r->k > k)
-	return find(k,r->left);
   else
-	return r;
+	return find(k,r->left);
+
 }
 
 //Find the item in the sub-tree rooted at r which has the largest key
@@ -175,7 +171,7 @@ Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
 	return r;
   //Logic behind this is that if the tree is setup correctly, the last node on the right should be the largest
   while(r->right != NULL) {
-	r = max(r->right);
+	return max(r->right);
   }
 
   return r;
@@ -188,7 +184,7 @@ Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
 	return r;
   //Logic behind this is that if the tree is setup correctly, the last node on the left should be the smallest
   while(r->left != NULL) {
-	r = min(r->left);
+	return min(r->left);
   }
 
   return r;
