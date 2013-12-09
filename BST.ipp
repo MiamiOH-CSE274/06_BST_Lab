@@ -30,20 +30,22 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-  add(k, x, root);
+  root = add(k, x, root);
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
-  remove(k, root);
+  root = remove(k, root);
 }
 
 //Return the item with Key k. 
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
-  return find(k, root)->data;
+  if(find(k) == NULL )
+	throw std::string("No such item");
+  return find(k)->data;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
@@ -62,10 +64,12 @@ Key BST<Key,T>::next(Key k){
   return next(k, root)->k;
 }
 
+//If there is a key in the set that is > k,
+// return the first such key. If not, return k
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+ if(r->left->k > k)
+	return next()
 }
 
 //If there is a key in the set that is < k,
@@ -87,10 +91,8 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-  if(keyExists(k)) {
-	find(k,r)->data = x;
-  }
-  else if(r == NULL) {
+
+  if(r == NULL) {
     r = new Node<Key, T>;
 	r->k = k;
 	r->data = x;
@@ -102,6 +104,8 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	return add(k, x, r->left);
   else if(k > r->k)
 	return add(k, x, r->right);
+  else if(r->k == k)
+	r->data = x;
   return r;
 }
 
