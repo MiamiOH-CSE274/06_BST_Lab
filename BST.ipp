@@ -188,7 +188,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){//private version, switch
 	} else{
 		above = toDelete->right;
 		toSwap = min(toDelete->right);
-		while(above->right->k > toSwap->k){
+		while(above->left->k > toSwap->k){
 				above = above->left;
 		}
 		if(toSwap->right != NULL)
