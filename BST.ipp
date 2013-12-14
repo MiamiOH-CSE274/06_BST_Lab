@@ -167,17 +167,33 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){ //must check if r is n
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){//private version, switches keys and Ts instead of dealing with relinking the root.
-	Node<Key,T> *toDelete = find(k,r), *toSwap;
+	Node<Key,T> *toDelete = find(k,r), *toSwap, *above;
 	if(toDelete==NULL)
 		return r;
+	
 	
 	if(toDelete->right == NULL){ //the idea here is to swap k and t between two nodes. the original, to be deleted, is actually saved
 		if(toDelete->left == NULL){ //and the one it takes values from, is deleted in its place. Using the minimum of the right subtree or the maximum
 			toSwap = toDelete;      //of the left subtree maintains BST order.
-		} else
+		} else{
+			above = toDelete->left;
 			toSwap = max(toDelete->left);
-	} else
+			while(above->right->k < toSwap->k){
+				above = above->right;
+			}
+			if(toSwap->left != NULL)
+				above->right = toSwap->left; //makes sure no child gets left behind
+		}
+			
+	} else{
+		above = toDelete->right;
 		toSwap = min(toDelete->right);
+		while(above->left->k > toSwap->k){
+				above = above->left;
+		}
+		if(toSwap->right != NULL)
+			above->left = toSwap->right; //makes sure no child gets left behind
+	}
 
 	toDelete->data = toSwap->data;
 	toDelete->k = toSwap->k;
