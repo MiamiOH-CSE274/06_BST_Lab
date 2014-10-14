@@ -1,6 +1,11 @@
 #define NULL 0
 #include <string>
 
+//find will take O(lgn)
+//add & remove will be O(n)
+//next & prev will be O(lgn)
+//hash is O(1) for everything except next/prev which is O(n)
+
 template <class Key, class T>
 BST<Key,T>::BST(){
   //TODO
