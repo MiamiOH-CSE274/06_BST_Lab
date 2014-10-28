@@ -112,16 +112,20 @@ void BST<Key, T>::remove(Key k){
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key, T>::find(Key k){
-	//TODO
-	T fakeT;
-	return fakeT;
+	Node<Key, T>* possibleKey = find(k, root);
+	if (possibleKey == NULL)
+		throw std::string("No such element exists");
+	else
+		return possibleKey->data;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
 template <class Key, class T>
 bool BST<Key, T>::keyExists(Key k){
-	//TODO
-	return false;
+	if (find(k, root) == NULL)
+		return false;
+	else
+		return true;
 }
 
 //If there is a key in the set that is > k,
@@ -168,8 +172,14 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	if (r == NULL)
+		return NULL;
+	else if (r->k == k)
+		return r;
+	else if (k < r->k)
+		return find(k, r->left);
+	else
+		return find(k, r->right);
 }
 
 template <class Key, class T>
