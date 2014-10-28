@@ -66,7 +66,6 @@ private:
 	//Find the next/prev node, and return its address
 	virtual Node<Key,T>* next(Key k, Node<Key,T>* r);
 	virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
-
 };
 
 #include <string>
@@ -76,7 +75,7 @@ private:
 template <class Key, class T>
 BST<Key, T>::BST()
 {
-	//TODO
+	root = new Node();
 }
 
 template <class Key, class T>
@@ -150,7 +149,7 @@ Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r)
 	return NULL;
 }
 
-//If there is a key in the set that is < k,
+// If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::prev(Key k)
@@ -184,20 +183,45 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r)
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r)
 {
-	//TODO
-	return NULL;
+	if (r == NULL) {
+		// we were handed a root that is NULL, key doesnt exist
+		
+		return NULL;
+	}
+	
+	if (r->k == k) {
+		// found what we wanted
+		
+		return r;
+	}
+
+	if (k < r->k) {
+		// we need to look left
+
+		return find(k, r->left);
+	} else {
+		// we need to look right
+
+		return find(k, r->right);
+	}
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r)
 {
-	//TODO
-	return NULL;
+	if (r->right == NULL) {
+		return r->data;
+	}
+	
+	return max(r->right);
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r)
 {
-	//TODO
-	return NULL;
+	if (r->left == NULL) {
+		return r->data;
+	}
+
+	return min(r->left);
 }
