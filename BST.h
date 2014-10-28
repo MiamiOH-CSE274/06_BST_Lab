@@ -190,15 +190,45 @@ Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r)
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r)
 {
-	//TODO
-	return NULL;
+	if (r->k == k) {
+		// node already exists, overwrite data
+
+		r->data = x;
+
+		return r;
+	}
+
+	if (r == NULL) {
+		// found where this node should go
+		
+		r = new Node();
+		r->k = k;
+		r->x = x;
+		r->left = NULL;
+		r->right = NULL;
+
+		return r;
+	}
+
+	if (k < r->k) {
+		// look left
+
+		Node<Key, T> *new_node = add(k, x, r->left);
+		r->left = new_node;
+	} else {
+		// look right
+
+		Node<Key, T> *new_node = add(k, x, r->right);
+		r->right = new_node;
+	}
+
+	return r;
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r)
 {
-	//TODO
-	return NULL;
+	
 }
 
 template <class Key, class T>
