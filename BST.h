@@ -74,12 +74,13 @@ private:
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-  //TODO
+  root = new Node<Key, T>();
+
 }
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  //TODO
+  delete root;
 }
   
 //Return the number of items currently in the SSet
@@ -120,8 +121,9 @@ T BST<Key,T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  //TODO
-  return false;
+  if (find(k, root) == NULL)
+	return false;
+  return true;
 }
 
 //If there is a key in the set that is > k,
@@ -156,20 +158,45 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-  //TODO
-  return NULL;
+  if (r == NULL){
+	 Node<Key, T>* newNode = new Node<Key, T>();
+	 newNode->k = k;
+	 newNode->data = x;
+	 return newNode;
+  }
+
+  else if (r->k == k) {
+	  r->data = x;
+	  return r;
+  }
+
+  else if (k < r->k) {
+	  r->left = add(k,x,r->left);
+	  return r;
+  }
+  else {
+	  r->right = add(k,x,r->right);
+	  return r;
+  }
+	  
+  
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+	return NULL;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+   if (r == NULL)
+	return NULL;
+  else if (r->k == k)
+	  return r;
+  else if (k < r->k)
+	  return find(k, r->left);
+  else
+	  return find(k, r->right);
 }
 
 template <class Key, class T>
