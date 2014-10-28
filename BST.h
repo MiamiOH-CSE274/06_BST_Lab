@@ -88,15 +88,17 @@ BST<Key, T>::~BST()
 template <class Key, class T>
 unsigned long int BST<Key, T>::size()
 {
-	//TODO
-	return 0;
+	return size(root);
 }
 
 template <class Key, class T>
 unsigned long BST<Key, T>::size(Node<Key, T>* r)
 {
-	//TODO
-	return 0;
+	if (r == NULL) {
+		return 0;
+	}
+
+	return 1 + size(r->left) + size(r->right);
 }
 
 //Add a new item, x, with Key k.
@@ -104,14 +106,30 @@ unsigned long BST<Key, T>::size(Node<Key, T>* r)
 template <class Key, class T>
 void BST<Key, T>::add(Key k, T x)
 {
-	//TODO
+	Node<Key, T> *n = find(k, root);
+
+	if (n == NULL) {
+		// doest exist yet
+	} else {
+		// overwrite old data
+
+		n->data = x;
+	}
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key, T>::remove(Key k)
 {
-	//TODO
+	Node<Key, T> *n = find(k, root);
+	
+	if (n == NULL) {
+		// nothing to do
+
+		return;
+	}
+
+	
 }
 
 //Return the item with Key k. 
@@ -119,17 +137,20 @@ void BST<Key, T>::remove(Key k)
 template <class Key, class T>
 T BST<Key, T>::find(Key k)
 {
-	//TODO
-	T fakeT;
-	return fakeT;
+	Node<Key, T> *n = find(k, root);
+
+	if (n == NULL) {
+		throw std::string("error: key does not exist");
+	}
+
+	return n->data;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
 template <class Key, class T>
 bool BST<Key, T>::keyExists(Key k)
 {
-	//TODO
-	return false;
+	return find(k) != NULL;
 }
 
 //If there is a key in the set that is > k,
