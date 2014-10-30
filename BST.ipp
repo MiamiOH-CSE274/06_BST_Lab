@@ -8,7 +8,7 @@
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-  //TODO
+	root = NULL;
 }
 
 template <class Key, class T>
@@ -33,7 +33,8 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-  //TODO
+	add(k, x, root); //WHAT DO I DO HERE?!
+	
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
@@ -46,16 +47,28 @@ void BST<Key,T>::remove(Key k){
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
-  //TODO
-  T fakeT;
-  return fakeT;
+	Node<Key, T>* temp = find(k, root);
+	if (find(k, root) == NULL)	{
+		throw std::string("Couldn't find key in find()");
+	}
+	else
+	{
+		return temp->data;
+	}
+		
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  //TODO
-  return false;
+	if (find(k, root) == NULL)	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+
 }
 
 //If there is a key in the set that is > k,
@@ -90,7 +103,28 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-  //TODO
+	if (r == NULL)	{
+		//didn't find node, so add it
+		r = new Node < Key, T >;
+		r->k = k;
+		r->data = x;
+		r->left = NULL;
+		r->right = NULL;
+
+		return r;
+	}
+	else if (r->k == k)	{
+		//We gotta' overwrite this puppy
+		r->data = x;
+	}
+	else if (k > r->k)	{
+		r->right = add(k, x, r->right);
+	}
+	else {
+		r->left = add(k, x, r->left);
+	}
+	return r;
+
   return NULL;
 }
 
@@ -102,8 +136,18 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+	if (r == NULL)	{
+		return NULL;
+	}
+	else if (r->k == k)	{
+		return r;
+	}
+	else if (k < r->k)	{
+		return find(k, r->left);
+	}
+	else{
+		return find(k, r->right);
+	}
 }
 
 template <class Key, class T>
