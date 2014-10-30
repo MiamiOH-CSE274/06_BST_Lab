@@ -143,17 +143,24 @@ bool BST<Key, T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::next(Key k){
+	// Find the next node using the other
+	// next function
 	Node<Key, T>* nextNode = next(k, root);
+	// If there is no next node, return the same key
 	if (nextNode == NULL)
 		return k;
+	// Otherwise, return the key of the next node
 	else
 		return nextNode->k;
 }
 
+// TODO: probably need to check if k is actually
+// in the tree, and check if find returns NULL
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
 	Node<Key, T>* nextNode;
-	nextNode = find(k, root)->right;
+	// The next node with a key is the one to the right
+	nextNode = find(k, r)->right;
 	return nextNode;
 }
 

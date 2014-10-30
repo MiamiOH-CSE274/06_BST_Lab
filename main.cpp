@@ -96,7 +96,7 @@ void tests(){
 }
 
 int main(){
-  //tests();
-	BST<int, std::string> tree = new BST<int, std::string>();
+  tests();
+  
   return 0;
 }
