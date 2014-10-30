@@ -74,7 +74,7 @@ private:
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-  //TODO
+	root = NULL;
 }
 
 template <class Key, class T>
@@ -85,21 +85,26 @@ BST<Key,T>::~BST(){
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-  //TODO
-  return 0;
+	if(root==NULL)
+		return 0;
+	else
+		return 1 + size(root->left) + size(root->right);
 }
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-  //TODO
-  return 0;
+	  if(r==NULL)
+		return 0;
+	else
+		return 1 + size(r->left) + size(r->right);
 }
 
 //Add a new item, x, with Key k.
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-  //TODO
+	root = add(k, x, root);
+	
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
@@ -168,18 +173,21 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+	 return NULL;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
-  //TODO
-  return NULL;
+	if(r-> right == NULL)
+		return r;
+	else
+		max(r->right);
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
-  //TODO
-  return NULL;
+	if(r-> left == NULL)
+		  return r;
+	  else
+		  min(r->left);
 }
