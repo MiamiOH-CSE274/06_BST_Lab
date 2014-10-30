@@ -94,8 +94,10 @@ unsigned long BST<Key, T>::size(){
 
 template <class Key, class T>
 unsigned long BST<Key, T>::size(Node<Key, T>* r){
-	//TODO
-	return 0;
+	if (r == NULL)
+		return 0;
+	else
+		return 1 + size(r->left) + size(r->right);
 }
 
 //Add a new item, x, with Key k.
@@ -115,6 +117,8 @@ void BST<Key, T>::remove(Key k){
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key, T>::find(Key k){
+	// Call the other find that returns a pointer
+	// to either the key or NULL
 	Node<Key, T>* possibleKey = find(k, root);
 	if (possibleKey == NULL)
 		throw std::string("No such element exists");
@@ -125,6 +129,9 @@ T BST<Key, T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key, T>::keyExists(Key k){
+	// If find reached the end of the tree,
+	// it will return NULL and thus the 
+	// key does not exist
 	if (find(k, root) == NULL)
 		return false;
 	else
@@ -135,7 +142,6 @@ bool BST<Key, T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::next(Key k){
-	//TODO
 	Key fakeKey;
 	return fakeKey;
 }
