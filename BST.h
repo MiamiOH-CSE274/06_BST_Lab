@@ -134,16 +134,29 @@ Key BST<Key, T>::next(Key k){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	if(r->right == NULL){
+	if(r->key > k){
+		return next(r->left);
+	} else {
+		return NULL;
+	}
+	} else {
+		return min(r->right);
 }
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::prev(Key k){
-	//TODO
-	return NULL;
+	if(r->left == NULL){
+		if(r->key < k){
+		return next(r->right);
+	} else {
+		return NULL;
+	}		
+	} else {
+		return max(r->left);
+}
 }
 
 template <class Key, class T>
