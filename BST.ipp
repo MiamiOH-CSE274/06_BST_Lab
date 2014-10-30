@@ -33,7 +33,7 @@ unsigned long BST<Key, T>::size(Node<Key, T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key, T>::add(Key k, T x){
-	add(k, x, root); //WHAT DO I DO HERE?!
+	root = add(k, x, root); //WHAT DO I DO HERE?!
 
 }
 
