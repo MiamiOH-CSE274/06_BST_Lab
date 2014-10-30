@@ -34,6 +34,7 @@ class BST : public SSet <Key,T> {
   //Return the item with Key k. 
   // If there is no such item, throw an exception.
   virtual T find(Key k);
+
   //Return true if there is an item with Key k in the table. If not,
   // return false
   virtual bool keyExists(Key k);
@@ -41,9 +42,13 @@ class BST : public SSet <Key,T> {
   //If there is a key in the set that is > k,
   // return the first such key. If not, return k
   virtual Key next(Key k);
+
   //If there is a key in the set that is < k,
   // return the first such key. If not, return k
   virtual Key prev(Key k);
+
+
+
 
 private:
   Node<Key,T>* root;
@@ -69,14 +74,18 @@ private:
   virtual Node<Key,T>* next(Key k, Node<Key,T>* r);
   virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
 
+  virtual Node<Key,T>* removeAll(Key k);
 };
+
+
+
 
 #define NULL 0
 #include <string>
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-  //TODO
+  root = NULL;
 }
 
 template <class Key, class T>
@@ -87,7 +96,6 @@ BST<Key,T>::~BST(){
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-  //TODO
   return 0;
 }
 
@@ -97,7 +105,6 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
   return 0;
 }
 
-//do add() after find()!
 //Add a new item, x, with Key k.
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
@@ -111,7 +118,6 @@ void BST<Key,T>::remove(Key k){
   //TODO
 }
 
-//do find() first!
 //Return the item with Key k. 
 // If there is no such item, throw an exception.
 template <class Key, class T>
@@ -130,17 +136,12 @@ bool BST<Key,T>::keyExists(Key k){
 
 //If there is a key in the set that is > k,
 // return the first such key. If not, return k
+
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
   //TODO
   Key fakeKey;
   return fakeKey;
-}
-
-template <class Key, class T>
-Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
 }
 
 //If there is a key in the set that is < k,
@@ -151,13 +152,11 @@ Key BST<Key,T>::prev(Key k){
   return NULL;
 }
 
-template <class Key, class T>
-Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
-}
 
 
+
+
+//do add() after find()!
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   //TODO
@@ -170,21 +169,55 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   return NULL;
 }
 
+//do find() first!
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
-  //TODO
+  find(key k, node myroot){
+	if(r == NULL){
+		throw std::String("Not found");
+	}
+	else if(r->k == k){
+		return k;
+	}
+	else if(k < r->k){
+		return find(k, r->left)
+	}
+	else {
+		return find(k, r->right)
+	}
+}
+
+
   return NULL;
 }
 
+//go right until you can't anymore
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
   //TODO
   return NULL;
 }
 
+//go left until you can't anymore
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
   //TODO
   return NULL;
 }
 
+//is the min of the right sub-tree
+template <class Key, class T>
+Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
+  //TODO
+  return NULL;
+}
+
+template <class Key, class T>
+Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
+  //TODO
+  return NULL;
+}
+
+template <class Key, class T>
+Node<Key,T>* BST<Key,T>::removeAll(Key k){
+}
