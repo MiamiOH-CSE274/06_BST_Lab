@@ -69,7 +69,6 @@ private:
 
 };
 
-//#include "BST.ipp"
 #define NULL 0
 #include <string>
 
@@ -83,7 +82,11 @@ BST<Key,T>::~BST(){
 	
 }
 
-//Return the number of items currently in the SSet
+template <class Key, class T>
+void BST<Key,T>::removeAll(){
+
+}
+
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
 	return size(root);
@@ -91,26 +94,21 @@ unsigned long BST<Key,T>::size(){
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-	if (r == null)
+	if (r == NULL)
 		return 0;
     return 1 + size(r->left) + size(r->right);
 }
 
-//Add a new item, x, with Key k.
-// If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
 	
 }
 
-//Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
 	
 }
 
-//Return the item with Key k. 
-// If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
 	Node* n = find(k, root);
@@ -121,8 +119,6 @@ T BST<Key,T>::find(Key k){
 	return n->data;
 }
 
-//Return true if there is an item with Key k in the table. If not,
-// return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
 	if (find(k) == NULL)
@@ -145,11 +141,9 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 	Node *n = find(k, r);
 	if (n == NULL)
 		return NULL;
-	return n-right;
+	return min(n-right);
 }
 
-//If there is a key in the set that is < k,
-// return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
 	Node *n = prev(k, root);
@@ -163,7 +157,7 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 	Node *n = find(k, r);
 	if (n == NULL)
 		return NULL;
-	return n-left;
+	return max(n->left);
 }
 
 
@@ -194,16 +188,14 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
-	Node* n = r;
-	while (n->right != NULL)
-		n = n->right;
-	return n;
+	if (r->right != NULL)
+		return r;
+	return max(r->right);
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
-	Node* n = r;
-	while (n->left != NULL)
-		n = n->left;
-	return n;
+	if (r->left != NULL)
+		return r;
+	return min(r->left);
 }
