@@ -19,21 +19,23 @@ BST<Key, T>::~BST(){
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key, T>::size(){
-	//TODO
-	return 0;
+	return size(root);
 }
 
 template <class Key, class T>
 unsigned long BST<Key, T>::size(Node<Key, T>* r){
-	//TODO
-	return 0;
+	if (r == NULL)	{
+		return 0;
+	}
+	else
+		return 1 + size(r->left) + size(r->right);
 }
 
 //Add a new item, x, with Key k.
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key, T>::add(Key k, T x){
-	root = add(k, x, root); //WHAT DO I DO HERE?!
+	root = add(k, x, root); 
 
 }
 
@@ -82,7 +84,15 @@ Key BST<Key, T>::next(Key k){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
-	return r->right;
+	//uses min
+	if(r == NULL){
+		return NULL;
+	}
+	else if(r->right->k > k)	{
+		return r;
+	}
+	else
+		return min(r);
 	
 }
 
@@ -96,8 +106,15 @@ Key BST<Key, T>::prev(Key k){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
-	return r->left;
-	
+	//uses max
+	if(r == NULL){
+		return NULL;
+	}
+	else if(r->left->k > k)	{
+		return r;
+	}
+	else
+		return max(r);
 }
 
 
@@ -152,7 +169,7 @@ Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r){
-	if(r == null)	{
+	if(r == NULL)	{
 		throw std::string("I goofed");
 	}
 	else if (r->right == NULL)	{
@@ -165,7 +182,7 @@ Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
-	if(r == null)	{
+	if(r == NULL)	{
 		throw std::string("I goofed");
 	}
 	else if (r->left == NULL)	{
