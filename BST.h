@@ -97,8 +97,12 @@ unsigned long BST<Key, T>::size(){
 
 template <class Key, class T>
 unsigned long BST<Key, T>::size(Node<Key, T>* r){
-	//TODO
-	return 0;
+	if (r == NULL) {
+		return 0;
+	}
+	else {
+		return 1 + size(r->left) + size(->right);
+	}
 }
 
 //Add a new item, x, with Key k.
@@ -215,7 +219,10 @@ Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r){
-	if (r->right == NULL) {
+	if (r == NULL) {
+		//TODO
+	}
+	else if (r->right == NULL) {
 		return r;
 	}
 	else {
@@ -225,7 +232,10 @@ Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
-	if (r->left == NULL) {
+	if (r == NULL) {
+		//TODO
+	}
+	else if (r->left == NULL) {
 		return r;
 	}
 	else {
