@@ -77,6 +77,7 @@ BST<Key, T>::BST(){
 	Node<Key, T>* root = new Node<Key, T>();
 	root->left = NULL;
 	root->right = NULL;
+	root->k;
 }
 
 template <class Key, class T>
@@ -142,14 +143,18 @@ bool BST<Key, T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::next(Key k){
-	Key fakeKey;
-	return fakeKey;
+	Node<Key, T>* nextNode = next(k, root);
+	if (nextNode == NULL)
+		return k;
+	else
+		return nextNode->k;
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	Node<Key, T>* nextNode;
+	nextNode = find(k, root)->right;
+	return nextNode;
 }
 
 //If there is a key in the set that is < k,
