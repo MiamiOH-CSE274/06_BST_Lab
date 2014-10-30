@@ -75,29 +75,29 @@ bool BST<Key, T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::next(Key k){
-	//TODO
-	Key fakeKey;
-	return fakeKey;
+	Node<Key, T>* tempNode = next(k, root);
+	return tempNode->k;
+	
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	return r->right;
+	
 }
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::prev(Key k){
-	//TODO
-	return NULL;
+	Node<Key, T>* tempNode = prev(k, root);
+	return tempNode->k;
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	return r->left;
+	
 }
 
 
@@ -125,7 +125,7 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 	}
 	return r;
 
-	return NULL;
+	//return NULL;
 }
 
 template <class Key, class T>
@@ -152,12 +152,26 @@ Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r){
-	//TODO
-	return NULL;
+	if(r == null)	{
+		throw std::string("I goofed");
+	}
+	else if (r->right == NULL)	{
+		return r;
+	}
+	else {
+		return max(r->right);
+	}
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
-	//TODO
-	return NULL;
+	if(r == null)	{
+		throw std::string("I goofed");
+	}
+	else if (r->left == NULL)	{
+		return r;
+	}
+	else {
+		return max(r->left);
+	}
 }
