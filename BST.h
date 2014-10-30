@@ -74,7 +74,7 @@ private:
 
 template <class Key, class T>
 BST<Key, T>::BST(){
-	//TODO
+	root = NULL;
 }
 
 template <class Key, class T>
@@ -91,8 +91,10 @@ unsigned long BST<Key, T>::size(){
 
 template <class Key, class T>
 unsigned long BST<Key, T>::size(Node<Key, T>* r){
-	//TODO
+	if(r == NULL){
 	return 0;
+	} else {
+	return 1 + size(r->right) + size(r->left);
 }
 
 //Add a new item, x, with Key k.
@@ -216,3 +218,4 @@ Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
 	}
 }
 
+//Add a removeAll() method to do the destructor.
