@@ -74,10 +74,7 @@ private:
 
 template <class Key, class T>
 BST<Key, T>::BST(){
-	Node<Key, T>* root = new Node<Key, T>();
-	root->left = NULL;
-	root->right = NULL;
-	root->k;
+	Node<Key, T>* root = NULL;
 }
 
 template <class Key, class T>
