@@ -74,12 +74,15 @@ private:
 
 template <class Key, class T>
 BST<Key, T>::BST(){
-	//TODO
+	Node<Key, T>* root = new Node<Key, T>();
+	root->left = NULL;
+	root->right = NULL;
 }
 
 template <class Key, class T>
 BST<Key, T>::~BST(){
-	//TODO
+	delete root;
+	root = NULL;
 }
 
 //Return the number of items currently in the SSet
