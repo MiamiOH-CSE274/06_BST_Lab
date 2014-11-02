@@ -69,13 +69,14 @@ private:
 };
 
 #include <string>
+#include <iostream>
 
-#define NULL 0;
+#define NULL 0
 
 template <class Key, class T>
 BST<Key, T>::BST()
 {
-	root = new Node();
+	root = NULL;
 }
 
 template <class Key, class T>
@@ -84,7 +85,7 @@ BST<Key, T>::~BST()
 	//TODO
 }
   
-//Return the number of items currently in the SSet
+// Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long int BST<Key, T>::size()
 {
@@ -101,38 +102,22 @@ unsigned long BST<Key, T>::size(Node<Key, T>* r)
 	return 1 + size(r->left) + size(r->right);
 }
 
-//Add a new item, x, with Key k.
+// Add a new item, x, with Key k.
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key, T>::add(Key k, T x)
 {
-	Node<Key, T> *n = find(k, root);
-
-	if (n == NULL) {
-		// doest exist yet
-	} else {
-		// overwrite old data
-
-		n->data = x;
-	}
+	root = add(k, x, root);
 }
 
-//Remove the item with Key k. If there is no such item, do nothing.
+// Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key, T>::remove(Key k)
 {
-	Node<Key, T> *n = find(k, root);
-	
-	if (n == NULL) {
-		// nothing to do
-
-		return;
-	}
-
-	
+	root = remove(k, root);
 }
 
-//Return the item with Key k. 
+// Return the item with Key k. 
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key, T>::find(Key k)
@@ -145,29 +130,35 @@ T BST<Key, T>::find(Key k)
 
 	return n->data;
 }
-//Return true if there is an item with Key k in the table. If not,
+
+// Return true if there is an item with Key k in the table. If not,
 // return false
 template <class Key, class T>
 bool BST<Key, T>::keyExists(Key k)
 {
-	return find(k) != NULL;
+	return find(k, root) != NULL;
 }
 
-//If there is a key in the set that is > k,
+// If there is a key in the set that is > k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::next(Key k)
 {
-	//TODO
-	Key fakeKey;
-	return fakeKey;
+	return next(k, root)->k;
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r)
 {
-	//TODO
-	return NULL;
+	if (r == NULL) {
+		throw std::string("error: next was given NULL root");
+	}
+
+	if (r->k > k) {
+		return r;
+	}
+
+	return next(k, r->right);
 }
 
 // If there is a key in the set that is < k,
@@ -175,37 +166,43 @@ Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r)
 template <class Key, class T>
 Key BST<Key, T>::prev(Key k)
 {
-	//TODO
-	return NULL;
+	return prev(k, root)->k;
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r)
 {
-	//TODO
-	return NULL;
+	if (r == NULL) {
+		throw std::string("error: prev was given NULL root");
+	}
+
+	if (r->k < k || r->left == NULL) {
+		return r;
+	}
+
+	return prev(k, r->left);
 }
 
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r)
 {
-	if (r->k == k) {
-		// node already exists, overwrite data
+	if (r == NULL) {
+		// found where this node should go
 
+		r = new Node<Key, T>();
+		r->k = k;
 		r->data = x;
+		r->left = NULL;
+		r->right = NULL;
 
 		return r;
 	}
 
-	if (r == NULL) {
-		// found where this node should go
-		
-		r = new Node();
-		r->k = k;
-		r->x = x;
-		r->left = NULL;
-		r->right = NULL;
+	if (r->k == k) {
+		// node already exists, overwrite data
+
+		r->data = x;
 
 		return r;
 	}
@@ -260,8 +257,12 @@ Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r)
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r)
 {
+	if (r == NULL) {
+		throw std::string("error: NULL root passed to max");
+	}
+	
 	if (r->right == NULL) {
-		return r->data;
+		return r;
 	}
 	
 	return max(r->right);
@@ -270,8 +271,12 @@ Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r)
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r)
 {
+	if (r == NULL) {
+		throw std::string("error: NULL root passed to min");
+	}
+	
 	if (r->left == NULL) {
-		return r->data;
+		return r;
 	}
 
 	return min(r->left);
