@@ -32,6 +32,7 @@ class BST : public SSet <Key,T> {
   //Return the item with Key k. 
   // If there is no such item, throw an exception.
   virtual T find(Key k);
+
   //Return true if there is an item with Key k in the table. If not,
   // return false
   virtual bool keyExists(Key k);
@@ -39,6 +40,7 @@ class BST : public SSet <Key,T> {
   //If there is a key in the set that is > k,
   // return the first such key. If not, return k
   virtual Key next(Key k);
+
   //If there is a key in the set that is < k,
   // return the first such key. If not, return k
   virtual Key prev(Key k);
@@ -74,7 +76,10 @@ private:
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-  //TODO
+	root->k = null;
+	root->data = null;
+	root->left = null
+	root->right = null;
 }
 
 template <class Key, class T>
