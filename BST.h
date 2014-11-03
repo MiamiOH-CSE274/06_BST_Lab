@@ -217,4 +217,10 @@ Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
 	}
 }
 
+template <class Key, class T>
+void BST<Key, T>::removeAll(Key k, Node<Key, T>* r){
+	//TODO
+	return NULL;
+}
+
 //Add a removeAll() method to do the destructor.
