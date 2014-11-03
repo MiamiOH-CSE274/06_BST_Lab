@@ -103,7 +103,15 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-	root = add(k, x, root);
+	if(root == NULL){
+		Node<Key,T>* u;
+		root = u;
+		root->k = k;
+		root->data = x;
+	}
+	else{
+		add(k, x, root);
+	}
 	
 }
 
@@ -161,8 +169,34 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-  //TODO
-  return NULL;
+	if(r->k == k){
+		return NULL;
+	}
+	else if(r->k > k){
+		if(r->left == NULL){
+			Node<Key,T>* u;
+			r->left = u;
+			u->k = k;
+			u->data = x;
+			return u;
+		} else{
+			add(k, x, r->left);
+		}
+
+	}
+	else if(r->k < k){
+		if(r->right == NULL){
+			Node<Key,T>* u;
+			r->right = u;
+			u->k = k;
+			u->data = x;
+			return u;
+		}
+		else{
+			add(k, x, r->right);
+		}
+	}
+	
 }
 
 template <class Key, class T>
