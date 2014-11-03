@@ -1,4 +1,4 @@
-//DO NOT CHANGE THIS FILE
+//Do NOT CHANGE THIS FILE
 //Author: Bo Brinkman
 //Date: 2013/10/01
 
@@ -19,51 +19,54 @@ public:
 	BST();
 	~BST();
   
-	//Return the number of items currently in the SSet
+	// Return the number of items currently in the SSet
 	virtual unsigned long size();
 
-	//Add a new item, x, with Key k.
+	// Add a new item, x, with Key k.
 	// If an item with Key k already exists, overwrite it
 	virtual void add(Key k, T x);
 
-	//Remove the item with Key k. If there is no such item, do nothing.
+	// Remove the item with Key k. If there is no such item, do nothing.
 	virtual void remove(Key k);
 
-	//Return the item with Key k. 
+	// Return the item with Key k. 
 	// If there is no such item, throw an exception.
 	virtual T find(Key k);
-	//Return true if there is an item with Key k in the table. If not,
+	
+	// Return true if there is an item with Key k in the table. If not,
 	// return false
 	virtual bool keyExists(Key k);
 
-	//If there is a key in the set that is > k,
+	// If there is a key in the set that is > k,
 	// return the first such key. If not, return k
 	virtual Key next(Key k);
-	//If there is a key in the set that is < k,
+	// If there is a key in the set that is < k,
 	// return the first such key. If not, return k
 	virtual Key prev(Key k);
 
 private:
 	Node<Key,T>* root;
 
+	T temp;
+
 	virtual unsigned long size(Node<Key,T>* r);
-	//These are the recursive versions of each of your methods.
+	// These are the recursive versions of each of your methods.
 	// You should return the address of the new root node, whether
 	// or not the root node changes.
 	virtual Node<Key,T>* add(Key k, T x, Node<Key,T>* r);
 	virtual Node<Key,T>* remove(Key k, Node<Key,T>* r);
 
-	//This one returns the address of the found node, NULL
+	// This one returns the address of the found node, NULL
 	// if not found
 	virtual Node<Key,T>* find(Key k, Node<Key,T>* r);
 
-	//Find the item in the sub-tree rooted at r which has the smallest key
+	// Find the item in the sub-tree rooted at r which has the smallest key
 	virtual Node<Key,T>* min(Node<Key,T>* r);
 
-	//Find the item in the sub-tree rooted at r which has the largest key
+	// Find the item in the sub-tree rooted at r which has the largest key
 	virtual Node<Key,T>* max(Node<Key,T>* r);
 
-	//Find the next/prev node, and return its address
+	// Find the next/prev node, and return its address
 	virtual Node<Key,T>* next(Key k, Node<Key,T>* r);
 	virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
 };
@@ -144,21 +147,32 @@ bool BST<Key, T>::keyExists(Key k)
 template <class Key, class T>
 Key BST<Key, T>::next(Key k)
 {
-	return next(k, root)->k;
+	Node<Key, T> *ret = next(k, root);
+
+	if (ret == NULL) {
+		return k;
+	}
+	
+	return ret->k;
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r)
 {
-	if (r == NULL) {
-		throw std::string("error: next was given NULL root");
+	Node<Key, T> *n = NULL;
+
+	while (r != NULL) {
+		if (k < r->k) {
+			n = r;
+			r = r->left;
+		} else if (k > r->k || k == r->k) {
+			r = r->right;
+		} else {
+			break;
+		}
 	}
 
-	if (r->k > k) {
-		return r;
-	}
-
-	return next(k, r->right);
+	return n;
 }
 
 // If there is a key in the set that is < k,
@@ -166,23 +180,33 @@ Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r)
 template <class Key, class T>
 Key BST<Key, T>::prev(Key k)
 {
-	return prev(k, root)->k;
+	Node<Key, T> *ret = prev(k, root);
+
+	if (ret == NULL) {
+		return k;
+	}
+	
+	return ret->k;
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r)
 {
-	if (r == NULL) {
-		throw std::string("error: prev was given NULL root");
+	Node<Key, T> *n = NULL;
+
+	while (r != NULL) {
+		if (k > r->k) {
+			n = r;
+			r = r->right;
+		} else if (k < r->k || k == r->k) {
+			r = r->left;
+		} else {
+			break;
+		}
 	}
 
-	if (r->k < k || r->left == NULL) {
-		return r;
-	}
-
-	return prev(k, r->left);
+	return n;
 }
-
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r)
