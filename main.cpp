@@ -95,8 +95,34 @@ void tests(){
 
 }
 
+void my_test(void)
+{
+	std::cout << "----- my tests -----" << std::endl;
+
+	BST<int, int> t;
+	int size = 100;
+
+	for (int i = 0; i < size; i++) {
+		t.add(i, i * i);
+	}
+
+	if (t.size() != size) {
+		std::cout << "error: size of " << t.size() << "should be " << size << std::endl;
+	}
+
+	if (t.next(size / 2) != size / 2) {
+		std::cout << "error: next";
+	}
+
+	if (t.prev(size - 34) != size - 34) {
+		std::cout << "error: prev";
+	}
+}
+
 int main(){
   tests();
+
+  my_test();
 
   return 0;
 }

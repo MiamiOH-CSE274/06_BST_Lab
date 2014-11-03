@@ -85,7 +85,7 @@ BST<Key, T>::BST()
 template <class Key, class T>
 BST<Key, T>::~BST()
 {
-	//TODO
+	
 }
   
 // Return the number of items currently in the SSet
@@ -159,20 +159,31 @@ Key BST<Key, T>::next(Key k)
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r)
 {
-	Node<Key, T> *n = NULL;
-
-	while (r != NULL) {
-		if (k < r->k) {
-			n = r;
-			r = r->left;
-		} else if (k > r->k || k == r->k) {
-			r = r->right;
-		} else {
-			break;
-		}
+	if (r == NULL) {
+		return NULL;
 	}
 
-	return n;
+	if (k < r->k) {
+		// potential candidate, look left for more
+
+		Node<Key, T> *n = next(k, r->left);
+
+		if (n == NULL) {
+			return r;
+		}
+
+		return n;
+	} else {
+		// this is too small, look right
+
+		Node<Key, T> *n = next(k, r->right);
+
+		if (n == NULL) {
+			return NULL;
+		}
+
+		return n;
+	}
 }
 
 // If there is a key in the set that is < k,
@@ -192,20 +203,31 @@ Key BST<Key, T>::prev(Key k)
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r)
 {
-	Node<Key, T> *n = NULL;
-
-	while (r != NULL) {
-		if (k > r->k) {
-			n = r;
-			r = r->right;
-		} else if (k < r->k || k == r->k) {
-			r = r->left;
-		} else {
-			break;
-		}
+	if (r == NULL) {
+		return NULL;
 	}
 
-	return n;
+	if (k > r->k) {
+		// potential candidate, look right for more
+
+		Node<Key, T> *n = prev(k, r->right);
+
+		if (n == NULL) {
+			return r;
+		}
+
+		return n;
+	} else {
+		// this is too big, look left
+
+		Node<Key, T> *n = prev(k, r->left);
+
+		if (n == NULL) {
+			return NULL;
+		}
+
+		return n;
+	}
 }
 
 template <class Key, class T>
