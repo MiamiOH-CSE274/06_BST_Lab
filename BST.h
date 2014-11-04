@@ -247,8 +247,19 @@ Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	if (r == NULL){
+		Node<Key, T>* newNode = new Node<Key, T>();
+		newNode->k = k;
+		newNode->data = x;
+		return newNode;
+	}
+	Node<Key, T>* newSubtreeRoot;
+	if (r->k < k)
+		newSubtreeRoot = add(k, x, r->left);
+	else
+		newSubtreeRoot = add(k, x, r->right);
+	return newSubtreeRoot;
+
 }
 
 template <class Key, class T>
