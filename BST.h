@@ -84,7 +84,8 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-	// I'm not sure if this mehtod needs to do anything more
+	// I'm not sure if this method needs to do anything more
+	// Actually I believe this should recursively delete all nodes originating from the root node
 	delete root;
 }
   
@@ -121,9 +122,14 @@ void BST<Key,T>::remove(Key k){
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
-  //TODO
-  T fakeT;
-  return fakeT;
+  // Calls the private find() using the provided key and the root node
+  T dataReturn = null;
+  dataReturn = find(k, root)->data;
+
+  if (dataReturn == null)
+	  throw std::string("Could not find that key");
+  else
+	  return dataReturn;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
@@ -177,8 +183,15 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+  // recursively looks for a node with key k
+	if (r == null)
+		return null;
+	else if (r->k == k)
+		return r;
+	else if (k < r-k)
+		return find(k, r->left);
+	else
+		return find(k, r->right);
 }
 
 template <class Key, class T>
