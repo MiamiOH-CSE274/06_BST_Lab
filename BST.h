@@ -164,14 +164,6 @@ Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
 	// the right subtree
 	else
 		return next(k, r->right);
-
-//	if (r->k == k)
-//		return r->right;
-//	else if (r->k > k)
-//		return next(k, r->left);
-//	else
-//		return next(k, r->right);
-
 }
 
 //If there is a key in the set that is < k,
