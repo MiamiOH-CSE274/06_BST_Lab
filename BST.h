@@ -68,7 +68,7 @@ private:
   virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
 
 };
-
+//Originality: All code is original with some collaboration with Sam Bowdler and some research on StackOverflow.
 #define NULL 0
 #include <string>
 
