@@ -23,7 +23,10 @@ Questions
 
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
-**Exercise 6.9**
+#####Exercise 6.7
+1. For the in order numbers, you can implement a recursive method that assigns the numbers. Function declaration: `void inOrderNumber(Node* r)`. The base case will be if the root node (r) is NULL, return. Otherwise, call inOrderNumber on the left subtree, then assign a number to r, then call inOrderNumber on the right subtree.
+
+#####Exercise 6.9
 1. // Still working
 2. // Still working
 3. There are two ways to determine if a node u is the ancestor of node w.  First, we can use the preOrder numbers.  Since we label nodes first before their subtrees, the ancestors are labeled first.  Thus, if the preOrder number for u is less than the preOrder number for w, u is an ancestor of w. Alternatively, we can use the postOrder numbers. Since we assign numbers to the subtrees before the root nodes, the ancestors are labeled last. Thus, if the postOrder number for u is greater than the postOrder number for w, u is an ancestor of w.
