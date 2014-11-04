@@ -90,7 +90,7 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-	// calls removeAllNodes(Node<Key, T>* r) which will delete all below the passed node r and will work its way up to deleting the passed node r
+	// calls removeAllNodes(Node<Key, T>* r) which will delete all nodes below the passed node r and will work its way up to deleting the passed node r
 	removeAllNodes(root);
 }
   
@@ -170,17 +170,19 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-  //TODO
-  return NULL;
+	return prev(k, root);
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-  //TODO
 	if (r == null)
 		return null;
-	else if (
-  return NULL;
+	else if (k == r->k)
+		return r;
+	else if (k < r->k)
+		return r->left;
+	else if (k > r->k)
+		return r->right;
 }
 
 
