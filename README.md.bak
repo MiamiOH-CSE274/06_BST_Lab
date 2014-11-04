@@ -30,4 +30,4 @@ inOrderNumber(){ travel down the left child node subtree as far left as you can 
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
-When does using recursion become not practical in real world situations? I didn't think that using recursion in this lab was weird, it seems to make more sense than using a loop but I know that using recursion can quickly create running times that are not suited for real world applications.
+TODO
