@@ -7,13 +7,23 @@
 //hash is O(1) for everything except next/prev which is O(n)
 
 template <class Key, class T>
+BST<Key, T>::removeAll(Node<Key, T>* r){
+	if(r->right == NULL && r->left == NULL) //it's chilling at the bottom
+		delete r;			//delete it
+	if(r->left != NULL)
+		return removeAll(Node<Key, T>* r);
+	else
+		return removeAll(Node<Key, T>* r);
+}
+
+template <class Key, class T>
 BST<Key, T>::BST(){
 	root = NULL;
 }
 
 template <class Key, class T>
 BST<Key, T>::~BST(){
-	//TODO
+	removeAll(root);
 }
 
 //Return the number of items currently in the SSet
