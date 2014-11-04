@@ -151,21 +151,27 @@ Key BST<Key, T>::next(Key k){
 		return nextNode->k;
 }
 
-// TODO: probably need to check if k is actually
-// in the tree, and check if find returns NULL
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
-	if (r->k == k)
-		return r->right;
+	if (r == NULL)
+		return r;
+	// If the key of r is greater than the key we
+	// want, we need to search the left subtree
 	else if (r->k > k)
 		return next(k, r->left);
+	// If the key of r is equal to or less than
+	// the key we are looking for, we should search
+	// the right subtree
 	else
 		return next(k, r->right);
-	
-	//Node<Key, T>* nextNode;
-	//// The next node with a key is the one to the right
-	//nextNode = find(k, r)->right;
-	//return nextNode;
+
+//	if (r->k == k)
+//		return r->right;
+//	else if (r->k > k)
+//		return next(k, r->left);
+//	else
+//		return next(k, r->right);
+
 }
 
 //If there is a key in the set that is < k,
