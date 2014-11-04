@@ -51,7 +51,12 @@ end function
 
 6.9)
 
+1)
 
+2)
+	
+
+3)
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
