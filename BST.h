@@ -155,22 +155,26 @@ bool BST<Key,T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
-  //TODO
-  Key fakeKey;
-  return fakeKey;
+  return next(k, root)->k;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+	if (r == null)
+		return null;
+	else if (k == r->k)
+		return max(r->right);
+	else if (k < r->k)
+		return next(k, r->left);
+	else
+		return next(k, r->right);
 }
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-	return prev(k, root);
+	return prev(k, root)->k;
 }
 
 template <class Key, class T>
@@ -178,11 +182,11 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 	if (r == null)
 		return null;
 	else if (k == r->k)
-		return r;
+		return max(r->left);
 	else if (k < r->k)
-		return r->left;
-	else if (k > r->k)
-		return r->right;
+		return prev(k, r->left);
+	else 
+		return prev(k, r->right);
 }
 
 
@@ -249,7 +253,7 @@ template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
   // recursively finds the max starting from node r
 	if (r == null)
-		break;
+		throw std::string("Can't find that node!");
 	else if (r->right == null)
 		return r;
 	else
@@ -260,7 +264,7 @@ template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
   // recursively finds the min starting from node r
 	if (r == null)
-		break;
+		throw std::string("Can't find that node!");
 	else if (r->left = null)
 		return r;
 	else
