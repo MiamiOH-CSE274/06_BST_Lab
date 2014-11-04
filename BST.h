@@ -76,10 +76,12 @@ private:
 };
 
 #define NULL 0
+#define null 0
 #include <string>
 
 template <class Key, class T>
 BST<Key,T>::BST(){ 
+	root = null;
 	root->k = null;
 	root->data = null;
 	root->left = null
@@ -112,8 +114,7 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-  //TODO
-
+	add(k, x, root);
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
@@ -176,22 +177,39 @@ Key BST<Key,T>::prev(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
   //TODO
+	if (r == null)
+		return null;
+	else if (
   return NULL;
 }
 
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-  //TODO
+	// creates root node if not already made
 	if (root == null){
 		root->k = k;
 		root->data = x;
 		return root;
 	}
-	else if (find(k, root)->k == k)
+	// if a node with that key exists, change the data of that key
+	else if (keyExists(k) == true){
+		find(k, root)->data = x;
 		return find(k, root);
-	else if (
-  return NULL;
+	}
+	// if add() is passed a null node, then it knows to create a new node and return the address of it
+	else if (r == null){
+		Node<Key, T>* newNode = new Node<k, x>*;
+		return newNode;
+	}
+	// returns r's left if k is smaller than r's k
+	else if (k < r->k){
+		return r->left;
+	}
+	// returns r's right if k is greater than r's k
+	else if (k > r->k){
+		return r->right;
+	}
 }
 
 template <class Key, class T>
