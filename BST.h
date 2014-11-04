@@ -18,6 +18,8 @@ class BST : public SSet <Key,T> {
 public:
 	BST();
 	~BST();
+
+	virtual void remove_all(Node<Key, T> *r);
   
 	// Return the number of items currently in the SSet
 	virtual unsigned long size();
@@ -71,7 +73,6 @@ private:
 	virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
 };
 
-#include <string>
 #include <iostream>
 
 #define NULL 0
@@ -85,17 +86,25 @@ BST<Key, T>::BST()
 template <class Key, class T>
 BST<Key, T>::~BST()
 {
-	// while there is a node to the left of root, remove() it
-	while (root->left != NULL) {
-		remove(root->left->k, root);
+	remove_all(root);
+}
+
+template <class Key, class T>
+void BST<Key, T>::remove_all(Node<Key, T> *r)
+{
+	if (r->left == NULL && r->right == NULL) {
+		delete r;
+		r = NULL;
+		return;
 	}
 
-	// while there is a node to the right of root, remove() it
-	while (root->right != NULL) {
-		remove(root->right->k, root);
+	if (r->left != NULL) {
+		remove_all(r->left);
 	}
 
-	delete root;
+	if (r->right != NULL) {
+		remove_all(r->right);
+	}
 }
   
 // Return the number of items currently in the SSet
@@ -167,7 +176,7 @@ Key BST<Key, T>::next(Key k)
 }
 
 template <class Key, class T>
-Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r)
+Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T> *r)
 {
 	if (r == NULL) {
 		return NULL;
