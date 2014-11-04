@@ -79,7 +79,11 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  delete root;
+  while (root != NULL) {
+	  // Explicitly remove root node until all nodes are removed
+	  root->k = 0;
+	  remove(0);
+  }
 }
   
 //Return the number of items currently in the SSet
@@ -105,7 +109,9 @@ void BST<Key,T>::add(Key k, T x){
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
-  //TODO
+	if (!keyExists(k))
+		throw std::string("In remove(), key does not exist");
+	root = remove(k, root);
 }
 
 //Return the item with Key k. 
@@ -138,7 +144,7 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 	  return NULL;
   }
   else if (r->k > k){	  
-	return (r->left == NULL || r->left->k <= k) ? r : next(k,r->left);
+	return (r->left == NULL || r->left->k <= k) ? r : next(k, r->left);
   }   
   else {
 	  return next(k, r->right);
@@ -161,7 +167,7 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 	  return NULL;
   }
   else if (r->k < k){	  
-	return (r->right == NULL || r->right->k >= k) ? r : prev(k,r->right);
+	return (r->right == NULL || r->right->k >= k) ? r : prev(k, r->right);
   }   
   else {
 	  return prev(k, r->left);
@@ -199,7 +205,40 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-	return NULL;
+	if (r->k == k){
+		if (r->left == NULL && r->right == NULL){
+			delete r;
+			return NULL;
+		}
+		else if (r->left != NULL && r->right == NULL){
+			Node<Key, T>* temp = r->left;
+			delete r;
+			return temp;
+		}
+		else if (r->left == NULL && r->right != NULL) {
+			Node<Key, T>* temp = r->right;
+			delete r;
+			return temp;
+		}
+		else {
+			Node<Key, T>* temp = min(r->right);
+			r->k = temp->k;
+			r->data = temp->data;
+			remove(temp->k, temp);
+			return r;
+		}
+	}
+	else if (r->k > k) {
+		r->left = remove(k, r->left);
+		return r;
+	}
+
+	else {
+		r->right = remove(k, r->right);
+		return r;
+	}
+
+	
 }
 
 template <class Key, class T>
