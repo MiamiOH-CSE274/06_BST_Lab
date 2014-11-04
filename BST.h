@@ -72,6 +72,12 @@ private:
 
 };
 
+// Originality: So far I have worked alone, just using our class
+// notes and the book Open Data Structures by Pat Morin.
+
+// Caroline Danzi
+// 4 November 2014
+
 #define NULL 0
 #include <string>
 
