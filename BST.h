@@ -131,12 +131,19 @@ T BST<Key,T>::find(Key k){
   else
 	  return dataReturn;
 }
+
 //Return true if there is an item with Key k in the table. If not,
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  //TODO
-  return false;
+  // tmpKey is set to the key of whatever node the private find() returns and if that equals k then true is returned
+	Key tmpKey = null;
+	tmpKey = find(k, root)->k;
+
+	if (tmpKey == k)
+		return true;
+	else
+		return false;
 }
 
 //If there is a key in the set that is > k,
