@@ -79,7 +79,7 @@ BST<Key, T>::BST(){
 
 template <class Key, class T>
 BST<Key, T>::~BST(){
-	//TODO
+	removeAll(root);
 }
 
 //Return the number of items currently in the SSet
@@ -241,8 +241,7 @@ Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
 }
 
 template <class Key, class T>
-void BST<Key, T>::removeAll(Key k, Node<Key, T>* r){
-	//TODO
-	return NULL;
+void BST<Key, T>::removeAll(Node<Key, T>* r){
+	remove(r->Key);
 }
 
