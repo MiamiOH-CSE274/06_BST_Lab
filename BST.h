@@ -69,6 +69,10 @@ private:
   virtual Node<Key,T>* next(Key k, Node<Key,T>* r);
   virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
 
+  // Recursively removes all nodes connected to root node r
+  // Used in the destructor to properly destroy an entire binary search tree
+  virtual void removeAllNodes(Node<Key,T>* r);
+
 };
 
 #define NULL 0
@@ -110,6 +114,7 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
   //TODO
+
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
@@ -179,6 +184,14 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
   //TODO
+	if (root == null){
+		root->k = k;
+		root->data = x;
+		return root;
+	}
+	else if (find(k, root)->k == k)
+		return find(k, root);
+	else if (
   return NULL;
 }
 
@@ -188,6 +201,10 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
   return NULL;
 }
 
+template <class Key, class T>
+void BST<Key, T>::removeAllNodes(Node<Key, T>* r){
+
+}
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
   // recursively looks for a node with key k
