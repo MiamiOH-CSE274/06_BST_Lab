@@ -120,7 +120,7 @@ void BST<Key,T>::add(Key k, T x){
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
-  //TODO
+	remove(k, root);
 }
 
 //Return the item with Key k. 
@@ -220,8 +220,27 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+	if (keyExists(k) == false)
+		throw std::string("That node doesn't exist!");
+	else if (find(k)->left == null && find(k)->right == null){
+		delete *r; // deletes the contents that r points to
+		delete r; // deletes the pointer so that a dangling pointer is not formed
+		return null;
+	}
+	else if (find(k)->left == null && find(k)->right != null){
+		Node<Key, T>* tmp = find(k)->right;
+		delete find(k);
+		return tmp;
+	}
+	else if (find(k)->left != null && find(k)->right == null){
+		Node<Key, T>* tmp = find(k)->left;
+		delete find(k);
+		return tmp;
+	}
+	else {
+		find(k)->Key = max(find(k)->left);
+		remove(max(find(k)->left), find(k));
+	}
 }
 
 template <class Key, class T>
