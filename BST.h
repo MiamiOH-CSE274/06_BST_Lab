@@ -71,7 +71,7 @@ private:
 
   // Recursively removes all nodes connected to root node r
   // Used in the destructor to properly destroy an entire binary search tree
-  virtual void removeAllNodes(Node<Key,T>* r);
+  virtual Node<Key, T>* removeAllNodes(Node<Key,T>* r);
 
 };
 
@@ -202,8 +202,16 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 }
 
 template <class Key, class T>
-void BST<Key, T>::removeAllNodes(Node<Key, T>* r){
-
+Node<Key, T>* BST<Key, T>::removeAllNodes(Node<Key, T>* r){
+	if (r->left == null && r->right == null){
+		delete *r; // deferences r, deleting the contents that r pointed to
+		delete r; // deletes the pointer r, making sure a dangling pointer is not created
+		break; // I don't think anything can be returned here and I am hoping that break; will cause the call stack to jump back to the previous method call
+	}
+	else if (r->left != null)
+		return removeAllNodes(r->left);
+	else
+		return removeAllNodes(r->right);
 }
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
