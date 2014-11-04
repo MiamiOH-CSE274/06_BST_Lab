@@ -85,8 +85,7 @@ BST<Key, T>::~BST(){
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key, T>::size(){
-	//TODO
-	return 0;
+	return size(root);
 }
 
 template <class Key, class T>
@@ -107,7 +106,7 @@ void BST<Key, T>::add(Key k, T x){
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key, T>::remove(Key k){
-	//TODO
+	remove(k, root);
 }
 
 //Return the item with Key k. 
@@ -121,8 +120,12 @@ T BST<Key, T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key, T>::keyExists(Key k){
-	//TODO
-	return false;
+	if (find(k) != false){
+		return true;
+	}
+	else {
+		return false;
+	}
 }
 
 //If there is a key in the set that is > k,
