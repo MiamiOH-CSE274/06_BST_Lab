@@ -203,12 +203,22 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
-  //TODO
-  return NULL;
+  // recursively finds the max starting from node r
+	if (r == null)
+		break;
+	else if (r->right == null)
+		return r;
+	else
+		return max(r->right);
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
-  //TODO
-  return NULL;
+  // recursively finds the min starting from node r
+	if (r == null)
+		break;
+	else if (r->left = null)
+		return r;
+	else
+		return min(r->left);
 }
