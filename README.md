@@ -24,7 +24,8 @@ Questions
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
 #####Exercise 6.7
-1. For the in order numbers, you can implement a recursive method that assigns the numbers. Function declaration: `void inOrderNumber(Node* r)`. The base case will be if the root node (r) is NULL, return. Otherwise, call inOrderNumber on the left subtree, then assign a number to r, then call inOrderNumber on the right subtree.
+1. For the in order numbers, we can implement a recursive function called inOrderNumber with the following function declaration: `void inOrderNumber(Node* r)`. The base case will be if the root of the subtree (r) is NULL, return. Otherwise, call inOrderNumber on the left subtree, then assign a number to r, then call inOrderNumber on the right subtree.
+2. In order to assing the pre-order numbers, we can implement a recursive function: `void preOrderNumber(Node* r)`. The base case will be if r is NULL, return. Otherwise, assign a number to r, call preOrderNumber on the left subtree of r, then call preOrderNumber on the right subtree of r.
 
 #####Exercise 6.9
 1. // Still working
