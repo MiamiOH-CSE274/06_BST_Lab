@@ -84,20 +84,25 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  //TODO
+	// I'm not sure if this mehtod needs to do anything more
+	delete root;
 }
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
   //TODO
+	
   return 0;
 }
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-  //TODO
-  return 0;
+  // recursively finds the size of a tree from root r
+	if (r == null)
+		return 0;
+	else
+		return 1 + size(r->left) + size(r->right);
 }
 
 //Add a new item, x, with Key k.
