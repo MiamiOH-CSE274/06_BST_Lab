@@ -25,29 +25,29 @@ Questions
 
 6.7)
 
-function pre_order_number(node, number):
+	function pre_order_number(node, number):
 	 if node is null then return
 
 	 node.number = number
 	 pre_order_number(node.left, number + 1)
 	 pre_order_number(node.right, number + 1)
-end function
+	end function
 	 
-function in_order_number(node, number):
+	function in_order_number(node, number):
 	 if node is null then return
 
 	 in_order_number(node.left, number + 1)
 	 node.number = number
 	 in_order_number(node.right, number + 1)
-end function
+	end function
 
-function post_order_number(node, number):
+	function post_order_number(node, number):
 	 if node is null then return
 
 	 post_order_number(node.left, number + 1)
 	 post_order_number(node.right, number + 1)
 	 node.number = number
-end function
+	end function
 
 6.9)
 
