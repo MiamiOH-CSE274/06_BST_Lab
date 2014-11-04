@@ -85,7 +85,17 @@ BST<Key, T>::BST()
 template <class Key, class T>
 BST<Key, T>::~BST()
 {
-	
+	// while there is a node to the left of root, remove() it
+	while (root->left != NULL) {
+		remove(root->left->k, root);
+	}
+
+	// while there is a node to the right of root, remove() it
+	while (root->right != NULL) {
+		remove(root->right->k, root);
+	}
+
+	delete root;
 }
   
 // Return the number of items currently in the SSet
@@ -271,7 +281,57 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r)
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r)
 {
-	
+	if (r == NULL) {
+		return NULL;
+	}
+
+	Node<Key, T> *n;
+
+	if (r->k == k) {
+		// found our node
+
+		if (r->left == NULL && r->right == NULL) {
+			// leaf, we are done
+
+			delete r;
+			r = NULL;
+			return NULL;
+		}
+
+		// find the node that should replace this node
+		if (r->right != NULL) {
+			n = min(r->right);
+		} else {
+			n = max(r->left);
+		}
+
+		// store the new node in a temp variable.  we cant change n or r just yet
+		// because we are about to make another call to remove()
+		Node<Key, T> temp;
+		temp.k = n->k;
+		temp.data = n->data;
+
+		// remove the node that will replace this one. the one found
+		// using min() or max()
+		remove(n->k, r);
+
+		// now update this nodes data with our new nodes data
+		r->k = temp.k;
+		r->data = temp.data;
+
+		return r;
+	}
+
+	if (r->k < k) {
+		// look right
+
+		n = remove(k, r->right);
+		r->right = n;
+	} else {
+		// look left
+		n = remove(k, r->left);
+		r->left = n;
+	}
 }
 
 template <class Key, class T>
