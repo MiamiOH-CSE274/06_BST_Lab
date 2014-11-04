@@ -215,8 +215,30 @@ Key BST<Key, T>::prev(Key k){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	// Base case: if r is NULL, it cannot be
+	// the previous, so return NULL
+	if (r == NULL)
+		return NULL;
+	// Create a variable to store what we currently
+	// think the previous value is
+	Node<Key, T>* currentPrev;
+	// If r's key is less than k, the we should look
+	// in the right subtree for prev
+	if (r->k < k)
+		currentPrev = prev(k, r->right);
+	// If r's key is greater than or equal to k,
+	// look in the left subtree for prev
+	if (r->k >= k)
+		currentPrev = prev(k, r->left);
+	// Once we have a potential value for prev,
+	// we should check if r is a better value.
+	// Specifically, if r is NULL that means 
+	// we have not yet found the prev, so check
+	// if I am the prev
+	if (currentPrev == NULL && r->k < k)
+		currentPrev = r;
+	// Finally, we should return the currentPrev
+	return currentPrev;
 }
 
 
