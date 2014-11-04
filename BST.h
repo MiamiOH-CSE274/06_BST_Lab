@@ -122,7 +122,11 @@ T BST<Key, T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key, T>::keyExists(Key k){
-	return find(k, root);
+	Node<Key,T>* temp = find(k,root);
+	if (temp==NULL){
+		return false;
+	}
+	return true;
 }
 
 //If there is a key in the set that is > k,
@@ -144,7 +148,7 @@ Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){	//min of the right subt
 			return next(k, r->left);
 		}
 		else{
-			return min(r->right);
+			return min(r->left->right);
 		}
 	}
 	else if (k > r->k && r->right != NULL){
@@ -154,6 +158,9 @@ Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){	//min of the right subt
 		else{
 			return min(r->right);
 		}
+	}
+	else{
+		return NULL;
 	}
 }
 
@@ -203,21 +210,27 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 		r->right = NULL;
 		return r;
 	}
-	else if (k < r->k & r->left!=NULL){
-		return add(k, x, r->left);
+	else if (k < r->k && r->left!=NULL){
+		r->left = add(k, x, r->left);
+		return r;
 	}
 	else if (k < r->k){
 		r->left = new Node < Key, T > ;
 		r->left->data = x;
 		r->left->k = k;
+		r->left->left = NULL;
+		return r;
 	}
-	else if (k > r->k & r->right!=NULL){
-		return add(k, x, r->right);
+	else if (k > r->k && r->right!=NULL){
+		r->right=add(k, x, r->right);
+		return r;
 	}
 	else if (k > r->k){
 		r->right = new Node < Key, T > ;
 		r->right->data = x;
 		r->right->k = k;
+		r->right->right = NULL;
+		return r;
 	}
 	else{
 		return r;
