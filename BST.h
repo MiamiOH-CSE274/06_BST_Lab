@@ -91,9 +91,8 @@ BST<Key,T>::~BST(){
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-  //TODO
-	
-  return 0;
+  // makes a call to the private size() with the root node as the parameter
+  return size(root);
 }
 
 template <class Key, class T>
