@@ -187,7 +187,19 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 	if (keyExists(k) == false){
 		throw std::string("Node doesn't exist!");
 	}
-	return NULL;
+	else  if (find(k)->right == NULL && find(k)->left == NULL){
+		delete find(k);
+		prev(k)->right = NULL;
+		next(k)->left = NULL;
+		return  prev(k);
+	}
+	else {
+		find(k)->data = prev(k)->data;
+		find(k)->Key = prev(k)->Key;
+		remove(prev(k)->Key, prev(k));
+	}
+
+	
 }
 
 template <class Key, class T>
