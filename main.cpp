@@ -96,7 +96,7 @@ void tests(){
 }
 
 int main(){
-  //tests();
+  tests();
   BST<int, std::string>* aTree = new BST<int,std::string>();
   try{
 	  (*aTree).find(45);

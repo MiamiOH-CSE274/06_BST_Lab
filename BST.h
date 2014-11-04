@@ -247,10 +247,14 @@ Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
+	// If there is no root node, this new node will
+	// be the root node
 	if (r == NULL){
 		Node<Key, T>* newNode = new Node<Key, T>();
 		newNode->k = k;
 		newNode->data = x;
+		if (root == NULL)
+			root = newNode;
 		return newNode;
 	}
 	Node<Key, T>* newSubtreeRoot;
