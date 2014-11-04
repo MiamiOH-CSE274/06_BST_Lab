@@ -67,6 +67,9 @@ private:
   virtual Node<Key,T>* next(Key k, Node<Key,T>* r);
   virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
 
+  // Recursive method that removes all nodes
+  virtual void removeAll(Node<Key, T>* r);
+
 };
 
 #define NULL 0
@@ -222,5 +225,17 @@ Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
 		return r;
 	else
 		return min(r->left);
+}
+
+template <class Key, class T>
+void BST<Key, T>::removeAll(Node<Key, T>* r){
+	
+	if (r == NULL)
+		return;
+	else{
+		removeAll(r->left);
+		removeAll(r->right);
+		delete r;
+	}
 }
 
