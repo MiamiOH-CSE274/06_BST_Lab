@@ -82,10 +82,6 @@ private:
 template <class Key, class T>
 BST<Key,T>::BST(){ 
 	root = null;
-	root->k = null;
-	root->data = null;
-	root->left = null
-	root->right = null;
 }
 
 template <class Key, class T>
@@ -128,13 +124,8 @@ void BST<Key,T>::remove(Key k){
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
   // Calls the private find() using the provided key and the root node
-  T dataReturn = null;
-  dataReturn = find(k, root)->data;
 
-  if (dataReturn == null)
-	  throw std::string("Could not find that key");
-  else
-	  return dataReturn;
+	  return find(k, root)->data;
 }
 
 //Return true if there is an item with Key k in the table. If not,
@@ -205,7 +196,7 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	}
 	// if add() is passed a null node, then it knows to create a new node and return the address of it
 	else if (r == null){
-		Node<Key, T>* newNode = new Node<k, x>*;
+		Node<Key, T>* newNode = new Node<Key, T>;
 		return newNode;
 	}
 	// returns r's left if k is smaller than r's k
@@ -222,33 +213,30 @@ template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 	if (keyExists(k) == false)
 		throw std::string("That node doesn't exist!");
-	else if (find(k)->left == null && find(k)->right == null){
-		delete *r; // deletes the contents that r points to
-		delete r; // deletes the pointer so that a dangling pointer is not formed
+	else if (find(k, root)->left == null && find(k, root)->right == null){
+		delete r; 
 		return null;
 	}
-	else if (find(k)->left == null && find(k)->right != null){
-		Node<Key, T>* tmp = find(k)->right;
-		delete find(k);
+	else if (find(k, root)->left == null && find(k, root)->right != null){
+		Node<Key, T>* tmp = find(k, root)->right;
+		delete find(k, root);
 		return tmp;
 	}
-	else if (find(k)->left != null && find(k)->right == null){
-		Node<Key, T>* tmp = find(k)->left;
-		delete find(k);
+	else if (find(k, root)->left != null && find(k, root)->right == null){
+		Node<Key, T>* tmp = find(k, root)->left;
+		delete find(k, root);
 		return tmp;
 	}
 	else {
-		find(k)->Key = max(find(k)->left);
-		remove(max(find(k)->left), find(k));
+		find(k, root)->k = max(find(k, root)->left)->k;
+		remove(max(find(k, root)->left)->k, find(k, root));
 	}
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::removeAllNodes(Node<Key, T>* r){
 	if (r->left == null && r->right == null){
-		delete *r; // deferences r, deleting the contents that r pointed to
-		delete r; // deletes the pointer r, making sure a dangling pointer is not created
-		break; // I don't think anything can be returned here and I am hoping that break; will cause the call stack to jump back to the previous method call
+		delete r;
 	}
 	else if (r->left != null)
 		return removeAllNodes(r->left);
