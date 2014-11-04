@@ -89,14 +89,14 @@ BST<Key,T>::~BST(){
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-  //TODO
-  return 0;
+   return size(root);
 }
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-  //TODO
-  return 0;
+  if (r == NULL)
+	  return 0;
+  return 1 + size(r->left) + size(r->right);
 }
 
 //Add a new item, x, with Key k.
