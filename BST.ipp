@@ -10,10 +10,10 @@ template <class Key, class T>
 BST<Key, T>::removeAll(Node<Key, T>* r){
 	if(r->right == NULL && r->left == NULL) //it's chilling at the bottom
 		delete r;			//delete it
-	if(r->left != NULL)
-		return removeAll(Node<Key, T>* r);
-	else
-		return removeAll(Node<Key, T>* r);
+	if(r->left != NULL)			//there is stuff to the left
+		return removeAll(r->left);	
+	else					//there is stuff to the right
+		return removeAll(r->right);	
 }
 
 template <class Key, class T>
