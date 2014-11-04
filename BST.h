@@ -88,9 +88,8 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-	// I'm not sure if this method needs to do anything more
-	// Actually I believe this should recursively delete all nodes originating from the root node
-	delete root;
+	// calls removeAllNodes(Node<Key, T>* r) which will delete all below the passed node r and will work its way up to deleting the passed node r
+	removeAllNodes(root);
 }
   
 //Return the number of items currently in the SSet
