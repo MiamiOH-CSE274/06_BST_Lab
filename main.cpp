@@ -97,7 +97,7 @@ void tests(){
 
 int main(){
   //tests();
-  BST<int, std::string> aTree;
+  BST<int, std::string>* aTree = new BST<int,std::string>();
   std::cout << aTree.next(3);
   return 0;
 }

@@ -83,7 +83,7 @@ private:
 
 template <class Key, class T>
 BST<Key, T>::BST(){
-	Node<Key, T>* root = NULL;
+	root = NULL;
 }
 
 template <class Key, class T>
@@ -253,8 +253,6 @@ void BST<Key, T>::removeAll(Node<Key, T>* r){
 		// rid of the resulting dangling pointer
 		delete r;
 		r = NULL;
-		// Return once finished
-		return;
 	}
 }
 
