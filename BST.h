@@ -115,12 +115,12 @@ void BST<Key, T>::remove(Key k){
 template <class Key, class T>
 T BST<Key, T>::find(Key k){
 	// Call the other find that returns a pointer
-	// to either the key or NULL
-	Node<Key, T>* possibleKey = find(k, root);
-	if (possibleKey == NULL)
+	// to either the Node with key k or NULL
+	Node<Key, T>* foundNode = find(k, root);
+	if (foundNode == NULL)
 		throw std::string("No such element exists");
 	else
-		return possibleKey->data;
+		return foundNode->data;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
