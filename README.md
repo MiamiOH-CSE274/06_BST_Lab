@@ -23,20 +23,18 @@ Questions
 
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
-  preOrderNumber()
-    give root node a number
-    traverse left subtree recursively adding one each time
-    traverse right subtree recursively adding one each time
-  
-  inOrderNumber()
-    traverse left subtree recursively adding one each time
-    give root node the next number
-    traverse right subtree reursively adding one each time
-
-  postOrderNumber()
-    traverse left subtree recursively adding one each time
-    traverse right subtree reursively adding one each time
-    give root node the next number
+    preOrderNumber()
+      give root node a number
+      traverse left subtree recursively adding one each time
+      traverse right subtree recursively adding one each time
+    inOrderNumber()
+      traverse left subtree recursively adding one each time
+      give root node the next number
+      traverse right subtree reursively adding one each time
+    postOrderNumber()
+      traverse left subtree recursively adding one each time
+      traverse right subtree reursively adding one each time
+      give root node the next number
 
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
