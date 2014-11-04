@@ -98,6 +98,12 @@ void tests(){
 int main(){
   //tests();
   BST<int, std::string>* aTree = new BST<int,std::string>();
-  std::cout << (*aTree).prev(45) << std::endl;
+  try{
+	  (*aTree).find(45);
+  }
+  catch(std::string e){
+	  std::cout << "Caught exception: " << e << std::endl;
+  }
+
   return 0;
 }
