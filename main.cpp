@@ -96,7 +96,8 @@ void tests(){
 }
 
 int main(){
-  tests();
-
+  //tests();
+  BST<int, std::string> aTree;
+  std::cout << aTree.next(3);
   return 0;
 }
