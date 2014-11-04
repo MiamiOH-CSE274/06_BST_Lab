@@ -166,17 +166,43 @@ Key BST<Key, T>::next(Key k){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
+	// Base case: if r is NULL, we have reached a leaf
+	// and thus the next cannot be here
 	if (r == NULL)
-		return r;
-	// If the key of r is greater than the key we
-	// want, we need to search the left subtree
-	else if (r->k > k)
-		return next(k, r->left);
-	// If the key of r is equal to or less than
-	// the key we are looking for, we should search
-	// the right subtree
-	else
-		return next(k, r->right);
+		return NULL;
+	// Create a variable to store what we think
+	// the current next value is
+	Node<Key, T>* currentNext;
+	// If r's key is greater than k, we should
+	// search for the next in the left subtree
+	if (r->k > k)
+		currentNext = next(k, r->left);
+	// If r's key is less than or equal to k,
+	// we should search the right subtree for next
+	if (r->k <= k)
+		currentNext = next(k, r->right);
+
+	// Now that we have the current next node,
+	// we should check to see if r is a better
+	// candidate for the next
+	if (currentNext == NULL && r->k > k)
+		currentNext = r;
+
+	// After all this checking and searching,
+	// return the current next
+	return currentNext;
+
+	//if (r == NULL)
+	//	return r;
+	//// If the key of r is greater than the key we
+	//// want, we need to search the left subtree
+	//else if (r->k > k)
+	//	return next(k, r->left);
+	//// If the key of r is equal to or less than
+	//// the key we are looking for, we should search
+	//// the right subtree
+	//else
+	//	return next(k, r->right);
 }
 
 //If there is a key in the set that is < k,
