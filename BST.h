@@ -72,6 +72,7 @@ private:
 
 //Author: Sam Bowdler
 //Date: 2014/10/28
+//Code written by Sam Bowdler with help from colleague Kyle Richardson
 
 #define NULL 0
 #include <string>
@@ -83,7 +84,10 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-	delete root;
+	while (root != NULL){
+		root->k = 0;
+		remove(0);
+	}
 }
 
 template <class Key, class T>
@@ -98,12 +102,12 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-	Node<Key,T>* n = add(k, x, root);
+	root = add(k, x, root);
 }
 
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
-	Node<Key,T>* n = remove(k, root);
+	root = remove(k, root);
 }
 
 template <class Key, class T>
@@ -124,7 +128,7 @@ bool BST<Key,T>::keyExists(Key k){
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
 	Node<Key,T>* n = next(k, root);
-	return n == NULL ? k : n->k;
+	return n != NULL ? n->k : k;
 }
 
 template <class Key, class T>
@@ -132,7 +136,7 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 	if (r == NULL)
 		return NULL;
 	else if (k < r->k)
-		return (r->left == NULL || r->left->k <= k) ? NULL : next(k, r->left);
+		return (r->left == NULL || r->left->k <= k) ? r : next(k, r->left);
 	else
 		return next(k, r->right);
 }
@@ -148,7 +152,7 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 	if (r == NULL)
 		return NULL;
 	else if (k > r->k)
-		return (r->right == NULL || r->right->k >= k) ? NULL : prev(k, r->right);
+		return (r->right == NULL || r->right->k >= k) ? r : prev(k, r->right);
 	else
 		return prev(k, r->left);
 }
@@ -156,12 +160,12 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	if (r == NULL){
-		Node<Key, T>* newNode = new Node<Key, T>();
-		newNode->k = k;
-		newNode->data = x;
-		newNode->left = NULL;
-		newNode->right = NULL;
-		return newNode;
+		Node<Key, T>* n = new Node<Key, T>();
+		n->k = k;
+		n->data = x;
+		n->left = NULL;
+		n->right = NULL;
+		return n;
 	} else if (k == r->k)
 		r->data = x;
 	else if (k < r->k)
@@ -173,20 +177,32 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-	if (r == NULL) 
-		return r;
-	else if (k == r->k) {
-		if (r->left == NULL && r->right == NULL)
+	if (k == r->k) {
+		if (r->left == NULL && r->right == NULL) {
 			delete r;
-		else if (size(r->left) >= size(r->right))
-			r = max(r->left);
-		else
-			r = min(r->right);
-	} else if (k < r->k)
+			return NULL;
+		} else if (r->left != NULL && r->right == NULL) {
+			Node<Key, T>* n = r->left;
+			delete r;
+			return n;
+		} else if (r->left == NULL && r->right != NULL) {
+			Node<Key, T>* n = r->right;
+			delete r;
+			return n;
+		} else {
+			Node<Key, T>* n = min(r->right);
+			r->k = n->k;
+			r->data = n->data;
+			remove(n->k, n);
+			return r;
+		}
+	} else if (r->k > k) {
 		r->left = remove(k, r->left);
-	else
+		return r;
+	} else {
 		r->right = remove(k, r->right);
-	return r;
+		return r;
+	}
 }
 
 template <class Key, class T>
@@ -197,9 +213,8 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 		return r;
 	else if (k > r->k)
 		return find(k, r->right);
-	else if (k < r->k)
+	else
 		return find(k, r->left);
-	return NULL;
 }
 
 template <class Key, class T>
