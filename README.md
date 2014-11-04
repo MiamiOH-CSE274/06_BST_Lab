@@ -23,7 +23,8 @@ Questions
 
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
-TODO
+All functions should be the same, except for a small bit
+
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
