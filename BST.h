@@ -82,7 +82,12 @@ BST<Key, T>::BST(){
 
 template <class Key, class T>
 BST<Key, T>::~BST(){
-	delete root;
+	// Call the private method that deletes all nodes
+	// in the tree, including the root
+	removeAll(root);
+	// To be honest, I am not sure if removeAll actually
+	// sets root to NULL. I think it might, but just in
+	// case I put this in
 	root = NULL;
 }
 
@@ -229,13 +234,21 @@ Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
 
 template <class Key, class T>
 void BST<Key, T>::removeAll(Node<Key, T>* r){
-	
+	// Base case: if the root we are calling on
+	// is actually NULL, return
 	if (r == NULL)
 		return;
 	else{
+		// post-order traversal
 		removeAll(r->left);
 		removeAll(r->right);
+		// After traversing r's left and right
+		// subtrees, we should delete r and get
+		// rid of the resulting dangling pointer
 		delete r;
+		r = NULL;
+		// Return once finished
+		return;
 	}
 }
 
