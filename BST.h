@@ -184,14 +184,16 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
-	//TODO
+	if (keyExists(k) == false){
+		throw std::string("Node doesn't exist!");
+	}
 	return NULL;
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r){
 	if (r == NULL){
-		return false;
+		throw std::string("The node can't be found!");
 	}
 	else if (r->k == k){
 		return r;
@@ -207,7 +209,7 @@ Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r){
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r){
 	if(r == NULL){
-		break;
+		throw std::string("Invalid node!");
 	} else if(r->right == NULL){
 		return r;
 	} else {
@@ -218,7 +220,7 @@ Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r){
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
 	if(r == NULL){
-		break;
+		throw std::string("Invalid node!");
 	} else if(r->left == NULL){
 		return r;
 	} else {
