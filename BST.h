@@ -79,7 +79,7 @@ private:
 #include <string>
 
 template <class Key, class T>
-BST<Key,T>::BST(){
+BST<Key,T>::BST(){ 
 	root->k = null;
 	root->data = null;
 	root->left = null
@@ -219,7 +219,7 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 		return null;
 	else if (r->k == k)
 		return r;
-	else if (k < r-k)
+	else if (k < r->k)
 		return find(k, r->left);
 	else
 		return find(k, r->right);
