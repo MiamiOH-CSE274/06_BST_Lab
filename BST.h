@@ -74,85 +74,106 @@ private:
 
 template <class Key, class T>
 BST<Key,T>::BST(){
-  //TODO
+  root = NULL;
 }
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  //TODO
+  //TODO destructor
 }
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-  //TODO
-  return 0;
+  return size(root);
 }
+
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
-  //TODO
-  return 0;
+  if(r==NULL)
+  { return 0;}
+  else
+	return 1+ size(r->left) + size(r->right);
 }
 
 //Add a new item, x, with Key k.
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-  //TODO
+	root = add(k,x,root);
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
-  //TODO
+	root = remove(k, root);
 }
 
 //Return the item with Key k. 
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
-  //TODO
-  T fakeT;
-  return fakeT;
+	Node<Key, T>* tempNode = find(k, root);
+   T fakeT = tempNode->data;
+   return fakeT;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  //TODO
-  return false;
+  if( find(k, root) !=NULL )
+	  return true;
+  else
+	return false;
 }
 
 //If there is a key in the set that is > k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
-  //TODO
-  Key fakeKey;
-  return fakeKey;
+  Node<Key, T>* tempNode = next(k, root);
+  return tempNode->k;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+	//if r is null, return null. if all the way right and null, return the last valid key.
+	//if left, parent is key.
+
+  if(r==NULL)
+  { return NULL;}
+  else if (k >= r->k)
+  {  Node<Key, T>* tempNode = next(k, r->right);
+	 if(tempNode==NULL) return NULL;	
+  }
+  else
+  {  Node<Key, T>* tempNode = next(k, r->left);
+	 if(tempNode==NULL) return tempNode;
+  }
 }
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-  //TODO
-  return NULL;
+   Node<Key, T>* tempNode = prev(k, root);
+  return tempNode->k;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+    if(r==NULL)
+  { return NULL;}
+  else if (k <= r->k)
+  {  Node<Key, T>* tempNode = next(k, r->left);
+	 if(tempNode==NULL) return NULL;	
+  }
+  else
+  {  Node<Key, T>* tempNode = next(k, r->right);
+	 if(tempNode==NULL) return tempNode;
+  }
 }
-
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
@@ -174,12 +195,20 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
-  //TODO
-  return NULL;
+  if(r==NULL)
+  { return NULL;}
+  else if(r->right ==NULL)
+  { return r;}
+  else
+  { return max(r->right); }
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
-  //TODO
-  return NULL;
+  if(r==NULL)
+  { return NULL;}
+  else if(r->left==NULL)
+  { return r;}
+  else
+  { return min(r->left); }
 }
