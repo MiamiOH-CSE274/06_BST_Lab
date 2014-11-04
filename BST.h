@@ -146,9 +146,23 @@ Key BST<Key,T>::next(Key k){
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 	if (r == NULL) {
-		// TODO: throw exception
+		// TODO: throw exception ?
+		return NULL;
 	} 
-	// TODO
+	if (k < r->k) { // is their k bigger than my k?
+		// Possible candidate, but keep looking.
+
+		Node<Key,T>* n = next(k,r->left);
+
+		if (n->right== NULL) {
+			return n;
+		} // help fuk
+		
+	}
+
+
+	
+
 
   return NULL;
 }
@@ -163,7 +177,14 @@ Key BST<Key,T>::prev(Key k){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-  //TODO
+	if (r == NULL) {
+		return NULL;
+		// TODO: throw exception
+	} 
+	
+
+
+
   return NULL;
 }
 
