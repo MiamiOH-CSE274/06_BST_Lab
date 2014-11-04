@@ -172,8 +172,14 @@ Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	if (keyExists(k) == true){
+		find(k)->data = x;
+	}
+	else {
+		Node<Key, T>* n = new Node<k, x>*;
+		find(prev(k, root))->right = n;
+		return n;
+	}
 }
 
 template <class Key, class T>
@@ -226,4 +232,3 @@ void BST<Key, T>::removeAll(Key k, Node<Key, T>* r){
 	return NULL;
 }
 
-//Add a removeAll() method to do the destructor.
