@@ -313,6 +313,11 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 		// to delete r and then return its child so 
 		// the caller can update its pointer
 		else if (r->left != NULL && r->right == NULL){
+			// THIS CAUSES A DANGLING POINTER THAT COMES INTO PLAY
+			// DURING MY TEST FOR CASE THREE, BUT I AM HAVING TROUBLE
+			// FIGURING OUT HOW TO WRITE THIS PART SO THAT THERE ARE
+			// NO DANGLING POINTERS. If you delete r and set it to null
+			// like you should, then you cannot return r->left
 			Node<Key, T>* tempChild = r->left;
 			delete r;
 			r = NULL;
@@ -350,8 +355,10 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 
 			// Call remove on the new r, so it will go find the 
 			// node with key k, which has been moved to a place
-			// where it is an easier case
-			remove(k, r);
+			// where it is an easier case. Need to call it on
+			// r's left child because it would go to the right
+			// otherwise since the new r's key is less than k
+			remove(k, r->left);
 		}
 	}
 	// Return a pointer to the root of the new subtree
