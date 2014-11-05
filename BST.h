@@ -95,8 +95,11 @@ unsigned long BST<Key, T>::size(){
 
 template <class Key, class T>
 unsigned long BST<Key, T>::size(Node<Key, T>* r){
-	//TODO
-	return 0;
+	
+	if (r == null)
+		return 0;
+
+	if 1 + size(r->left) + size(r->right);
 }
 
 //Add a new item, x, with Key k.
@@ -118,9 +121,14 @@ void BST<Key, T>::remove(Key k){
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key, T>::find(Key k){
-	//TODO
-	T fakeT;
-	return fakeT;
+	
+	Node<Key, T> *n = find(k, root);
+
+	if (n == NULL){
+		throw std::string("Error: The key you supplied doesn't exist");
+	}
+
+	return n->data;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
@@ -134,9 +142,14 @@ bool BST<Key, T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::next(Key k){
-	//TODO
-	Key fakeKey;
-	return fakeKey;
+	
+	Node<Key, T> *ret = next(k, root);
+
+	if (ret == NULL){
+		return k;
+	}
+
+	return ret->k;
 }
 
 template <class Key, class T>
