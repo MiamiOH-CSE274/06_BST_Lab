@@ -351,7 +351,7 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 			// Call remove on the new r, so it will go find the 
 			// node with key k, which has been moved to a place
 			// where it is an easier case
-			return remove(k, r);
+			remove(k, r);
 		}
 	}
 	// Return a pointer to the root of the new subtree
