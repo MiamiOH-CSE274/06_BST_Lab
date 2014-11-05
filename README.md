@@ -49,15 +49,14 @@ Questions
 	 node.number = number
 	end function
 
-6.9)
+6.9)  I found these 3 questions to be pretty difficult.  the answers I give work for the 3 example trees in figure 6.10 in the reading, but im not entirely sure if they always work.
 
 1)
-	given a node u
-		if u.pre = 0
-			size = u.post + 1
-		
-			
 
+	given node u, determine size of subtree rooted at u:
+		node temp = max(u)
+		
+		return temp.pre - u.pre + 1
 2)
 	
 	given node u, determine depth of subtree rooted at u:
