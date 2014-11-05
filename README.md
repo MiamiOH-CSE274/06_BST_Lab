@@ -52,11 +52,19 @@ Questions
 6.9)
 
 1)
+	given a node u
+		if u.pre = 0
+			size = u.post + 1
+		
+			
 
 2)
 	
-
 3)
+	given nodes w and u, determine if u is an ancestor of w:
+		if w.pre > u.pre and w.post < u.post
+			return true
+		return false
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
