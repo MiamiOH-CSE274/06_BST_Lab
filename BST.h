@@ -182,7 +182,7 @@ template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
    Node<Key, T>* tempNode = prev(k, root);
    if(tempNode==NULL)
-	{ throw std::string("prev returned null"); }
+   {  return k;	}
   return tempNode->k;
 }
 
