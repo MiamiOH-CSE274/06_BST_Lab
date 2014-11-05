@@ -46,6 +46,11 @@ class BST : public SSet <Key,T> {
 private:
   Node<Key,T>* root;
 
+  virtual Node<Key, T>* createNode(Key k, T x);
+
+  //removes all descendants of the node
+  virtual void removeAll(Node<Key, T>* r);
+
   virtual unsigned long size(Node<Key,T>* r);
   //These are the recursive versions of each of your methods.
   // You should return the address of the new root node, whether
@@ -86,7 +91,23 @@ BST<Key, T>::BST(){
 
 template <class Key, class T>
 BST<Key, T>::~BST(){
-	//TODO
+	removeAll(root);
+}
+
+//removes all descendants of the node
+template <class Key, class T>
+void BST<Key, T>::removeAll(Node<Key, T>* r) {
+	Node<Key, T>* minNode = min(root);
+	while (minNode != root) {
+		remove(minNode->k);
+		minNode = min(root);
+	}
+	Node<Key, T>* maxNode = max(root);
+	while (maxNode != root) {
+		remove(maxNode->k);
+		maxNode = max(root);
+	}
+	remove(root->k);
 }
 
 //Return the number of items currently in the SSet
@@ -101,7 +122,7 @@ unsigned long BST<Key, T>::size(Node<Key, T>* r){
 		return 0;
 	}
 	else {
-		return 1 + size(r->left) + size(->right);
+		return 1 + size(r->left) + size(r->right);
 	}
 }
 
@@ -109,7 +130,14 @@ unsigned long BST<Key, T>::size(Node<Key, T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key, T>::add(Key k, T x){
-	add(k, x, root);
+	if (root == NULL) {
+		std::cout << "Root before call is NULL" << std::endl;
+	} else {
+	std::cout << "Root before call: " << root->k << std::endl;
+	}
+	std::cout << "Going to add: " << k << std::endl;
+	root = add(k, x, root);
+	std::cout << "Root after call: " << root->k << std::endl;
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
@@ -141,63 +169,123 @@ bool BST<Key, T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::next(Key k){
-	return next(k, root)->k;
+	Node<Key, T>* r2 = next(k, root);
+	if (r2 == NULL) {
+		return k;
+	}
+	return r2->k;
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
-	if (r->right == NULL) {
-		return r;
+	if (r == NULL) {
+		return NULL;
+	}
+	else if (k < r->k) {
+		Node<Key, T>* leftNode = next(k, r->left);
+		if (leftNode == NULL) {
+			return r;
+		}
+		return leftNode;
 	}
 	else {
-		return r->right;
+		Node<Key, T>* rightNode = next(k, r->right);
+		if (rightNode == NULL) {
+			if (k < root->k) {
+				return root;
+			}
+			return NULL;
+		}
+		return rightNode;
 	}
+	
 }
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::prev(Key k){
-	return prev(k, root)->k;
+	Node<Key, T>* r2 = prev(k, root);
+	if (r2 == NULL) {
+		return k;
+	}
+	return r2->k;
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
-	if (r->left == NULL) {
-		return r;
+	if (r == NULL) {
+		return NULL;
+	}
+	else if (k > r->k) {
+		Node<Key, T>* rightNode = prev(k, r->right);
+		if (rightNode == NULL) {
+			return r;
+		}
+		return rightNode;
 	}
 	else {
-		return r->left;
+		Node<Key, T>* leftNode = prev(k, r->left);
+		if (leftNode == NULL) {
+			if (k > root->k) {
+				return root;
+			}
+			return NULL;
+		}
+		return leftNode;
 	}
+	
 }
 
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
-	//TODO
-	//need to give r a value if it is the 1st item added, update r throughout, and reset r in the end?
-	//what if the key we are adding needs to be put in between two other keys?
-	//same trick as when we remove?
-	/*if (r == NULL) {
-		
-	} */
+	if (r == NULL) {
+		r = createNode(k, x);
+		if (root == NULL) {
+			return r;
+		}
+
+		return root;
+
+	}
 	if (k == r->k) {	//if the key already exists, overwrite the data
 		r->data = x;
-		return r;
+		return root;
 	}
 	else if (k < r->k) {	//if the key of the root is larger than the key you are adding
-		add(k, x, r->left); //then search for a place to add it on the left
+		if (r->left == NULL) {	//then search for a place to add it on the left
+			r->left = createNode(k, x);
+			return root;
+		}
+		else {
+			return add(k, x, r->left); 
+		}
 	}
-	else {
-		add(k, x, r->right);	//the key of the root now must be smaller than the key we are adding
-	}							//so search for a place to add it on the left
-	return NULL;
+	else {					//the key of the root now must be smaller than the key we are adding
+		if (r->right == NULL) {	//so search for a place to add it on the left
+			r->right = createNode(k, x);
+			return root;
+		}
+		else {
+		return add(k, x, r->right);	
+		}
+	}							
+}
+
+template <class Key, class T>
+Node<Key, T>* BST<Key, T>::createNode(Key k, T x){
+	Node<Key, T>* newNode = new Node<Key, T>();	//Create new node
+	newNode->k = k;
+	newNode->data = x;
+	newNode->right = NULL;
+	newNode->left = NULL;
+	return newNode;
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 	//TODO
-	//need to update r and reset r in the end
 	return NULL;
 }
 
@@ -220,7 +308,7 @@ Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r){
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r){
 	if (r == NULL) {
-		//TODO
+		return NULL;
 	}
 	else if (r->right == NULL) {
 		return r;
@@ -233,7 +321,7 @@ Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r){
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
 	if (r == NULL) {
-		//TODO
+		return NULL;
 	}
 	else if (r->left == NULL) {
 		return r;
