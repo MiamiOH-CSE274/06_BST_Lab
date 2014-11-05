@@ -43,4 +43,4 @@ In-order: Subtract the number of the rightmost node by the number in the leftmos
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
-Recursion is not simply a thing you have to learn to pass a class, it is an extremely useful resource that is used to solve problems simply and efficiently.
+Recursion is not simply a thing you have to learn to pass a class, it is an extremely useful resource that is used to solve problems simply and efficiently. Also please go over 6.7 and 6.9 in class.
