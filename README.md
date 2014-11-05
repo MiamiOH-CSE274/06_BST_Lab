@@ -63,7 +63,8 @@ Questions
 	given node u, determine depth of subtree rooted at u:
 		node temp = max(u)
 		
-		if temp = null then
+		if temp = u then
+			// this means there were no nodes to the right
 			temp = min(u)
 		
 		// at this point, temp will either be the largest node to the right
