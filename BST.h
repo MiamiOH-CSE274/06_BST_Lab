@@ -72,11 +72,16 @@ private:
 
 };
 
-// Originality: So far I have worked alone, just using our class
-// notes and the book Open Data Structures by Pat Morin.
-
-// Caroline Danzi
-// 4 November 2014
+/* Originality: I used what we discussed in class and notes from
+* the book Open Data Structures by Pat Morin. I worked with
+* Aryelle Player discuss the recursion of next, prev, and add. 
+* We drew pictures on a whiteboard what the methods should do and
+* wrote some psuedo code. I only looked at Aryelle's code once to
+* help her figure out an error message.
+*
+* Caroline Danzi
+* 4 November 2014
+*/
 
 #define NULL 0
 #include <string>
