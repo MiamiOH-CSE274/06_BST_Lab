@@ -282,18 +282,45 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	if (r == NULL) {
+		return NULL;
+	}
+
+	if (r->k == k) {
+		return r;
+	}
+
+	if (k < r->k) {
+		return find(k, r->left);
+	}
+
+	else {
+		return find(k, r->right);
+	}
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r){
-	//TODO
-	return NULL;
+	if (r == NULL) {
+		throw std::string("error: NULL root passed to max");
+	}
+
+	if (r->right == NULL) {
+		return r;
+	}
+
+	return max(r->right);
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
-	//TODO
-	return NULL;
+	if (r == NULL) {
+		throw std::string("error: NULL root passed to min");
+	}
+
+	if (r->left == NULL) {
+		return r;
+	}
+
+	return min(r->left);
 }
