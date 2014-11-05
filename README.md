@@ -79,4 +79,4 @@ Questions
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
-TODO
+I was confused at first how to do every method recusively, but I eventually figured it out after you explained next() and prev() to me again, and after you said to use a helper method in the destructor.  A piece of advice would be to at least try to make every method recursively, even if it is probably easier to do them with loops.
