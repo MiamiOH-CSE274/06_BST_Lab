@@ -18,8 +18,8 @@ Questions
 
 #### 1. Which of the above requirements work, and which do not? For each requirement, write a brief response.
 
-1. TODO
-2. TODO
+1. Recursion is a big thing in the code, so most of the methods besides the destructor and size() functions will be (or should average out to be) O(h).
+2. Because size() has to look at every element in the tree, it is going to be O(n), with n being the number of nodes.
 
 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
@@ -45,8 +45,15 @@ postOrderNumber()
 	count up when it gets to the bottom
 	add one to the current number of nodes, and give this to the root node
 
-6.9
+6.9 (Very confused by this question...)
 6.9.1
+	if u.preOrderNumber = 0
+	size = u.inOrderNumber + 1
+6.9.2
+
+6.9.3
+	if u.inOrderNumber > w.inOrderNumber
+	u will be an ancestor of w
 	
 
 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
