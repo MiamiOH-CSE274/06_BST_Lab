@@ -69,24 +69,28 @@ private:
 
 };
 
+#include <iostream>
+
 #define NULL 0
 #include <string>
 
 template <class Key, class T>
 BST<Key, T>::BST(){
-	//TODO
+	
+	root = NULL;
 }
 
 template <class Key, class T>
 BST<Key, T>::~BST(){
-	//TODO
+	
+	remove_all(root);
 }
 
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key, T>::size(){
-	//TODO
-	return 0;
+	
+	return size(root);
 }
 
 template <class Key, class T>
@@ -99,13 +103,15 @@ unsigned long BST<Key, T>::size(Node<Key, T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key, T>::add(Key k, T x){
-	//TODO
+	
+	root = add(k, x, root);
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key, T>::remove(Key k){
-	//TODO
+	
+	root = remove(k, root);
 }
 
 //Return the item with Key k. 
@@ -120,8 +126,8 @@ T BST<Key, T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key, T>::keyExists(Key k){
-	//TODO
-	return false;
+	
+	return find(k, root) != NULL;
 }
 
 //If there is a key in the set that is > k,
