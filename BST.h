@@ -115,7 +115,7 @@ unsigned long BST<Key, T>::size(Node<Key, T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key, T>::add(Key k, T x){
-	//TODO
+	add(k, x, root);
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
@@ -247,22 +247,30 @@ Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
-	// If there is no root node, this new node will
-	// be the root node
+	// If r is null, we have reached a spot where
+	// we can add the new node with key k and data x
 	if (r == NULL){
-		Node<Key,T>* newNode = new Node<Key,T>();
+		// We need to create a new node that has
+		// key k, data x, and left and right set to NULL
+		Node<Key,T>* newNode = new Node<Key, T>();
 		newNode->k = k;
 		newNode->data = x;
+		newNode->right = NULL;
+		newNode->left = NULL;
+		// If there is no root node, this new node will
+		// be the root node
 		if (root == NULL)
 			root = newNode;
 		return newNode;
 	}
-	Node<Key, T>* newSubtreeRoot;
+	// If k already exists, just change the data
+	if (r->k == k)
+		r->data = x;
+	if (r->k > k)
+		r->left = add(k, x, r->left);
 	if (r->k < k)
-		newSubtreeRoot = add(k, x, r->left);
-	else
-		newSubtreeRoot = add(k, x, r->right);
-	return newSubtreeRoot;
+		r->right = add(k, x, r->right);
+	return r;
 
 }
 
