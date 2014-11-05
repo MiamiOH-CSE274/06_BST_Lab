@@ -97,6 +97,16 @@ void tests(){
 
 int main(){
   tests();
+
+  BST<int, std::string> testTree;
+  testTree.add(10, "cachivache");
+  testTree.add(8, "miracle");
+  testTree.add(12, "dodecahedron");
+  testTree.add(6, "salpicar");
+  testTree.add(5, "locomotive");
+
+  std::cout << testTree.size() << std::endl;
+
   BST<int, std::string>* aTree = new BST<int,std::string>();
   try{
 	  (*aTree).find(45);
