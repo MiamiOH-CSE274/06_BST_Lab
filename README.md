@@ -60,12 +60,22 @@ Questions
 
 2)
 	
+	given node u, determine depth of subtree rooted at u:
+		node temp = max(u)
+		
+		if temp = null then
+			temp = min(u)
+		
+		// at this point, temp will either be the largest node to the right
+		// of u, the largest node to the left if there are no right nodes, or
+		// u if u is a leaf
+		return u.post - temp.post + 1
 3)
 
 	given nodes w and u, determine if u is an ancestor of w:
-	   if w.pre > u.pre and w.post < u.post then
-	       return true
-	   return false
+		if w.pre > u.pre and w.post < u.post then
+			return true
+		return false
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
