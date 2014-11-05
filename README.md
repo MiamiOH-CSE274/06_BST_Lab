@@ -35,4 +35,4 @@ Questions
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
-TODO
+Advice for students: What helped me the most was to draw out pictures on a whiteboard or chalkboard of what happens during recursive methods. I drew a tree, then made a chart of what happens on the way down the call chain (which methods call which) and then what happens on the way back "up" - what does each call return, and what does the caller do with the returned value.
