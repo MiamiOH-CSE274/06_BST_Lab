@@ -154,35 +154,130 @@ Key BST<Key, T>::next(Key k){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	if (r == NULL){
+		return NULL;
+	}
+
+	if (k < r->k){
+		//This MIGHT be it, but it isn't 100% certain yet
+		Node<Key, T> *n = next(k, r->left);
+
+		if (node == NULL)
+			return r;
+
+		return n;
+	}
+
+	else {
+		Node<Key, t> *n = look(k, r->right);
+
+		if (n == NULL)
+			return NULL;
+
+		return n;
+	}
 }
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::prev(Key k){
-	//TODO
-	return NULL;
+	
+	Node<Key, T> *ret = prev(k, root);
+
+	if (ret == NULL){
+		return k;
+	}
+
+	return ret->k;
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	
+	if (r == NULL)
+		return NULL;
+
+	if (k > r->k){
+		Node<Key, T> *n = prev(k, r->right);
+
+		if (n == NULL)
+			return r;
+
+		return n;
+	}
+
 }
 
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	
+	if (r == NULL){
+		r = new Node<Key, T>();
+		r->k = k;
+		r->data = x;
+		r->left = NULL;
+		r->right = NULL;
+
+		return r;
+	}
+
+	if (r->k == k){
+		r->data = x;
+		return r;
+	}
+
+	if (k < r->k) {
+		Node<Key, T> *new_node = add(k, x, r->right);
+		r->right = new_node;
+	}
+
+	return r;
+
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	if (r == NULL)
+		return NULL;
+
+	if (r->k == k) {
+		if (r->left == NULL && r->right == NULL){
+			delete r;
+			r = NULL;
+			return NULL;
+		}
+
+		if (r->right != NULL){
+			n = min(r->right);
+		}
+			
+		else {
+			n = max(r->left);
+		}
+
+		Node<Key, T> temp;
+		temp.k = n->k;
+		temp.data = n->data;
+
+		remove(n->k, r);
+
+		r->k = temp.k;
+		r->data = temp.data;
+		return r;
+
+	}
+
+	if (r->k < k) {
+		n = remove(k, r->right);
+		r->right = n;
+	}
+
+	else {
+		n = remove(k, r->left);
+		r->left = n;
+	}
 }
 
 template <class Key, class T>
