@@ -18,6 +18,9 @@ class BST : public SSet <Key,T> {
  public:
   BST();
   ~BST();
+
+  //Remove all the nodes in a current tree
+  virtual void remove_all(Node<Key, T> *r);
   
   //Return the number of items currently in the SSet
   virtual unsigned long size();
@@ -56,7 +59,7 @@ private:
   //This one returns the address of the found node, NULL
   // if not found
   virtual Node<Key,T>* find(Key k, Node<Key,T>* r);
-
+ 
   //Find the item in the sub-tree rooted at r which has the smallest key
   virtual Node<Key,T>* min(Node<Key,T>* r);
 
@@ -86,6 +89,23 @@ BST<Key, T>::~BST(){
 	remove_all(root);
 }
 
+ template <class Key, class T>
+ void BST<Key, T>::remove_all(Node<Key, T> *r){
+	 if (r->left == NULL && r->right == NULL) {
+		 delete r;
+		 r = NULL;
+		 return;
+	 }
+
+	 if (r->left != NULL) {
+		 remove_all(r->left);
+	 }
+
+	 if (r->right != NULL) {
+		 remove_all(r->right);
+	 }
+ }
+
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key, T>::size(){
@@ -96,10 +116,10 @@ unsigned long BST<Key, T>::size(){
 template <class Key, class T>
 unsigned long BST<Key, T>::size(Node<Key, T>* r){
 	
-	if (r == null)
+	if (r == NULL)
 		return 0;
 
-	if 1 + size(r->left) + size(r->right);
+	1 + size(r->left) + size(r->right);
 }
 
 //Add a new item, x, with Key k.
@@ -162,14 +182,14 @@ Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
 		//This MIGHT be it, but it isn't 100% certain yet
 		Node<Key, T> *n = next(k, r->left);
 
-		if (node == NULL)
+		if (n == NULL)
 			return r;
 
 		return n;
 	}
 
 	else {
-		Node<Key, t> *n = look(k, r->right);
+		Node<Key, T> *n = next(k, r->right);
 
 		if (n == NULL)
 			return NULL;
@@ -241,6 +261,8 @@ template <class Key, class T>
 Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 	if (r == NULL)
 		return NULL;
+
+	Node<Key, T> *n;
 
 	if (r->k == k) {
 		if (r->left == NULL && r->right == NULL){
