@@ -91,17 +91,13 @@ BST<Key, T>::~BST(){
 
 template <class Key, class T>
 BST<Key, T>::deleteAll(Node<Key, T>* r){
-			if (r == NULL)
-				return;
-			if (r->left != NULL)
-				return deleteAll(r->left);
-			if (r->right != NULL)
-				return deleteAll(r->right);
-
-			delete r;
-			return;
-		}
-
+	if (r->left == NULL && r->right == NULL)
+		delete r;
+	if (r->left != NULL)
+		return deleteAll(r->left);
+	if (r->right != NULL)
+		return deleteAll(r->right);
+}
 
 	//Return the number of items currently in the SSet
 	template <class Key, class T>
