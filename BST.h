@@ -133,7 +133,7 @@ T BST<Key, T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key, T>::keyExists(Key k){
-	if (root->k == k){
+	if (find(k, root) == root){
 		return true;
 	}
 	return false;
