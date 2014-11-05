@@ -61,6 +61,7 @@ Questions
 2)
 	
 3)
+
 	given nodes w and u, determine if u is an ancestor of w:
 	 if w.pre > u.pre and w.post < u.post
 	  return true
