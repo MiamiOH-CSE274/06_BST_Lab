@@ -91,7 +91,6 @@ BST<Key, T>::~BST(){
 
 template <class Key, class T>
 BST<Key, T>::deleteAll(Node<Key, T>* r){
-		{
 			if (r == NULL)
 				return;
 			if (r->left != NULL)
@@ -100,7 +99,6 @@ BST<Key, T>::deleteAll(Node<Key, T>* r){
 				return deleteAll(r->right);
 
 			delete r;
-
 			return;
 		}
 
