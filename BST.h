@@ -132,7 +132,7 @@ void BST<Key, T>::add(Key k, T x){
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key, T>::remove(Key k){
-	//TODO
+	remove(k, root);
 }
 
 //Return the item with Key k. 
@@ -287,8 +287,73 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	// If there are no items, do nothing
+	if (r == NULL)
+		return NULL;
+
+	// If r's key is less than k, we should look for k
+	// in the right subtree
+	if (r->k < k)
+		r->right = remove(k, r->right);
+	// If r's key is too big, look for k in the left subtree
+	if (r->k > k)
+		r->left = remove(k, r->left);
+	// Once we find the node with the correct key, we 
+	// need to remove it. However, there are three cases
+	// we nee dto consider.
+	if (r->k == k){
+		// In the first case, r has no children,
+		// so we can just delete r and return NULL
+		if (r->left == NULL && r->right == NULL){
+			delete r;
+			r = NULL;
+			return r;
+		}
+		// In the second case, r has one child. We need
+		// to delete r and then return its child so 
+		// the caller can update its pointer
+		else if (r->left != NULL && r->right == NULL){
+			delete r;
+			r = NULL;
+			return r->left;
+		}
+		else if (r->left == NULL && r->right != NULL){
+			delete r;
+			r = NULL;
+			return r->right;
+		}
+		// In the third case, r has two children. Here we
+		// should replace r with the max of its left subtree.
+		// This keeps the correct order of keys, while then
+		// moving the node we need to remove to a place where
+		// it can be handled by one of the earlier cases.
+		else{
+			// Find the max of the left subtree
+			Node<Key, T>* maxLeft = max(r->left);
+			// Create a temporary node to store the key and value for maxLeft
+			Node<Key, T>* tempMax = new Node<Key, T>();
+			tempMax->k = maxLeft->k;
+			tempMax->data = maxLeft->data;
+			// Change maxLeft's key and value to that of r
+			maxLeft->k = r->k;
+			maxLeft->data = r->data;
+			// Change r's key and value to that of maxLeft
+			r->k = tempMax->k;
+			r->data = tempMax->data;
+
+			// Delete the temporary node to prevent memory leaks and 
+			// dangling pointers
+			delete tempMax;
+			tempMax = NULL;
+
+			// Call remove on the new r, so it will go find the 
+			// node with key k, which has been moved to a place
+			// where it is an easier case
+			return remove(k, r);
+		}
+	}
+	// Return a pointer to the root of the new subtree
+	return r;
 }
 
 template <class Key, class T>

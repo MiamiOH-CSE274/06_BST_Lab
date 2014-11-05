@@ -111,6 +111,9 @@ int main(){
   // key 8 was used twice
   std::cout << "Size of the tree = 5: " << testTree.size() << std::endl;
 
+  testTree.remove(5);
+  std::cout << "Size of tree after remove: " << testTree.size() << std::endl;
+
   // Create an empty tree and test find's exception throwing
   BST<int, std::string>* aTree = new BST<int,std::string>();
   try{
