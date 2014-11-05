@@ -35,11 +35,12 @@ all children of that node are numbered.
 
 6.9
 1.
-Pre-Order:
-Post-Order: 
+Pre-Order: Subtract the largest number in that tree by the number in u, and add 1.
+Post-Order: Subtract the number of the sibling of that node to get the size of that subtree.
+In-order: Subtract the number of the rightmost node by the number in the leftmost node and add 1.
 
 
 
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
-TODO
+Recursion is not simply a thing you have to learn to pass a class, it is an extremely useful resource that is used to solve problems simply and efficiently.
