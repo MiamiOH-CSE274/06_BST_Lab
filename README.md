@@ -18,7 +18,7 @@ Questions
 
 #### 1. Which of the above requirements work, and which do not? For each requirement, write a brief response.
 
-1. TODO
+1. Overall I think I met this; however, my remove is not working completely for the third case, where the node to be removed has two children. It shows that the key no longer exists, but the size did not change.
 2. I think size() is working and runs in O(n) time because it traverses the whole tree in order to count the nodes.  Since it visits every node, it will run in linear time.  If the number of nodes doubles, the running time will double since it visits all of them.
 
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
