@@ -313,14 +313,16 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 		// to delete r and then return its child so 
 		// the caller can update its pointer
 		else if (r->left != NULL && r->right == NULL){
+			Node<Key, T>* tempChild = r->left;
 			delete r;
 			r = NULL;
-			return r->left;
+			return tempChild;
 		}
 		else if (r->left == NULL && r->right != NULL){
+			Node<Key, T>* tempChild = r->right;
 			delete r;
 			r = NULL;
-			return r->right;
+			return tempChild;
 		}
 		// In the third case, r has two children. Here we
 		// should replace r with the max of its left subtree.
