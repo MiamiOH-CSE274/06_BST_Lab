@@ -98,15 +98,20 @@ void tests(){
 int main(){
   tests();
 
+  // Create a new tree for other tests and add several items
   BST<int, std::string> testTree;
   testTree.add(10, "cachivache");
   testTree.add(8, "miracle");
   testTree.add(12, "dodecahedron");
   testTree.add(6, "salpicar");
   testTree.add(5, "locomotive");
+  testTree.add(8, "sintaxis");
 
-  std::cout << testTree.size() << std::endl;
+  // Print out the size of the tree - it should be 5, since
+  // key 8 was used twice
+  std::cout << "Size of the tree = 5: " << testTree.size() << std::endl;
 
+  // Create an empty tree and test find's exception throwing
   BST<int, std::string>* aTree = new BST<int,std::string>();
   try{
 	  (*aTree).find(45);
