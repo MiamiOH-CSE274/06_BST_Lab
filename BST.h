@@ -66,7 +66,8 @@ private:
   //Find the next/prev node, and return its address
   virtual Node<Key,T>* next(Key k, Node<Key,T>* r);
   virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
-  virtual Node<Key,T>* removeAll(Node<Key,T>* r);
+    
+  virtual void removeAll(Node<Key,T>* r);
 
 };
 
@@ -75,23 +76,45 @@ private:
 
 template <class Key, class T>
 BST<Key,T>::BST(){
+    
   root = NULL;
 }
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  //TODO
+    
+    removeAll(root);
+}
+
+template <class Key, class T>
+void BST<Key, T>::removeAll(Node<Key,T>* r){
+    
+    if (r->right == NULL && r->left == NULL){
+            delete r;
+            r = NULL;
+            return;
+        }
+    
+    if (r->right != NULL){
+            removeAll(r->right);
+        }
+    
+    if (r->left != NULL){
+            removeAll(r->left);
+        }
 }
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-  //TODO
-  return 0;
+  
+  return size(root);
+    
 }
 
 template <class Key, class T>
 unsigned long BST<Key,T>::size(Node<Key,T>* r){
+    
   if(r == NULL){
 	  return 0;
   }
@@ -103,81 +126,215 @@ unsigned long BST<Key,T>::size(Node<Key,T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key,T>::add(Key k, T x){
-  //TODO
+  
+    root = add(k, x, root);
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
-  //TODO
+    
+    root = remove(k, root);
 }
 
 //Return the item with Key k. 
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
-  //TODO
-  T fakeT;
-  return fakeT;
+    
+    Node<Key, T>* temp = find(k, root);
+    
+    if(temp == NULL){
+        throw std::string("There is no such item in the tree");
+    }
+    return temp->data;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-  //TODO
-  return false;
+    
+    if(find(k,root) != NULL){
+        return find(k,root);
+    }
+    else{
+        return false;
+    }
 }
 
 //If there is a key in the set that is > k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::next(Key k){
-  //TODO
-  Key fakeKey;
-  return fakeKey;
+    
+    Node<Key, T>* temp = next(k, root);
+    
+    if(temp == NULL){
+        return k;
+    }
+    return temp->k;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+    
+    if(r == NULL){
+        
+        return NULL;
+    }
+    if(k < r->k){
+        
+        Node<Key, T>* varNode = next(k, r->left); //varNode simply just stores the information of the
+        if(varNode == NULL){                      //next node. This allows for comparison to NULL
+            return r;
+        }
+        
+        return varNode;
+    }
+    else{
+        
+        Node<Key, T>* varNode = next(k, r->right);
+        
+        if(varNode == NULL){
+            return NULL;
+        }
+        
+        return varNode;
+    }
 }
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-  //TODO
-  return NULL;
+  
+    Node<Key, T>* temp = prev(k, root);
+    
+    if(temp == NULL){
+        return k;
+    }
+    return temp->k;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+    
+    if(r == NULL){
+        return NULL;
+    }
+    if(k > r->k){
+        
+        Node<Key, T>* varNode = prev(k, r->right);
+        
+        if(varNode == NULL){
+            return r;
+        }
+        
+        return varNode;
+    }
+    else{
+        
+        Node<Key, T>* varNode = prev(k, r->left);
+        
+        if(varNode == NULL){
+            return NULL;
+        }
+        
+        return varNode;
+    }
 }
 
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
-  //TODO
-  return NULL;
+    
+    if(r == NULL){
+        r = new Node<Key, T>();
+        r->k = k;
+        r->data = x;
+        r->right = NULL;
+        r->left = NULL;
+        
+        return r;
+    }
+    if (r->k == k){
+        r->data = x;
+        return r;
+    }
+    if(k < r->k){
+        r->left = add(k, x, r->left);
+        
+    }
+    if(k > r->k){
+        r->right = add(k, x, r->right);
+        
+    }
+    
+  return r;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+    
+    if(r == NULL){
+        return NULL;
+    }
+    Node<Key, T>* nodeToRemove;
+    
+    if(r->k == k){
+        if(r->right == NULL && r->left == NULL){
+            delete r;
+            r = NULL;
+            return r;
+        }
+        if(r->right == NULL){
+            nodeToRemove = max(r->right);
+        }
+        else{
+            nodeToRemove = min(r->left);
+        }
+        
+        Node<Key, T> tempNode;
+        tempNode.k = nodeToRemove->k;               //By far the hardest method to code
+        tempNode.data = nodeToRemove->data;
+        
+        remove(nodeToRemove->k, r);
+        
+        r->k = tempNode.k;
+        r->data = tempNode.data;
+        
+        return r;
+    }
+    if(k < r->k){
+        r->left = remove(k, r->left);
+    }
+    else{
+        r->right = remove(k, r->right);
+        
+    }
+    return NULL;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
-  //TODO
-  return NULL;
+    
+	if (r == NULL) {
+        return NULL;
+    }
+    if (r->k == k) {
+        return r;
+    }
+    if (k < r->k) {
+        return find(k, r->left);
+    }
+    else {
+        return find(k, r->right);
+    }
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
+    
   if(r == NULL){
 	  throw std::string("There is no max because there are no nodes in the tree");
   }
@@ -190,12 +347,15 @@ Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
+    
   if(r == NULL){
 	  throw std::string("There is no min because there are no nodes in the tree");
   }
+    
   else if(r->left == NULL){
 	  return r;
   }
+    
   else
 	  return min(r->left);
 }
