@@ -16,13 +16,11 @@ Reading
 Questions
 =========
 
-#### 1. Which of the above requirements work, and which do not? For each requirement, write a brief response.
-
-1. Recursion is a big thing in the code, so most of the methods besides the destructor and size() functions will be (or should average out to be) O(h).
-2. Because size() has to look at every element in the tree, it is going to be O(n), with n being the number of nodes.
+1. Which of the above requirements work, and which do not? For each requirement, write a brief response.
+1.1. Recursion is a big thing in the code, so most of the methods besides the destructor and size() functions will be (or should average out to be) O(h).
+1.2. Because size() has to look at every element in the tree, it is going to be O(n), with n being the number of nodes.
 
 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
-
 6.7 
 preOrderNumber()
 	start by giving the root node a number
@@ -50,7 +48,8 @@ postOrderNumber()
 	if u.preOrderNumber = 0
 	size = u.inOrderNumber + 1
 6.9.2
-
+	You need to move left in your pre-ordered tree until you get to a node with NULL on the left.
+	I don't really know how to write that out in this Readme though
 6.9.3
 	if u.inOrderNumber > w.inOrderNumber
 	u will be an ancestor of w
