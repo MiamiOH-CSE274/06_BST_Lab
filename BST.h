@@ -105,8 +105,14 @@ unsigned long BST<Key, T>::size(){
 
 template <class Key, class T>
 unsigned long BST<Key, T>::size(Node<Key, T>* r){
+	// If we reach the bottom of the tree, there
+	// is not a node here so return zero
 	if (r == NULL)
 		return 0;
+	// Otherwise, return one plus the size of r's
+	// left subtree plus the size of r's right
+	// subtree. The one added here makes sure 
+	// r is counted.
 	else
 		return 1 + size(r->left) + size(r->right);
 }
@@ -131,6 +137,7 @@ T BST<Key, T>::find(Key k){
 	// Call the other find that returns a pointer
 	// to either the Node with key k or NULL
 	Node<Key, T>* foundNode = find(k, root);
+	// If the node is not there, throw an exception
 	if (foundNode == NULL)
 		throw std::string("No such element exists");
 	else
@@ -191,25 +198,15 @@ Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
 	// After all this checking and searching,
 	// return the current next
 	return currentNext;
-
-	//if (r == NULL)
-	//	return r;
-	//// If the key of r is greater than the key we
-	//// want, we need to search the left subtree
-	//else if (r->k > k)
-	//	return next(k, r->left);
-	//// If the key of r is equal to or less than
-	//// the key we are looking for, we should search
-	//// the right subtree
-	//else
-	//	return next(k, r->right);
 }
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::prev(Key k){
+	// Find the previous using the private function
 	Node<Key, T>* previous = prev(k, root);
+	// If there is no previous, return k
 	if (previous == NULL)
 		return k;
 	else
@@ -261,17 +258,26 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 		// be the root node
 		if (root == NULL)
 			root = newNode;
+		// Return this node so that the caller can adjust
+		// their pointer to point to it
 		return newNode;
 	}
 	// If k already exists, just change the data
 	if (r->k == k)
 		r->data = x;
+	// If r's key is greater than k, that means we 
+	// need to search the left subtree for a place
+	// to add since k is smaller.
 	if (r->k > k)
 		r->left = add(k, x, r->left);
+	// If r's key is less than k, we should search
+	// the right subtree for a place to add
 	if (r->k < k)
 		r->right = add(k, x, r->right);
+	// Return a pointer to r - since the left and
+	// right pointers for r may have been updated,
+	// the root of the subtree (r) may have changed
 	return r;
-
 }
 
 template <class Key, class T>
@@ -282,32 +288,53 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r){
+	// If r is ever null, key k is not in the tree
+	// and we should return NULL to reflect that
 	if (r == NULL)
 		return NULL;
+	// If r's key is equal to k, then we have
+	// found k and should return r
 	else if (r->k == k)
 		return r;
+	// If k is less than r's key, we should
+	// look r's left subtree 
 	else if (k < r->k)
 		return find(k, r->left);
+	// Otherwise, search the right subtree
 	else
 		return find(k, r->right);
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r){
+	// If r is ever null, there is no max
 	if (r == NULL)
 		return NULL;
+	// If the right child of r is NULL,
+	// we have reached the max (there is no key
+	// larger than r's key) so we should return r
 	else if (r->right == NULL)
 		return r;
+	// Otherwise, we should continue to search
+	// the keys larger than r, which are in r's
+	// right subtree
 	else
 		return max(r->right);
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
+	// If r is NULL, there is no min (there
+	// are no nodes in the tree)
 	if (r == NULL)
 		return NULL;
+	// If r's left child is NULL, then r must 
+	// be the min since there is nothing
+	// smaller than r
 	else if (r->left == NULL)
 		return r;
+	// Otherwise, we should search nodes with smaller
+	// keys than r, which are located in r's left subtree
 	else
 		return min(r->left);
 }
