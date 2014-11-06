@@ -24,6 +24,7 @@ Questions
 #### 2. Do exercises 6.7 and 6.9 on http://opendatastructures.org/ods-cpp/6_3_Discussion_Exercises.html. Keep in mind: You do NOT need to write real working code, you may write pseudo-code. In fact, that is preferred.
 
 Pre-Order: 
+	
 	-if(Node == NULL) return;
 	
 	-Assign 0 to the root Node key
@@ -33,6 +34,7 @@ Pre-Order:
 	-preOrder(Node->right, k+1)
 	
 In Order:
+	
 	-Find minimum value in tree, assign its key to zero
 	
 	-inOrder(node->left, k+1)
