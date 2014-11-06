@@ -50,6 +50,7 @@ Post-Order:
 	-After all children are assigned values, assign the root the next available number;
 
 6.9
+
 1. Subtract u->pre from max(u)->pre and add one;
 
 2. subtract max(u)->post from u->post
