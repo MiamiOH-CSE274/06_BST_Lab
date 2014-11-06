@@ -253,12 +253,12 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 	// Node to big, go left
 	else if(k < r->k){
 
-		node->left = deleteNode(k, r->left);
+		r->left = remove(k, r->left);
 	}
 	// Node to small, go right
 	else{
 
-		node->right = deleteNode(k, r->rigt);
+		r->right = remove(k, r->right);
 	}
 	return r;
 }
