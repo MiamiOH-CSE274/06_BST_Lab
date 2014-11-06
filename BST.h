@@ -293,15 +293,18 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 
 	// If r's key is less than k, we should look for k
 	// in the right subtree
-	if (r->k < k)
+	if (r->k < k){
 		r->right = remove(k, r->right);
+	}
 	// If r's key is too big, look for k in the left subtree
-	if (r->k > k)
+	else if (r->k > k){
 		r->left = remove(k, r->left);
+	}
 	// Once we find the node with the correct key, we 
 	// need to remove it. However, there are three cases
 	// we nee dto consider.
-	if (r->k == k){
+	//else if (r->k == k){
+	else{
 		// In the first case, r has no children,
 		// so we can just delete r and return NULL
 		if (r->left == NULL && r->right == NULL){
@@ -313,10 +316,7 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 		// to delete r and then return its child so 
 		// the caller can update its pointer
 		else if (r->left != NULL && r->right == NULL){
-			// THIS CAUSES A DANGLING POINTER THAT COMES INTO PLAY
-			// DURING MY TEST FOR CASE THREE, BUT I AM HAVING TROUBLE
-			// FIGURING OUT HOW TO WRITE THIS PART SO THAT THERE ARE
-			// NO DANGLING POINTERS. If you delete r and set it to null
+			//If you delete r and set it to null
 			// like you should, then you cannot return r->left
 			Node<Key, T>* tempChild = r->left;
 			delete r;

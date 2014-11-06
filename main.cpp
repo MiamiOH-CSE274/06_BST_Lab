@@ -121,9 +121,9 @@ int main(){
   std::cout << "Size of tree after case 2 remove: " << testTree.size();
   std::cout << " Does the removed key exist? " << testTree.keyExists(12) << std::endl;
 
-  testTree.remove(10);
+  testTree.remove(8);
   std::cout << "Size of tree after case 3 remove: " << testTree.size();
-  std::cout << " Does the removed key exist? " << testTree.keyExists(10) << std::endl;
+  std::cout << " Does the removed key exist? " << testTree.keyExists(8) << std::endl;
 
   // Create an empty tree and test find's exception throwing
   BST<int, std::string>* aTree = new BST<int,std::string>();
