@@ -100,14 +100,14 @@ int main(){
 
   // Create a new tree for other tests and add several items
   BST<int, std::string> testTree;
-  testTree.add(10, "cachivache");
-  testTree.add(8, "miracle");
-  testTree.add(12, "dodecahedron");
-  testTree.add(14, "Christy");
-  testTree.add(9, "Kevin");
-  testTree.add(6, "salpicar");
-  testTree.add(5, "locomotive");
-  testTree.add(8, "sintaxis");
+  testTree.add(10, "ten");
+  testTree.add(8, "Christy");
+  testTree.add(12, "twelve");
+  testTree.add(14, "fourteen");
+  testTree.add(9, "nine");
+  testTree.add(6, "six");
+  testTree.add(5, "five");
+  testTree.add(8, "eight");
 
   // Print out the size of the tree - it should be 5, since
   // key 8 was used twice
