@@ -25,18 +25,26 @@ Questions
 
 Pre-Order: 
 	-if(Node == NULL) return;
+	
 	-Assign 0 to the root Node key
+	
 	-preOrder(Node->left, k+1)
+	
 	-preOrder(Node->right, k+1)
 	
 In Order:
 	-Find minimum value in tree, assign its key to zero
+	
 	-inOrder(node->left, k+1)
+	
 	-inOrder(Node->left, k+1)
 
 Post-Order:
+	
 	-if(Node == NUll) return
+	
 	-find min of left tree, number it lowest key value, then repeat on right side of the tree
+	
 	-After all children are assigned values, assign the root the next available number;
 
 6.9
@@ -45,7 +53,7 @@ Post-Order:
 2. subtract max(u)->post from u->post
 
 3. if (w->pre > u->re && w->post < u->post) return true;
-Pre-Order
+
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
 Write every function out on a piece of paper before hand and you will save a lot of time.
