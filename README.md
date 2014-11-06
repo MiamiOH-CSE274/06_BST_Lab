@@ -31,6 +31,11 @@ For 6.7:
 	Post-Order: This function requires the nodes to visited first in the left subtree, then the right subtree, then the root. I would probably fashion this after the find function again, repeatedly calling the 
 		function to the next node in each subtree, and then add on the root node at the very end. 
 
+For 9.9:
+	A) If a node is given with the index of where it is in pre, post, or in order, you can find the depth of the tree in constant time by getting the min (and the count it takes to get there) of that subtree and then 
+		adding one. 
+	B) To get depth in these tree traversals, one can get the min of sub tree starting at u return the a count variable in a second function that returns the count.
+	C) To find this, one can compare the w node to a the other nodes key and see if it is higher or lower in order to figure out if it is a ancestor or not.
 #### 3. What is one question that confused you about this exercise, or one piece of advice you would share with students next semester?
 
 Start early!! This data structure requires one to think a bit more critically than the other data structures thus far.
