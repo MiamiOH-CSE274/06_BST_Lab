@@ -237,16 +237,37 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 	//found node I want to delete
 	else if(r->k = k){
 		//Node has no childeren
-		if(r->right == NULL && r->left == NULL)
+		if(r->right == NULL && r->left == NULL){
 			delete r;
-
+			return NULL;
+		}
 		//Node has 1 child on the right
-		if(r->right != NULL && r->left == NULL){
+		if(r->right != NULL){
+			// find the min in the subtree
+			Node<Key,T>* u = min(r->right);
+			Node<Key,T>* temp;
+			temp->k = u->k;
+			temp->data = u->data;
 
+			//move the min to the node 
+			remove(u->k, r);
+			r->k = temp->k;
+			r->data = temp->data;
+			return r;
 		} 
-		//Node has 1 child on the left
-		else if(r->right == NULL && r->left != NULL){
+		//Node has 1 cild on the left
+		else{
+			// find the min in the subtree
+			Node<Key,T>* u = min(r->left);
+			Node<Key,T>* temp;
+			temp->k = u->k;
+			temp->data = u->data;
 
+			//move the min to the node 
+			remove(u->k, r);
+			r->k = temp->k;
+			r->data = temp->data;
+			return r;
 		}
 		//Node has 2 childeren (childs)
 	}
