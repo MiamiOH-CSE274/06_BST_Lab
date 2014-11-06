@@ -46,6 +46,7 @@ class BST : public SSet <Key,T> {
 private:
   Node<Key,T>* root;
 
+  virtual void removeAll(Node<Key,T>* r);
   virtual unsigned long size(Node<Key,T>* r);
   //These are the recursive versions of each of your methods.
   // You should return the address of the new root node, whether
@@ -69,6 +70,13 @@ private:
 
 };
 
+/**
+* Authored by: Chris Dieter with template provided by
+* Dr. Brinkman.
+* Resources used: Open Data Structures Book and stack overflow
+* threads on add, next, prev. 
+*/
+
 #define NULL 0
 #include <string>
 
@@ -79,7 +87,17 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-  //TODO
+	removeAll(root);
+}
+
+template <class Key, class T>
+void BST<Key,T>::removeAll(Node<Key,T>* r){
+	if(r->right == NULL && r->left == NULL){
+		delete r;
+	} else{
+		removeAll(r->left);
+		removeAll(r->right);
+	}
 }
   
 //Return the number of items currently in the SSet
@@ -138,7 +156,7 @@ template <class Key, class T>
 Key BST<Key,T>::next(Key k){
 	Node<Key,T>* u = next(k, root);
 	if(u == NULL)
-		return NULL;
+		return k;
 	return u->k;
 }
 
@@ -147,17 +165,12 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 	if(r == NULL)
 		return NULL;
 	else if(r->k > k){
-		r = next(k, r->left);
-		if(r != NULL)
-			return r;
+		if(r->left != NULL && max(r->left)->k > k)
+			return next(k, r->left);
 		else
-			return NULL;
+			return r;
 	} else{
-		r = next(k, r->right);
-		if(r != NULL)
-			return r;
-		else
-			return NULL;
+		return next(k, r->right);
 	}
 }
 
@@ -165,13 +178,27 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key,T>::prev(Key k){
-	  return k;
+	Node<Key,T>* u = prev(k, root);
+	if(u == NULL)
+		return k;
+	return u->k;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
-	  Node<Key,T>* u;
-	  return u;
+	if(r == NULL)
+		return NULL;
+	else if(k <= r->k){
+		Node<Key,T>* u = prev(k, r->left);
+		if(u == NULL)
+			return NULL;
+		return u;
+	}else{
+		Node<Key,T>* u = prev(k, r->right);
+		if(u == NULL)
+			return NULL;
+		return u;
+	}
 }
 
 
@@ -205,8 +232,35 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-	  Node<Key,T>* u;
-	  return u;
+	if(r == NULL)
+		return NULL;
+	//found node I want to delete
+	else if(r->k = k){
+		//Node has no childeren
+		if(r->right == NULL && r->left == NULL)
+			delete r;
+
+		//Node has 1 child on the right
+		if(r->right != NULL && r->left == NULL){
+
+		} 
+		//Node has 1 child on the left
+		else if(r->right == NULL && r->left != NULL){
+
+		}
+		//Node has 2 childeren (childs)
+	}
+	// Node to big, go left
+	else if(k < r->k){
+
+		node->left = deleteNode(k, r->left);
+	}
+	// Node to small, go right
+	else{
+
+		node->right = deleteNode(k, r->rigt);
+	}
+	return r;
 }
 
 template <class Key, class T>
