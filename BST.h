@@ -75,6 +75,11 @@ private:
 
 };
 
+// Kyle Busdieker
+// Prof. Bo Brinkman
+// Date: November 22, 2014
+// The skeleton code was created by Bo Brinkman and modified by Kyle Busdieker with help from other students, Open Data Structures textbook, and the internet.
+
 #define NULL 0
 #define null 0
 #include <string>
