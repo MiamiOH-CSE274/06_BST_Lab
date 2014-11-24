@@ -67,6 +67,8 @@ private:
   virtual Node<Key,T>* next(Key k, Node<Key,T>* r);
   virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
 
+  virtual Node<Key, T>* deleteAll(Node<Key,T>* r);
+
 };
 
 #define NULL 0
