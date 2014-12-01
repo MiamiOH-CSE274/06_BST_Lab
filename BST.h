@@ -89,12 +89,6 @@ BST<Key,T>::~BST(){
 template <class Key, class T>
 void BST<Key, T>::removeAll(Node<Key,T>* r){
     
-    if (r->right == NULL && r->left == NULL){
-            delete r;
-            r = NULL;
-            return;
-        }
-    
     if (r->right != NULL){
             removeAll(r->right);
         }
@@ -102,8 +96,14 @@ void BST<Key, T>::removeAll(Node<Key,T>* r){
     if (r->left != NULL){
             removeAll(r->left);
         }
+    
+    if (r->right == NULL && r->left == NULL){
+        delete r;
+        r = NULL;
+        return;
+    }
 }
-  
+
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
@@ -154,12 +154,8 @@ T BST<Key,T>::find(Key k){
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
     
-    if(find(k,root) != NULL){
-        return find(k,root);
-    }
-    else{
-        return false;
-    }
+    return (find(k,root) != NULL);
+    
 }
 
 //If there is a key in the set that is > k,
@@ -193,12 +189,7 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
     }
     else{
         
-        Node<Key, T>* varNode = next(k, r->right);
-        
-        if(varNode == NULL){
-            return NULL;
-        }
-        
+         Node<Key, T>* varNode = next(k, r->right);
         return varNode;
     }
 }
@@ -288,10 +279,10 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
             return r;
         }
         if(r->right == NULL){
-            nodeToRemove = max(r->right);
+            nodeToRemove = max(r->left);
         }
         else{
-            nodeToRemove = min(r->left);
+            nodeToRemove = min(r->right);
         }
         
         Node<Key, T> tempNode;
