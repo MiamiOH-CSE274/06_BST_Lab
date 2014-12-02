@@ -2,6 +2,8 @@
 //Author: Bo Brinkman
 //Date: 2013/10/01
 
+#include <string>
+
 template <class Key, class T>
 class SSet {
  public:
