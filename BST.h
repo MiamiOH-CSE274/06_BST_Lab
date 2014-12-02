@@ -92,21 +92,17 @@ BST<Key,T>::~BST(){
 
 template <class Key, class T>
 void BST<Key,T>::removeAll(Node<Key,T>* r){
+	removeAll(r->left);
+	removeAll(r->right);
 	if(r->right == NULL && r->left == NULL){
 		delete r;
-	} else{
-		removeAll(r->left);
-		removeAll(r->right);
-	}
+	} 
 }
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
 unsigned long BST<Key,T>::size(){
-	if(root==NULL)
-		return 0;
-	else
-		return 1 + size(root->left) + size(root->right);
+	return size(root);
 }
 
 template <class Key, class T>
@@ -134,6 +130,9 @@ void BST<Key,T>::remove(Key k){
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
+	
+	if(find(k, root) == NULL)
+		throw std::string("No such element!");
 	return find(k, root)->data;
 }
 
@@ -141,12 +140,7 @@ T BST<Key,T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key,T>::keyExists(Key k){
-	if(root == NULL)
-		return false;
-	else if(!(find(k, root) == NULL))
-		return true;
-	else
-		return false;
+	return (find(k, root) != NULL);
 		
 }
 
