@@ -90,11 +90,12 @@ void BST<Key,T>::removeAll(Node<Key,T>* r){
   if (r->right==NULL && r->left==NULL) {
 		delete r;
 		return;}
- else if (r->left !=NULL) {
-		removeAll(r->left);}
- else if (r->right !=NULL) {
-		removeAll(r->right);}
-}
+  else{
+	if (r->left !=NULL) {
+			removeAll(r->left);}
+	if (r->right !=NULL) {
+			removeAll(r->right);}
+  }}
   
 //Return the number of items currently in the SSet
 template <class Key, class T>
@@ -153,6 +154,7 @@ Key BST<Key,T>::next(Key k){
 	{ return k; }
   return tempNode->k;
 }
+
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
@@ -245,7 +247,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 	else if(r->k == k)
 	{ 
 		//node for swapping
-		 Node<Key, T>* swapNode;
+		 Node<Key, T>* swapNode = NULL;
 
 		//removing a leaf 
 		if(r->right==NULL && r->left==NULL)
@@ -256,22 +258,22 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 		//two children- find the min/max to replace
 		
 		else if(r->left !=NULL)
-		{ Node<Key, T>* lastNode = min(r->left);
+		{ Node<Key, T>* lastNode = max(r->left);
 		  swapNode->k= lastNode->k;
 		  swapNode->data= lastNode->data;
 		  
-		  remove(lastNode->k, r);
+		  r->left = remove(lastNode->k, r->left);
 		  r->k= swapNode->k;
 		  r->data = swapNode->data;
 		  return r; 
 
 		}
 		else
-		{ Node<Key, T>* lastNode = max(r->right); 
+		{ Node<Key, T>* lastNode = min(r->right); 
 		  swapNode->k= lastNode->k;
 		  swapNode->data= lastNode->data;
 		  
-		  remove(lastNode->k, r);
+		  r->right = remove(lastNode->k, r->right);
 		  r->k= swapNode->k;
 		  r->data = swapNode->data;
 		  return r; 
