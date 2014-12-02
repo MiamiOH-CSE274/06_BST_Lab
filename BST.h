@@ -239,9 +239,11 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 		if(r->right != NULL){
 			// find the min in the subtree
 			Node<Key,T>* u = min(r->right);
-			Node<Key,T>* temp;
+			Node<Key,T>* temp = r;
 			temp->k = u->k;
 			temp->data = u->data;
+			temp->left = NULL;
+			temp->right = NULL;
 
 			//move the min to the node 
 			remove(u->k, r);
@@ -253,9 +255,11 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 		else{
 			// find the min in the subtree
 			Node<Key,T>* u = min(r->left);
-			Node<Key,T>* temp;
+			Node<Key,T>* temp = r;
 			temp->k = u->k;
 			temp->data = u->data;
+			temp->left = NULL;
+			temp->right = NULL;
 
 			//move the min to the node 
 			remove(u->k, r);
