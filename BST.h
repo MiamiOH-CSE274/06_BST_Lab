@@ -119,7 +119,7 @@ unsigned long BST<Key, T>::size(Node<Key, T>* r){
 	if (r == NULL)
 		return 0;
 
-	1 + size(r->left) + size(r->right);
+	return 1 + size(r->left) + size(r->right);
 }
 
 //Add a new item, x, with Key k.
