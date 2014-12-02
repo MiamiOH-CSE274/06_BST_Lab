@@ -84,10 +84,8 @@ BST<Key,T>::BST(){
 
 template <class Key, class T>
 BST<Key,T>::~BST(){
-	while (root != NULL){
-		root->k = 0;
-		remove(0);
-	}
+	while (root != NULL)
+		remove(root->k);
 }
 
 template <class Key, class T>
@@ -136,7 +134,7 @@ Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
 	if (r == NULL)
 		return NULL;
 	else if (k < r->k)
-		return (r->left == NULL || r->left->k <= k) ? r : next(k, r->left);
+		return (r->left == NULL || max(r->left)->k <= k) ? r : next(k, r->left);
 	else
 		return next(k, r->right);
 }
