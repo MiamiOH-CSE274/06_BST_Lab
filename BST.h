@@ -119,7 +119,7 @@ void BST<Key,T>::add(Key k, T x){
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
-	remove(k, root);
+	root = remove(k, root);
 }
 
 
@@ -195,19 +195,19 @@ Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
 	// k is bigger...
 	else if (k > r->k) {
 		// recursively search rightwards
-		if (next(k, r->right) == NULL)
+		if (prev(k, r->right) == NULL)
 			return r;
 		else
-			return next(k, r->right);
+			return prev(k, r->right);
 	}
 	// k is smaller...search left
 	else if (k < r->k)
-		return next(k, r->left);
+		return prev(k, r->left);
 	else { // k == r->k
 		// If you happen to find the key itself, return it's left child
 		// otherwise return null (ergo, eventually return the previous r)
 		if (r->left != NULL)
-			return next(k, r->left);
+			return prev(k, r->left);
 		else
 			return NULL;
 	}
@@ -219,6 +219,7 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	// If there's nothing yet.
 	if (r == NULL) {
 		r = new Node < Key, T >();
+		r->k = k;
 		r->data = x;
 		r->left = NULL;
 		r->right = NULL;
@@ -289,14 +290,14 @@ Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 		return find(k, r->left);
 	}
 	
-	return false;
+	return NULL;
 }
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::max(Node<Key,T>* r){
 	if (r == NULL) {
 
-		// TODO: throw exception
+		throw std::string("Error, null max root");
 
 	} else if (r->right == NULL) {
 		return r;
@@ -310,7 +311,7 @@ template <class Key, class T>
 Node<Key,T>* BST<Key,T>::min(Node<Key,T>* r){
 	if (r == NULL) {
 		
-	// TODO: throw exception
+		throw std::string("Error, null min root");
 
 	} else if (r->left == NULL) {
 		return r;
