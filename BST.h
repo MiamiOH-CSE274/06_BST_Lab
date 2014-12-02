@@ -11,6 +11,7 @@ public:
   T data;
   Node* left;
   Node* right;
+
 };
 
 template <class Key, class T>
@@ -56,6 +57,8 @@ private:
   virtual Node<Key,T>* add(Key k, T x, Node<Key,T>* r);
   virtual Node<Key,T>* remove(Key k, Node<Key,T>* r);
 
+  
+
   //This one returns the address of the found node, NULL
   // if not found
   virtual Node<Key,T>* find(Key k, Node<Key,T>* r);
@@ -87,19 +90,41 @@ template <class Key, class T>
 BST<Key,T>::~BST(){
   remove_all(root);
 }
- 
-void BST<Key, T>::remove_all(Node<Key, T> *r){
-	 if (r->left == NULL && r->right == NULL) {
+
+
+template <class Key, class T>
+void BST<Key,T>::remove_all(Node<Key,T> *r){
+	
+	if (r->left != NULL && r->right != NULL){
+		remove_all(r->left);
+		remove_all(r->right);
+	
+	}
+	else if (r->left != NULL) {
+		remove_all(r->left);
+
+		
+	}
+	else if(r->right != NULL) {
+		 remove_all(r->right);
+	}
+	
+	delete r;
+	r = NULL;
+	
+	
+	/* if (r->left == NULL && r->right == NULL) {
 		 delete r;
 		 r = NULL;
 		 return;
 	 }
+	 
 	 if (r->left != NULL) {
 		 remove_all(r->left);
 	 }
 	 if (r->right != NULL) {
 		 remove_all(r->right);
-	 }
+	 }*/
 } 
 
 //Return the number of items currently in the SSet
@@ -138,14 +163,16 @@ T BST<Key,T>::find(Key k){
 	
 	Node<Key, T>* Temp = find(k, root);
 	
-	//if(Temp->data == NULL){
-	//	throw std::string("That leaf does not exist");
-	//}
+	if(Temp == NULL){
+		throw std::string("That leaf does not exist");
+	}
 	
 	
 	return Temp->data;
 
 }
+
+
 //Return true if there is an item with Key k in the table. If not,
 // return false
 template <class Key, class T>
@@ -252,10 +279,11 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	
 	// node exists, overwrite data
 	if (r->k == k) {
-	
 		r->data = x;
 		return r;
 	}
+	
+	
 	if (k < r->k) {
 		Node<Key, T> *w = add(k, x, r->left);
 		r->left = w;
@@ -267,15 +295,57 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 	return r;
 }
 
+
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
-	if (r == NULL) {
+	if (r == NULL) {        //If there is no such Node where r->k == k, then do nothing
 		return NULL;
 	}
 
-	Node<Key, T> *n;
+	if(r->k == k){		
+		
+		if (r->left == NULL && r->right == NULL) {
+			// no right or left means no need to find replacement
+			delete r;
+			r = NULL;
+			return NULL;
+		}
+		else if(r->right == NULL){
+			Node<Key, T> *temp;
+			temp = r->left;
+			delete r;
+			return temp;	
+		}else if(r->left == NULL){
+			Node<Key,T> * temp;
+			temp = r->left;
+			delete r;
+			return temp;
+		}else{
+		
+			Node<Key, T> *w = r->right; 
+			
+			while (w->left != NULL){
+				w = w->left;
+			}
+			r->k = w->k;
+			r->data = w->data;
+			delete r;
+			return w;
+		}
+	} 
+	
+	else if (r->k < k) {
+		r->right = remove(k, r->right);
+		
+	} else {
+		r->left = remove(k, r->left);
+	}
 
-	if (r->k == k) {
+	return NULL;
+}
+	//Node<Key, T> *n;
+
+	/*if (r->k == k) {
 
 		if (r->left == NULL && r->right == NULL) {
 			// no right or left means no Node to replace this one
@@ -291,6 +361,8 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 			n = max(r->left);
 		}
 		// store new node in temp variable 
+		
+		
 		Node<Key, T> temp;
 		temp.k = n->k;
 		temp.data = n->data;
@@ -310,8 +382,9 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 	} else {
 		n = remove(k, r->left);
 		r->left = n;
-	}
-}
+	} 
+	*/
+
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
