@@ -85,7 +85,6 @@ private:
 
 template <class Key, class T>
 BST<Key, T>::BST(){
-	//TODO
 	root = NULL;
 }
 
@@ -97,17 +96,9 @@ BST<Key, T>::~BST(){
 //removes all descendants of the node
 template <class Key, class T>
 void BST<Key, T>::removeAll(Node<Key, T>* r) {
-	Node<Key, T>* minNode = min(root);
-	while (minNode != root) {
-		remove(minNode->k);
-		minNode = min(root);
+	while (root != NULL){
+		remove(root->k);
 	}
-	Node<Key, T>* maxNode = max(root);
-	while (maxNode != root) {
-		remove(maxNode->k);
-		maxNode = max(root);
-	}
-	remove(root->k);
 }
 
 //Return the number of items currently in the SSet
@@ -130,20 +121,13 @@ unsigned long BST<Key, T>::size(Node<Key, T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key, T>::add(Key k, T x){
-	if (root == NULL) {
-		std::cout << "Root before call is NULL" << std::endl;
-	} else {
-	std::cout << "Root before call: " << root->k << std::endl;
-	}
-	std::cout << "Going to add: " << k << std::endl;
 	root = add(k, x, root);
-	std::cout << "Root after call: " << root->k << std::endl;
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key, T>::remove(Key k){
-	remove(k, root);
+	root = remove(k, root);
 }
 
 //Return the item with Key k. 
@@ -191,9 +175,6 @@ Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
 	else {
 		Node<Key, T>* rightNode = next(k, r->right);
 		if (rightNode == NULL) {
-			if (k < root->k) {
-				return root;
-			}
 			return NULL;
 		}
 		return rightNode;
@@ -227,9 +208,6 @@ Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
 	else {
 		Node<Key, T>* leftNode = prev(k, r->left);
 		if (leftNode == NULL) {
-			if (k > root->k) {
-				return root;
-			}
 			return NULL;
 		}
 		return leftNode;
@@ -242,35 +220,19 @@ template <class Key, class T>
 Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 	if (r == NULL) {
 		r = createNode(k, x);
-		if (root == NULL) {
-			return r;
-		}
-
-		return root;
-
+		return r;
 	}
 	if (k == r->k) {	//if the key already exists, overwrite the data
 		r->data = x;
-		return root;
+		return r;
 	}
-	else if (k < r->k) {	//if the key of the root is larger than the key you are adding
-		if (r->left == NULL) {	//then search for a place to add it on the left
-			r->left = createNode(k, x);
-			return root;
-		}
-		else {
-			return add(k, x, r->left); 
-		}
+	else if (k < r->k) {
+		r->left = add(k, x, r->left); 
 	}
-	else {					//the key of the root now must be smaller than the key we are adding
-		if (r->right == NULL) {	//so search for a place to add it on the left
-			r->right = createNode(k, x);
-			return root;
-		}
-		else {
-		return add(k, x, r->right);	
-		}
-	}							
+	else {
+		r->right = add(k, x, r->right);	
+	}	
+	return r;
 }
 
 template <class Key, class T>
@@ -285,8 +247,38 @@ Node<Key, T>* BST<Key, T>::createNode(Key k, T x){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	if (k == r->k) { //if the key of the root is the same as the key you're removing
+		if (r->right == NULL && r->left == NULL) { //if its pointers are both null, delete the node
+			delete r;
+			return NULL;
+		}
+		else if (r->right == NULL && r->left != NULL) { //if only right pointer is null
+			Node<Key, T>* leftNode = r->left; //store the left pointer and return it, delete the node
+			delete r;
+			return leftNode;
+		}
+		else if (r->right != NULL && r->left == NULL) { //if only the left pointer is null
+			Node<Key, T>* rightNode = r->right; //store the right pointer and return it, delete the node
+			delete r;
+			return rightNode;
+		}
+		
+		else { //neither pointer is null, so find smallest value on right side of tree and make it the root
+			Node<Key, T>* minRightNode = min(r->right); //then delete the minRightNode
+			r->k = minRightNode->k;
+			r->data = minRightNode->data;
+			remove(minRightNode->k, minRightNode);
+			return r;
+		}
+	}
+	else if (r->k > k) { //the key is bigger than the key of the root so look to the right
+		r->right = remove(k, r->right);
+		return r;
+	}
+	else { //the key must be smaller than the key of the root so look to the left
+		r->left = remove(k, r->left);
+		return r;
+	}
 }
 
 template <class Key, class T>
