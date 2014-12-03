@@ -236,7 +236,7 @@ Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
 	} else if(r->left == NULL){
 		return r;
 	} else {
-	return max(r->left);
+	return min(r->left);
 	}
 }
 
