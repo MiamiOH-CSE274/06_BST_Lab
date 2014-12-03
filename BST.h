@@ -69,4 +69,184 @@ private:
 
 };
 
-#include "BST.ipp"
+#define NULL 0
+#include <string>
+
+template <class Key, class T>
+BST<Key, T>::BST(){
+	root = NULL;
+}
+
+template <class Key, class T>
+BST<Key, T>::~BST(){
+	removeAll(root);
+}
+
+//Return the number of items currently in the SSet
+template <class Key, class T>
+unsigned long BST<Key, T>::size(){
+	return size(root);
+}
+
+template <class Key, class T>
+unsigned long BST<Key, T>::size(Node<Key, T>* r){
+	if(r == NULL){
+	return 0;
+	} else {
+	return 1 + size(r->right) + size(r->left);
+}
+
+//Add a new item, x, with Key k.
+// If an item with Key k already exists, overwrite it
+template <class Key, class T>
+void BST<Key, T>::add(Key k, T x){
+	root = add(k, x, root);
+}
+
+//Remove the item with Key k. If there is no such item, do nothing.
+template <class Key, class T>
+void BST<Key, T>::remove(Key k){
+	remove(k, root);
+}
+
+//Return the item with Key k. 
+// If there is no such item, throw an exception.
+template <class Key, class T>
+T BST<Key, T>::find(Key k){
+	find(k, root);
+	
+}
+//Return true if there is an item with Key k in the table. If not,
+// return false
+template <class Key, class T>
+bool BST<Key, T>::keyExists(Key k){
+	if (find(k, root) != NULL){
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+//If there is a key in the set that is > k,
+// return the first such key. If not, return k
+template <class Key, class T>
+Key BST<Key, T>::next(Key k){
+	if(next(k, root) != NULL){
+		return next(k, root)->k;
+	} else {
+		return k;
+	}
+}
+
+template <class Key, class T>
+Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
+	if(r->right == NULL){
+	if(r->key > k){
+		return next(r->left);
+	} else {
+		return NULL;
+	}
+	} else {
+		if(min(r->right)<=r){
+		return min(r->right);
+}
+
+//If there is a key in the set that is < k,
+// return the first such key. If not, return k
+template <class Key, class T>
+Key BST<Key, T>::prev(Key k){
+	return prev(k, root)->k;
+}
+
+template <class Key, class T>
+Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
+	if (r->left == NULL){
+		if (r->key < k){
+			return next(r->right);
+		}
+		else {
+			return NULL;
+		}
+	}
+	else {
+		return max(r->left);
+	}
+}
+
+
+template <class Key, class T>
+Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
+	if (keyExists(k) == true){
+		find(k,r)->data = x;
+	} else {
+		new Node() n = r;
+		find(prev(k, root))->right = n;
+		return n;
+	}
+}
+
+template <class Key, class T>
+Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
+	if (keyExists(k) == false){
+		throw std::string("Node doesn't exist!");
+	}
+	else  if (find(k)->right == NULL && find(k)->left == NULL){
+		
+		prev(k)->right = NULL;
+		next(k)->left = NULL;
+		delete find(k);
+		return  prev(k);
+	}
+	else {
+		find(k)->data = prev(k)->data;
+		find(k)->Key = prev(k)->Key;
+		remove(prev(k)->Key, prev(k));
+	}
+
+	
+}
+
+template <class Key, class T>
+Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r){
+	if (r == NULL){
+		throw std::string("The node can't be found!");
+	}
+	else if (r->k == k){
+		return r;
+	}
+	else if (r->k < k){
+		return find(k, r->right);
+	}
+	else {
+		return find(k, r->left);
+	}
+}
+
+template <class Key, class T>
+Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r){
+	if(r == NULL){
+		throw std::string("Invalid node!");
+	} else if(r->right == NULL){
+		return r;
+	} else {
+	return max(r->right);
+	}
+}
+
+template <class Key, class T>
+Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
+	if(r == NULL){
+		throw std::string("Invalid node!");
+	} else if(r->left == NULL){
+		return r;
+	} else {
+	return min(r->left);
+	}
+}
+
+template <class Key, class T>
+void BST<Key, T>::removeAll(Node<Key, T>* r){
+	remove(r->Key);
+}
+
