@@ -120,7 +120,7 @@ T BST<Key, T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key, T>::keyExists(Key k){
-	if (find(k) != false){
+	if (find(k, root) != NULL){
 		return true;
 	}
 	else {
@@ -132,7 +132,11 @@ bool BST<Key, T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::next(Key k){
-	return next(k, root)->k;
+	if(next(k, root) != NULL){
+		return next(k, root)->k;
+	} else {
+		return k;
+	}
 }
 
 template <class Key, class T>
@@ -144,6 +148,7 @@ Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
 		return NULL;
 	}
 	} else {
+		if(min(r->right)<=r){
 		return min(r->right);
 }
 
@@ -173,10 +178,9 @@ Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 	if (keyExists(k) == true){
-		find(k)->data = x;
-	}
-	else {
-		Node<Key, T>* n = new Node<k, x>*;
+		find(k,r)->data = x;
+	} else {
+		new Node() n = r;
 		find(prev(k, root))->right = n;
 		return n;
 	}
@@ -188,9 +192,10 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 		throw std::string("Node doesn't exist!");
 	}
 	else  if (find(k)->right == NULL && find(k)->left == NULL){
-		delete find(k);
+		
 		prev(k)->right = NULL;
 		next(k)->left = NULL;
+		delete find(k);
 		return  prev(k);
 	}
 	else {
