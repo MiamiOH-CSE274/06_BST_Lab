@@ -95,8 +95,68 @@ void tests(){
 
 }
 
+void my_test(void)
+{
+	std::cout << "----- my tests -----" << std::endl;
+
+	BST<int, int> t;
+	int size = 100;
+
+	for (int i = 0; i < size; i++) {
+		t.add(i, i * i);
+	}
+
+	if (t.size() != size) {
+		std::cout << "error: size of " << t.size() << "should be " << size << std::endl;
+	}
+
+	if (t.next(50) != 51) {
+		std::cout << "error: next" << std::endl;
+	}
+
+	if (t.prev(34) != 33) {
+		std::cout << "error: prev" << std::endl;
+	}
+
+	t.remove(10);
+
+	if (t.keyExists(10)) {
+		std::cout << "error: remove" << std::endl;
+	}
+
+	if (t.next(10) != 11) {
+		std::cout << "error: next after remove" << std::endl;
+	}
+
+	if (t.prev(10) != 9) {
+		std::cout << "error: prev after remove" << std::endl;
+	}
+
+	t.add(10, 1012);
+
+	std::cout << "about to remove " << (67 - 23) << " elements" << std::endl;
+	std::cout << "new size should be " << (t.size() - (67 - 23)) << std::endl;
+	for (int i = 23; i < 67; i++) {
+		t.remove(i);
+	}
+
+	std::cout << "new size: " << t.size() << std::endl;
+
+	if (t.keyExists(55)) {
+		std::cout << "error: after large remove" << std::endl;
+	}
+
+	if (t.next(38) != 67) {
+		std::cout << "error: next after large remove" << std::endl;
+	}
+}
+
 int main(){
   tests();
+
+  my_test();
+
+  std::cout << "tests successful" << std::endl;
 
   return 0;
 }
