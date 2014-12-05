@@ -92,18 +92,18 @@ BST<Key, T>::~BST()
 template <class Key, class T>
 void BST<Key, T>::remove_all(Node<Key, T> *r)
 {
-	if (r->left == NULL && r->right == NULL) {
-		delete r;
-		r = NULL;
-		return;
-	}
-
 	if (r->left != NULL) {
 		remove_all(r->left);
 	}
 
 	if (r->right != NULL) {
 		remove_all(r->right);
+	}
+	
+	if (r->left == NULL && r->right == NULL) {
+		delete r;
+		r = NULL;
+		return;
 	}
 }
   
@@ -181,28 +181,20 @@ Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T> *r)
 	if (r == NULL) {
 		return NULL;
 	}
-
+	
+	Node<Key, T> *n;
+	
 	if (k < r->k) {
-		// potential candidate, look left for more
-
-		Node<Key, T> *n = next(k, r->left);
-
-		if (n == NULL) {
-			return r;
-		}
-
-		return n;
+		n = next(k, r->left);	
 	} else {
-		// this is too small, look right
-
-		Node<Key, T> *n = next(k, r->right);
-
-		if (n == NULL) {
-			return NULL;
-		}
-
-		return n;
+		n = next(k, r->right);
 	}
+	
+	if (n == NULL) {
+		return r;
+	}
+	
+	return n;
 }
 
 // If there is a key in the set that is < k,
@@ -225,7 +217,7 @@ Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r)
 	if (r == NULL) {
 		return NULL;
 	}
-
+	
 	if (k > r->k) {
 		// potential candidate, look right for more
 
