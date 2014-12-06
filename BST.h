@@ -338,7 +338,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 		r->left = remove(k, r->left);
 	}
 	*/
-/*
+
 Node<Key, T> *n;
 	
 	if (r == NULL) {        //If there is no such Node where r->k == k, then do nothing
@@ -379,44 +379,8 @@ Node<Key, T> *n;
 
 		f (r == NULL)
 		return NULL;
-*/
-	if (r == NULL)
-		return NULL;
+
 	
-	Node<Key, T> *temp;
-
-	if (r->k == k) {
-
-		if (r->left == NULL && r->right == NULL) {
-			delete r;
-			r = NULL;
-			return NULL;
-		}
-
-		if (r->right != NULL)
-			temp = min(r->right);
-		else
-			temp = max(r->left);
-
-		Node<Key, T> moreTemp;
-		moreTemp.k = temp->k;
-		moreTemp.data = temp->data;
-
-		remove(temp->k, r);
-
-		r->k = moreTemp.k;
-		r->data = moreTemp.data;
-
-		return r;
-	}
-
-	if (r->k < k) {
-		temp = remove(k, r->right);
-		r->right = temp;
-	} else {
-		temp = remove(k, r->left);
-		r->left = temp;
-	}
 }
 
 template <class Key, class T>
