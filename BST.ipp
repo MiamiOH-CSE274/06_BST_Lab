@@ -7,13 +7,15 @@
 //hash is O(1) for everything except next/prev which is O(n)
 
 template <class Key, class T>
-BST<Key, T>::removeAll(Node<Key, T>* r){
-	if(r->right == NULL && r->left == NULL) //it's chilling at the bottom
-		delete r;			//delete it
-	if(r->left != NULL)			//there is stuff to the left
+BST<Key, T>::removeAll(Node<Key, T>* r){	
+	if(r->left != NULL)			
 		return removeAll(r->left);	
-	else					//there is stuff to the right
+	if(r->right != NULL)					
 		return removeAll(r->right);	
+	if (r->right == NULL && r->left == NULL)	{//it's chilling at the bottom
+		delete r;
+		return;
+	}
 }
 
 template <class Key, class T>
