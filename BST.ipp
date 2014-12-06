@@ -54,7 +54,9 @@ void BST<Key, T>::add(Key k, T x){
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key, T>::remove(Key k){
-	//TODO
+	if (!keyExists(k))
+		throw std::string("Key doesn't exists in remove()");
+	root = remove(k, root);
 }
 
 //Return the item with Key k. 
@@ -130,8 +132,6 @@ Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
 		else
 			return r;
 	}
-
-
 }
 
 
@@ -164,8 +164,26 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
-	//TODO
-	return NULL;
+	if (r == NULL)	{
+		return NULL;
+	}
+
+	Node<Key, T>* temp;
+
+	if (r->k == k)	{
+		if (r->left == NULL && r->right == NULL)	{
+			delete r;
+			r = NULL;
+			return NULL;
+		}
+
+		if (r->right != NULL)	{
+			temp = min(r->right);
+		}
+		else
+			temp = max(r->left);
+
+	}
 }
 
 template <class Key, class T>
