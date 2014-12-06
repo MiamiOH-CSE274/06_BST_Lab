@@ -152,7 +152,7 @@ void BST<Key,T>::add(Key k, T x){
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key,T>::remove(Key k){
-  //TODO
+  root = remove(k, root);
 }
 
 //Return the item with Key k. 
@@ -190,7 +190,7 @@ template <class Key, class T>
 Key BST<Key,T>::next(Key k){
 	Node<Key, T> *u = next(k, root);
 	
-	if(u == NULL)return k;
+	if(u == NULL) return k;
 	
 	
 	return u->k;
@@ -198,6 +198,8 @@ Key BST<Key,T>::next(Key k){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
+	
+	
 	if (r == NULL) {
 		return NULL;
 	}
@@ -298,6 +300,8 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
+	
+	/*
 	if (r == NULL) {        //If there is no such Node where r->k == k, then do nothing
 		return NULL;
 	}
@@ -310,29 +314,22 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 			r = NULL;
 			return NULL;
 		}
-		else if(r->right == NULL){
+		else if(r->right != NULL){
 			Node<Key, T> *temp;
-			temp = r->left;
-			delete r;
-			return temp;	
-		}else if(r->left == NULL){
-			Node<Key,T> * temp;
-			temp = r->left;
-			delete r;
-			return temp;
+			temp = min(r->right);
+			r->data = temp->data;
+			r->k = temp->k;
+			delete temp;
+			return r;	
 		}else{
-		
-			Node<Key, T> *w = r->right; 
-			
-			while (w->left != NULL){
-				w = w->left;
-			}
-			r->k = w->k;
-			r->data = w->data;
-			delete r;
-			return w;
+			Node<Key,T> *temp;
+			temp = max(r->left);
+			r->k = temp->k;
+			r->data = temp->data;
+			delete temp;
+			return r;
 		}
-	} 
+	}
 	
 	else if (r->k < k) {
 		r->right = remove(k, r->right);
@@ -340,12 +337,15 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 	} else {
 		r->left = remove(k, r->left);
 	}
+	*/
+/*
+Node<Key, T> *n;
+	
+	if (r == NULL) {        //If there is no such Node where r->k == k, then do nothing
+		return NULL;
+	}
 
-	return NULL;
-}
-	//Node<Key, T> *n;
-
-	/*if (r->k == k) {
+	else if (r->k == k) {
 
 		if (r->left == NULL && r->right == NULL) {
 			// no right or left means no Node to replace this one
@@ -360,31 +360,64 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 		} else {
 			n = max(r->left);
 		}
+		
+		
 		// store new node in temp variable 
-		
-		
 		Node<Key, T> temp;
 		temp.k = n->k;
 		temp.data = n->data;
 
 		remove(n->k, r);
+		//r->right = remove(n->k, r->right);
 
 		// now update this nodes data with our new nodes data
 		r->k = temp.k;
 		r->data = temp.data;
 
 		return r;
+
+
+		f (r == NULL)
+		return NULL;
+*/
+	if (r == NULL)
+		return NULL;
+	
+	Node<Key, T> *temp;
+
+	if (r->k == k) {
+
+		if (r->left == NULL && r->right == NULL) {
+			delete r;
+			r = NULL;
+			return NULL;
+		}
+
+		if (r->right != NULL)
+			temp = min(r->right);
+		else
+			temp = max(r->left);
+
+		Node<Key, T> moreTemp;
+		moreTemp.k = temp->k;
+		moreTemp.data = temp->data;
+
+		remove(temp->k, r);
+
+		r->k = moreTemp.k;
+		r->data = moreTemp.data;
+
+		return r;
 	}
 
 	if (r->k < k) {
-		n = remove(k, r->right);
-		r->right = n;
+		temp = remove(k, r->right);
+		r->right = temp;
 	} else {
-		n = remove(k, r->left);
-		r->left = n;
-	} 
-	*/
-
+		temp = remove(k, r->left);
+		r->left = temp;
+	}
+}
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
