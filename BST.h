@@ -67,6 +67,8 @@ private:
   virtual Node<Key,T>* next(Key k, Node<Key,T>* r);
   virtual Node<Key,T>* prev(Key k, Node<Key,T>* r);
 
+  virtual void removeAll(Node<Key, T> *r);
+
 };
 
 #include "BST.ipp"

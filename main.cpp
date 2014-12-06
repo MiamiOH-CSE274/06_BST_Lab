@@ -1,6 +1,6 @@
 #include <iostream>
-#include "BST.h"
 #include <string>
+#include "BST.h"
 
 void tests(){
   BST<int,std::string> myTree;
@@ -99,4 +99,4 @@ int main(){
   tests();
 
   return 0;
-}
+};
