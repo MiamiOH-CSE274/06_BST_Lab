@@ -1,5 +1,5 @@
-#include "BST.h"
 #include <iostream>
+#include "BST.h"
 #include <string>
 
 void tests(){
