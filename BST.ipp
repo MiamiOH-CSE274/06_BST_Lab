@@ -14,6 +14,7 @@ BST<Key, T>::removeAll(Node<Key, T>* r){
 		return removeAll(r->right);	
 	if (r->right == NULL && r->left == NULL)	{//it's chilling at the bottom
 		delete r;
+		r = null;
 		return;
 	}
 }
