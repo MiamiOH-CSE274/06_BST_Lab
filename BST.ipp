@@ -153,9 +153,11 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 	}
 	else if (k > r->k)	{
 		r->right = add(k, x, r->right);
+		return r;
 	}
 	else {
 		r->left = add(k, x, r->left);
+		return r;
 	}
 	return r;
 
@@ -178,7 +180,7 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 		}
 
 		if (r->right != NULL)	{
-			temp = min(r->right);
+			temp = r->right;
 		}
 		else
 			temp = max(r->left);
