@@ -166,9 +166,36 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
-	if (r == NULL)	{
+	if (r == NULL) {
 		return NULL;
 	}
+	if (k < r->k){
+		r->left = remove(k, r->left);
+	}
+	else if (k > r->k){
+		r->right = remove(k, r->right);
+	}
+	else if (r->left != NULL && r->right != NULL){//both children exist
+		Node<Key, T>* temp = min(r->right);
+
+		//update current node with min node
+
+		r->k = temp->k;
+		r->data = temp->data;
+
+		delete min(r->right);
+		delete temp;
+		temp = NULL;
+	}
+	else{//one of the children exists
+		if (r->left != NULL)	{
+			r = r->left;
+		}
+		else{
+			r = r->right; 
+		}
+	}
+	return r;
 
 }
 
