@@ -170,22 +170,6 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 		return NULL;
 	}
 
-	Node<Key, T>* temp;
-
-	if (r->k == k)	{
-		if (r->left == NULL && r->right == NULL)	{
-			delete r;
-			r = NULL;
-			return NULL;
-		}
-
-		if (r->right != NULL)	{
-			temp = r->right;
-		}
-		else
-			temp = max(r->left);
-
-	}
 }
 
 template <class Key, class T>
