@@ -1,6 +1,6 @@
-#include "BST.h"
 #include <iostream>
 #include <string>
+#include "BST.h"
 
 void tests(){
   BST<int,std::string> myTree;
@@ -87,9 +87,14 @@ void tests(){
   }
   if(myTree.prev(-2) != -2){
     std::cout << "ERROR: prev(-2) should be -2" << std::endl;
-    exit(1);
+	exit(1);
   } else {
     std::cout << "SUCCESS: prev(-2) is fine" << std::endl;
+  }
+
+  myTree.remove(1);
+  if (myTree.keyExists(1) != true)	{
+	  std::cout << "SUCCESS"<< std::endl;
   }
 
 
