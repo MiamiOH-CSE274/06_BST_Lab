@@ -3,11 +3,12 @@
 #include <string>
 
 void tests(){
+	 
   BST<int,std::string> myTree;
   myTree.add(1,"hi");
   myTree.add(0,"there");
   myTree.add(-1,"Friend");
-
+ 
   if(myTree.keyExists(1) != true){
     std::cout << "ERROR: Key 1 does not exist" << std::endl;
     exit(1);
@@ -92,6 +93,7 @@ void tests(){
     std::cout << "SUCCESS: prev(-2) is fine" << std::endl;
   }
 
+ 
 
 }
 
