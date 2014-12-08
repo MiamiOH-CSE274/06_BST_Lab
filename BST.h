@@ -46,7 +46,7 @@ class BST : public SSet <Key,T> {
 
 private:
   Node<Key,T>* root;
-  void  deleteAll();//done
+  void  deleteAll(Node<Key, T>*);//done
   virtual unsigned long size(Node<Key,T>* r);
   //These are the recursive versions of each of your methods.
   // You should return the address of the new root node, whether
@@ -83,28 +83,18 @@ BST<Key, T>::BST(){
 
 template <class Key, class T>
 BST<Key, T>::~BST(){
-	deleteAll();
+	deleteAll(root);
 }
 
 template <class Key, class T>
-void BST<Key, T>::deleteAll(){
-	Node<Key, T>* temp = root;
-	Node<Key, T>* temp2 = root;
-	while (root != NULL)
-	{
-		if (temp->left != NULL){
-			temp2 = temp;
-			temp = temp->left;
-		}
-		else if (temp->right != NULL){
-			temp2 = temp;
-			temp = temp->right;
-		}
-		else{
-			delete temp;
-			temp = temp2;
-			temp2 = root;
-		}
+void BST<Key, T>::deleteAll(Node<Key, T>* r){
+	if (r == NULL)
+		return;
+	else{
+		deleteAll(r->left);
+		deleteAll(r->right);
+		r = NULL;
+		delete r;
 	}
 }
 
@@ -120,11 +110,11 @@ unsigned long BST<Key, T>::size(Node<Key, T>* r){
 	if (r->left == NULL && r->right == NULL)
 		return 0;
 	//searching for left child
-	else if (r->left != NULL)
+	if (r->left != NULL)
 		return size(r->left) + 1; 
 	//searching for right child
-	else if (r->right != NULL)
-		return size(r->left) + 1;
+	if (r->right != NULL)
+		return size(r->right) + 1;
 
 }
 
@@ -156,9 +146,7 @@ T BST<Key, T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key, T>::keyExists(Key k){
-	if (find(k, root) != NULL)
-		return true;
-	return false;
+	return (find(k, root) != NULL);
 }
 
 //If there is a key in the set that is > k,
@@ -171,7 +159,11 @@ Key BST<Key, T>::next(Key k){
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
 	Node<Key, T>* temp = find(k, r);
-	return temp->right;
+	if (temp->right != NULL){
+		return temp->right;
+	}
+	else
+		return find(k, r);
 }
 
 //If there is a key in the set that is < k,
@@ -214,6 +206,8 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
+	if (r == NULL)
+		return root;
 	if (k == r->k) {
 		//best case scenario, no children
 		if (r->left == NULL && r->right == NULL) {
@@ -238,6 +232,7 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 			r->k = n->k;
 			r->data = n->data;
 			remove(n->k, n);
+			r->right = remove(n->k, r->right);
 			return r;
 		}
 	}
@@ -259,10 +254,10 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r){
-	if (r->k == k)
-		return r;
-	else if (r == NULL)
+	if (r == NULL)
 		return NULL;
+	else if (r->k == k)
+		return r;
 	else if (r->k > k)
 		return find(k, r->left);
 	else
@@ -271,7 +266,9 @@ Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r){
-	if (r->right == NULL)
+	if (r == NULL)
+		return root;
+	else if (r->right == NULL)
 		return r;
 	else
 		return r->right;
