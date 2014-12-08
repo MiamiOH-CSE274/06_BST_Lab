@@ -26,7 +26,6 @@ void tests(){
   } else {
     std::cout << "SUCCESS: Key 0 was found" << std::endl;
   }
-
   if(myTree.keyExists(2) == true){
     std::cout << "ERROR: Key 2 exists" << std::endl;
     exit(1);
