@@ -81,8 +81,8 @@ template <class Key, class T>
 BST<Key,T>::~BST(){
   while (root != NULL) {
 	  // Explicitly remove root node until all nodes are removed
-	  root->k = 0;
-	  remove(0);
+	  
+	  remove(root->k);
   }
 }
   
@@ -118,8 +118,10 @@ void BST<Key,T>::remove(Key k){
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key,T>::find(Key k){
-	 T fakeT = find(k, root)->data;
-	return fakeT;
+	Node<Key,T>* tempNode = find(k, root);
+	if (tempNode == NULL)
+		throw std::string("In find(), key does not exist");		
+	return tempNode->data;
 }
 //Return true if there is an item with Key k in the table. If not,
 // return false
@@ -140,15 +142,14 @@ Key BST<Key,T>::next(Key k){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::next(Key k, Node<Key,T>* r){
-  if (r == NULL) {
+	Node<Key, T>* temp;
+	//Check to see if r is NULL at the beginning to ensure code won't perform operations on NULL
+	if (r == NULL) {
 	  return NULL;
-  }
-  else if (r->k > k){	  
-	return (r->left == NULL || r->left->k <= k) ? r : next(k, r->left);
-  }   
-  else {
-	  return next(k, r->right);
-  }
+  } 	
+	//I really like ternary statements, sorry if the code is hard to read.
+	temp = (k < r->k ? next(k, r->left) : next(k, r->right));
+	return ((temp == NULL && r->k > k) ? r : temp);
 
   
 }
@@ -162,16 +163,13 @@ Key BST<Key,T>::prev(Key k){
 }
 
 template <class Key, class T>
-Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){
+Node<Key,T>* BST<Key,T>::prev(Key k, Node<Key,T>* r){   
+   Node<Key, T>* temp;
    if (r == NULL) {
 	  return NULL;
   }
-  else if (r->k < k){	  
-	return (r->right == NULL || r->right->k >= k) ? r : prev(k, r->right);
-  }   
-  else {
-	  return prev(k, r->left);
-  }
+   temp = (k > r->k ? prev(k, r->right) : prev(k, r->left));
+   return ((temp == NULL && r->k < k) ? r : temp);
 }
 
 
@@ -205,6 +203,8 @@ Node<Key,T>* BST<Key,T>::add(Key k, T x, Node<Key,T>* r){
 
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
+	if (r == NULL)
+		return NULL;
 	if (r->k == k){
 		if (r->left == NULL && r->right == NULL){
 			delete r;
@@ -224,7 +224,7 @@ Node<Key,T>* BST<Key,T>::remove(Key k, Node<Key,T>* r){
 			Node<Key, T>* temp = min(r->right);
 			r->k = temp->k;
 			r->data = temp->data;
-			remove(temp->k, temp);
+			r->right = remove(temp->k, r->right);
 			return r;
 		}
 	}
