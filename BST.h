@@ -74,7 +74,7 @@ private:
 	virtual Node<Key, T>* next(Key k, Node<Key, T>* r);
 	virtual Node<Key, T>* prev(Key k, Node<Key, T>* r);
 
-	virtual void removeAll(Key k, Node<Key, T>* r);
+	virtual void removeAll();
 };
 
 
@@ -90,12 +90,12 @@ BST<Key, T>::BST(){
 
 template <class Key, class T>
 BST<Key, T>::~BST(){
-	removeAll(root->k, root);
-	
+	removeAll();
+
 	/*while (root != NULL){
 		root->k = NULL;
 		delete root;
-	}*/
+		}*/
 }
 
 
@@ -108,24 +108,22 @@ unsigned long BST<Key, T>::size(){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key, T>::add(Key k, T x){
-	if (keyExists(k) == true){
-		Node<Key, T>* kNode = new Node<Key, T>();
-		kNode->k = k;
-		kNode->data = x;
-	}
-	add(k, x, root);
+	root = add(k, x, root);
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key, T>::remove(Key k){
-	remove(k, root);
+	root = remove(k, root);
 }
 
 //Return the item with Key k. 
 // If there is no such item, throw an exception.
 template <class Key, class T>
 T BST<Key, T>::find(Key k){
+	if (!keyExists(k)){
+		throw std::string("Sorry. This key does not exist");
+	}
 	return find(k, root)->data;
 }
 
@@ -133,7 +131,7 @@ T BST<Key, T>::find(Key k){
 // return false
 template <class Key, class T>
 bool BST<Key, T>::keyExists(Key k){
-	if (find(k, root) == root){
+	if (find(k, root) != NULL){
 		return true;
 	}
 	return false;
@@ -143,7 +141,9 @@ bool BST<Key, T>::keyExists(Key k){
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::next(Key k){
-	return next(k, root)->k;
+	while (find(k, root) != NULL){
+		return next(k, root)->k;
+	}
 }
 
 //If there is a key in the set that is < k,
@@ -176,11 +176,15 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 		newNode->right = NULL;
 		return r;
 	}
-	if (r->k < k){
-		return add(k, x, r->right);
+	if (r->right = add(k, x, r->right)){
+		return r;
 	}
-	if (r->k > k){
-		return add(k, x, r->left);
+	if (r->left = add(k, x, r->left)){
+		return r;
+	}
+	if (r->k == k){
+		r->data == x;
+		return r;
 	}
 	return NULL;
 }
@@ -188,21 +192,19 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 	if (r == NULL){
-		r->k = NULL;
-		delete r;
 		return NULL;
 	}
-	if (r->left != NULL){
+	else if (r->left != NULL){
 		r->k = NULL;
 		r = r->left;
 		return r->left;
 	}
-	if (r->right != NULL){
+	else if (r->right != NULL){
 		r->k = NULL;
 		r = r->right;
 		return r->right;
 	}
-	if (r->left != NULL && r->right != NULL){
+	else if (r->left != NULL && r->right != NULL){
 		Node<Key, T>* m = max(r);
 		Node<Key, T>* temp = m;
 		m = r;
@@ -235,7 +237,7 @@ Node<Key, T>* BST<Key, T>::max(Node<Key, T>* r){
 	if (r == NULL){
 		return NULL;
 	}
-	if (r->right > r){
+	if (r->right != NULL){
 		max(r->right);
 	}
 	return r;
@@ -248,7 +250,7 @@ Node<Key, T>* BST<Key, T>::min(Node<Key, T>* r){
 	if (r == NULL){
 		return NULL;
 	}
-	if (r->left > r){
+	if (r->left != NULL){
 		min(r->left);
 	}
 	return r;
@@ -264,7 +266,12 @@ Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
 		return next(k, r->right);
 	}
 	if (r->k > k){
-		return next(k, r->left);
+		if (next(k, r->left) == NULL){
+			return r;
+		}
+		else{
+			return next(k, r->left);
+		}
 	}
 	return r;
 }
@@ -284,9 +291,12 @@ Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
 }
 
 template <class Key, class T>
-void BST<Key, T>::removeAll(Key k, Node<Key, T>* r){
-	while (r == NULL){
-		r->k = NULL;
-		delete r;
+void BST<Key, T>::removeAll(){
+	while (root->right != NULL){
+		remove(root->right->k, root->right);
 	}
+	while (root->left != NULL){
+		remove(root->left->k, root->left);
+	}
+		delete root;
 }
