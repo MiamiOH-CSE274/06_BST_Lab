@@ -98,5 +98,41 @@ void tests(){
 int main(){
   tests();
 
+  // Create a new tree for other tests and add several items
+  BST<int, std::string> testTree;
+  testTree.add(10, "ten");
+  testTree.add(8, "Christy");
+  testTree.add(12, "twelve");
+  testTree.add(14, "fourteen");
+  testTree.add(9, "nine");
+  testTree.add(6, "six");
+  testTree.add(5, "five");
+  testTree.add(8, "eight");
+
+  // Print out the size of the tree - it should be 5, since
+  // key 8 was used twice
+  std::cout << "Size of the tree: " << testTree.size() << std::endl;
+
+  testTree.remove(5);
+  std::cout << "Size of tree after case 1 remove: " << testTree.size();
+  std::cout << " Does the removed key exist? " << testTree.keyExists(5) << std::endl;
+
+  testTree.remove(12);
+  std::cout << "Size of tree after case 2 remove: " << testTree.size();
+  std::cout << " Does the removed key exist? " << testTree.keyExists(12) << std::endl;
+
+  testTree.remove(8);
+  std::cout << "Size of tree after case 3 remove: " << testTree.size();
+  std::cout << " Does the removed key exist? " << testTree.keyExists(8) << std::endl;
+
+  // Create an empty tree and test find's exception throwing
+  BST<int, std::string>* aTree = new BST<int,std::string>();
+  try{
+	  (*aTree).find(45);
+  }
+  catch(std::string e){
+	  std::cout << "Caught exception: " << e << std::endl;
+  }
+
   return 0;
 }
