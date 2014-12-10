@@ -259,10 +259,6 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 		newNode->data = x;
 		newNode->right = NULL;
 		newNode->left = NULL;
-		//// If there is no root node, this new node will
-		//// be the root node
-		//if (root == NULL)
-		//	root = newNode;
 		// Return this node so that the caller can adjust
 		// their pointer to point to it
 		return newNode;
@@ -338,27 +334,22 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 			// Find the max of the left subtree
 			Node<Key, T>* maxLeft = max(r->left);
 			// Create a temporary node to store the key and value for maxLeft
-			Node<Key, T>* tempMax = new Node<Key, T>();
-			tempMax->k = maxLeft->k;
-			tempMax->data = maxLeft->data;
+			Node<Key, T> tempMax;
+			tempMax.k = maxLeft->k;
+			tempMax.data = maxLeft->data;
 			// Change maxLeft's key and value to that of r
 			maxLeft->k = r->k;
 			maxLeft->data = r->data;
 			// Change r's key and value to that of maxLeft
-			r->k = tempMax->k;
-			r->data = tempMax->data;
-
-			// Delete the temporary node to prevent memory leaks and 
-			// dangling pointers
-			delete tempMax;
-			tempMax = NULL;
+			r->k = tempMax.k;
+			r->data = tempMax.data;
 
 			// Call remove on the new r, so it will go find the 
 			// node with key k, which has been moved to a place
 			// where it is an easier case. Need to call it on
 			// r's left child because it would go to the right
 			// otherwise since the new r's key is less than k
-			remove(k, r->left);
+			r->left = (k, r->left);
 		}
 	}
 	// Return a pointer to the root of the new subtree
