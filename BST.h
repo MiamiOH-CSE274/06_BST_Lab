@@ -377,12 +377,11 @@ Node<Key, T> *n;
 		return r;
 
 
-		f (r == NULL)
+		if(r == NULL)
 		return NULL;
-
+	}
 	
 }
-
 template <class Key, class T>
 Node<Key,T>* BST<Key,T>::find(Key k, Node<Key,T>* r){
 	if(r == NULL) return NULL;
