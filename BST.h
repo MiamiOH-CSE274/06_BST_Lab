@@ -298,7 +298,7 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 	}
 	// Once we find the node with the correct key, we 
 	// need to remove it. However, there are three cases
-	// we nee dto consider.
+	// we need to consider.
 	//else if (r->k == k){
 	else{
 		// In the first case, r has no children,
@@ -349,7 +349,7 @@ Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
 			// where it is an easier case. Need to call it on
 			// r's left child because it would go to the right
 			// otherwise since the new r's key is less than k
-			r->left = (k, r->left);
+			r->left = remove(k, r->left);
 		}
 	}
 	// Return a pointer to the root of the new subtree
