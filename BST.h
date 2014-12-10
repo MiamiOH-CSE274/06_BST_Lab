@@ -126,13 +126,13 @@ unsigned long BST<Key, T>::size(Node<Key, T>* r){
 // If an item with Key k already exists, overwrite it
 template <class Key, class T>
 void BST<Key, T>::add(Key k, T x){
-	add(k, x, root);
+	root = add(k, x, root);
 }
 
 //Remove the item with Key k. If there is no such item, do nothing.
 template <class Key, class T>
 void BST<Key, T>::remove(Key k){
-	remove(k, root);
+	root = remove(k, root);
 }
 
 //Return the item with Key k. 
@@ -259,10 +259,10 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 		newNode->data = x;
 		newNode->right = NULL;
 		newNode->left = NULL;
-		// If there is no root node, this new node will
-		// be the root node
-		if (root == NULL)
-			root = newNode;
+		//// If there is no root node, this new node will
+		//// be the root node
+		//if (root == NULL)
+		//	root = newNode;
 		// Return this node so that the caller can adjust
 		// their pointer to point to it
 		return newNode;
