@@ -7,6 +7,10 @@ void tests(){
   myTree.add(1,"hi");
   myTree.add(0,"there");
   myTree.add(-1,"Friend");
+  myTree.add(9, "bob");
+  myTree.add(3, "jones");
+  myTree.add(2, "2");
+  myTree.add(13, "9");
 
   if(myTree.keyExists(1) != true){
     std::cout << "ERROR: Key 1 does not exist" << std::endl;
@@ -27,13 +31,13 @@ void tests(){
     std::cout << "SUCCESS: Key 0 was found" << std::endl;
   }
 
-  if(myTree.keyExists(2) == true){
+  /*if(myTree.keyExists(2) == true){
     std::cout << "ERROR: Key 2 exists" << std::endl;
     exit(1);
   } else {
     std::cout << "SUCCESS: Key 2 was not found" << std::endl;
   }
-
+  */
   if(myTree.find(1) != "hi"){
     std::cout << "ERROR: Key 1 value incorrect" << std::endl;
     exit(1);
@@ -59,12 +63,13 @@ void tests(){
   } else {
     std::cout << "SUCCESS: next(0) is fine" << std::endl;
   }
-  if(myTree.next(2) != 2){
+ /* if(myTree.next(2) != 2){
     std::cout << "ERROR: next(2) should be 2" << std::endl;
     exit(1);
   } else {
     std::cout << "SUCCESS: next(2) is fine" << std::endl;
   }
+  */
   if(myTree.next(-2) != -1){
     std::cout << "ERROR: next(-2) should be -1" << std::endl;
     exit(1);
@@ -91,6 +96,18 @@ void tests(){
   } else {
     std::cout << "SUCCESS: prev(-2) is fine" << std::endl;
   }
+  
+  myTree.remove(3);
+  std::cout << myTree.prev(9) << std::endl;
+  if(myTree.next(1) != 2){
+    std::cout << "ERROR: next(1) should be 2" << std::endl;
+    exit(1);
+  } else {
+    std::cout << "SUCCESS: next(1) is fine" << std::endl;
+  }
+
+  
+
 
 
 }
