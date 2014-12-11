@@ -75,7 +75,6 @@ private:
 //deleteAll method from StackOverflow
 
 
-
 #define NULL 0
 #include <string>
 
@@ -86,98 +85,101 @@ BST<Key, T>::BST(){
 
 template <class Key, class T>
 BST<Key, T>::~BST(){
-	deleteAll(root);
+	while (root != NULL) {
+		root = remove(root->k, root);
+	}
+	root = NULL;
+}
+
+//Return the number of items currently in the SSet
+template <class Key, class T>
+unsigned long BST<Key, T>::size(){
+	return size(root);
 }
 
 template <class Key, class T>
-BST<Key, T>::deleteAll(Node<Key, T>* r){
-	if (r->left == NULL && r->right == NULL)
-		delete r;
-	if (r->left != NULL)
-		return deleteAll(r->left);
-	if (r->right != NULL)
-		return deleteAll(r->right);
+unsigned long BST<Key, T>::size(Node<Key, T>* r){
+	if (r == NULL) return 0;
+	return 1 + size(r->left) + size(r->right);
 }
 
-	//Return the number of items currently in the SSet
-	template <class Key, class T>
-	unsigned long BST<Key, T>::size(){
-		return size(root);
+//Add a new item, x, with Key k.
+// If an item with Key k already exists, overwrite it
+template <class Key, class T>
+void BST<Key, T>::add(Key k, T x){
+	root = add(k, x, root);
+}
+
+//Remove the item with Key k. If there is no such item, do nothing.
+template <class Key, class T>
+void BST<Key, T>::remove(Key k){
+	if (keyExists(k)){
+		root = remove(k, root);
+	}
+}
+
+//Return the item with Key k. 
+// If there is no such item, throw an exception.
+template <class Key, class T>
+T BST<Key, T>::find(Key k){
+	if (find(k, root) == NULL){
+		throw std::string("No such item");
 	}
 
-	template <class Key, class T>
-	unsigned long BST<Key, T>::size(Node<Key, T>* r){
-		if (r == NULL) return 0;
-		return 1 + size(r->left) + size(r->right);
+	Node<Key, T>* temp = find(k, root);
+	return temp->data;
+}
+
+//Return true if there is an item with Key k in the table. If not,
+// return false
+template <class Key, class T>
+bool BST<Key, T>::keyExists(Key k){
+	if (find(k, root) != NULL){
+		return true;
 	}
 
-	//Add a new item, x, with Key k.
-	// If an item with Key k already exists, overwrite it
-	template <class Key, class T>
-	void BST<Key, T>::add(Key k, T x){
-		root = add(k, x, root);
-	}
+	return false;
+}
 
-	//Remove the item with Key k. If there is no such item, do nothing.
-	template <class Key, class T>
-	void BST<Key, T>::remove(Key k){
-
-		remove(k, root);
-
-		/*case2: no children(leaf key), find key delete it, update prev node to null return null
-		case3: internal node 1 child: find node, delete node, return pointer to next node of deleted to deleted prev node
-		case4: internal node 2 children: find node, find max item in left subtree, swap keys and vals of 2 nodes, recursively remove the node set prev to null*/
-
-	}
-
-	//Return the item with Key k. 
-	// If there is no such item, throw an exception.
-	template <class Key, class T>
-	T BST<Key, T>::find(Key k){
-		return find(k, root);
-	}
-
-	//Return true if there is an item with Key k in the table. If not,
-	// return false
-	template <class Key, class T>
-	bool BST<Key, T>::keyExists(Key k){
-		if (find(k) == true){
-			return true;
-		}
-
-		return false;
-	}
-
-	//If there is a key in the set that is > k,
-	// return the first such key. If not, return k
-	template <class Key, class T>
-	Key BST<Key, T>::next(Key k){
-		if (next(k, root)->k > k){
-			return next(k, root)->k;
-		}
+//If there is a key in the set that is > k,
+// return the first such key. If not, return k
+template <class Key, class T>
+Key BST<Key, T>::next(Key k){
+	if (next(k, root) == NULL){
 		return k;
 	}
 
-	template <class Key, class T>
-	Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
-		if (r == NULL){
-			return NULL;
-			{
-		else if (r->k < k || r->k == k){
-			return next(k, r->right);
-		}
-		else if (r->left != NULL && max(r->left)->k > k){
-			return next(k, r->left);
-		}
-			else
-				return r;
+	if (next(k, root)->k > k){
+		return next(k, root)->k;
 	}
+	return k;
+}
+
+template <class Key, class T>
+Node<Key, T>* BST<Key, T>::next(Key k, Node<Key, T>* r){
+	if (r == NULL){
+		return NULL;
+	}
+	else if (r->k < k || r->k == k){
+		return next(k, r->right);
+	}
+	else if (r->left != NULL && max(r->left)->k > k){
+		return next(k, r->left);
+	}
+	else
+		return r;
+}
+
 
 
 //If there is a key in the set that is < k,
 // return the first such key. If not, return k
 template <class Key, class T>
 Key BST<Key, T>::prev(Key k){
+	if (prev(k, root) == NULL){
+		return k;
+	}
+
 	if (prev(k, root)->k < k){
 		return prev(k, root)->k;
 	}
@@ -195,17 +197,19 @@ Node<Key, T>* BST<Key, T>::prev(Key k, Node<Key, T>* r){
 	else if (r->right != NULL && min(r->right)->k < k){
 		return prev(k, r->left);
 	}
-		else
-			return r;
+	else
+		return r;
 
-	}
 }
+
 
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 	if (r == NULL){
-		r = new Node(k, x);
+		r = new Node < Key, T > ;
+		r->k = k;
+		r->data = x;
 		r->left = NULL;
 		r->right = NULL;
 		return r;
@@ -226,14 +230,49 @@ Node<Key, T>* BST<Key, T>::add(Key k, T x, Node<Key, T>* r){
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::remove(Key k, Node<Key, T>* r){
-	//TODO
+	if (r->k > k) {
+		r->left = remove(k, r->left);
+		return r;
+	}
+
+	else if (r->k < k) {
+		r->right = remove(k, r->right);
+		return r;
+	}
+
+	else if (r == NULL){
+		return NULL;
+	}
+
+	else if (r->left == NULL && r->right == NULL){
+		delete r;
+		return NULL;
+	}
+
+	else if (r->left != NULL){
+		r->k = NULL;
+		r = r->left;
+		return r->left;
+	}
+	else if (r->right != NULL){
+		r->k = NULL;
+		r = r->right;
+		return r->right;
+	}
+	else if (r->left != NULL && r->right != NULL){
+		Node<Key, T>* temp = min(r->right);
+		r->k = temp->k;
+		r->data = temp->data;
+		r->right = remove(temp->k, r->right);
+		return r;
+	}
 	return NULL;
 }
 
 template <class Key, class T>
 Node<Key, T>* BST<Key, T>::find(Key k, Node<Key, T>* r){
 	if (r == NULL){
-		throw std::string("Item can't be found");
+		return NULL;
 	}
 
 	else if (r->k == k){
