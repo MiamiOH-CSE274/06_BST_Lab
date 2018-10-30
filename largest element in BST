@@ -1,0 +1,70 @@
+#include<iostream>
+#include<stdio.h>
+#include<queue>
+using namespace std;
+struct node
+{
+    int key;
+    struct node *left,*right;
+};
+struct node *newnode(int key)
+{
+    struct node *temp=new node;
+    temp->key=key;
+    temp->left=temp->right=NULL;
+    return temp;
+};
+void inorder(struct node *temp)
+{
+    if (!temp)
+        return;
+    inorder(temp->left);
+    cout<<temp->key<<" ";
+    inorder(temp->right);
+}
+int smallest_inBST(struct node *temp)
+{
+   if (!temp->left)
+        return (temp->key);
+   else
+   {
+       if(temp->left)
+       {
+           smallest_inBST(temp->left);
+       }
+   }
+}
+int largest_inBST(struct node *temp)
+{
+    if (!temp->right)
+        return (temp->key);
+   else
+   {
+       if(temp->right)
+       {
+           largest_inBST(temp->right);
+       }
+   }
+}
+main()
+{
+    int mini,maxi;
+    struct node *root=newnode(50);
+    root->left=newnode(30);
+    root->left->left = newnode(20);
+    root->right=newnode(60);
+    root->right->left = newnode(55);
+    root->right->right = newnode(65);
+    root->right->right->right = newnode(70);
+    root->right->right->left = newnode(61);
+    cout << "Inorder traversal of given BST is:";
+    inorder(root);
+    cout << endl;
+    mini=smallest_inBST(root);
+    cout<<"Minimum element in given BST is : "<<mini<<endl;
+    maxi=largest_inBST(root);
+    cout<<"Largest element in given BST is : "<<maxi<<endl;
+}
+
+
+
