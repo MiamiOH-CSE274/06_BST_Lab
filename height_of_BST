@@ -1,0 +1,52 @@
+#include<iostream>
+#include<stdio.h>
+#include<queue>
+using namespace std;
+struct node
+{
+    int key;
+    struct node *left,*right;
+};
+struct node *newnode(int key)
+{
+    struct node *temp=new node;
+    temp->key=key;
+    temp->left=temp->right=NULL;
+    return temp;
+};
+void inorder(struct node *temp)
+{
+    if (!temp)
+        return;
+    inorder(temp->left);
+    cout<<temp->key<<" ";
+    inorder(temp->right);
+}
+void calc_height(struct node *temp)//calculates height of the BST
+{
+    static int h=0;
+    if (temp->left || temp->right)
+    {
+        h++;
+        calc_height(temp->left);
+        calc_height(temp->right);
+    }
+    cout<<endl;
+    cout<<"The height of given binary tree is: "<<h<<endl;
+}
+main()
+{
+    struct node *root=newnode(10);
+    root->left=newnode(11);
+    root->left->left = newnode(7);
+    root->right=newnode(9);
+    root->right->left = newnode(15);
+    root->right->right = newnode(8);
+    root->right->right->right = newnode(19);
+    root->right->right->left = newnode(69);
+    cout << "Inorder traversal of given BST is:";
+    inorder(root);
+    calc_height(root);//this calculates the height of BST
+    cout << endl;
+}
+
